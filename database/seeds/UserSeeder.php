@@ -18,10 +18,12 @@ class UserSeeder extends Seeder
             ['name' => 'Hanan Asyrawi', 'email' => 'hasyrawi@gmail.com'],
         ]);
 
-        $admins->each(fn($admin) => factory(User::class)->state('super-admin')->create([
-            'name'  => $admin['name'],
-            'email' => $admin['email'],
-        ]));
+        $admins->each(function ($admin) {
+            factory(User::class)->state('super-admin')->create([
+                'name'  => $admin['name'],
+                'email' => $admin['email'],
+            ]);
+        });
 
         // Create admin users.
         factory(User::class, 5)->state('admin')->create();
