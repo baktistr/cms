@@ -1,5 +1,7 @@
-on: push
-name: PHPUnit
+on: 
+  push: 
+    branches: [ master ]
+name: PHPUnit - Master
 jobs:
   phpunit:
     runs-on: ubuntu-latest
