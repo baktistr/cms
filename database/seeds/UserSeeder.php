@@ -19,5 +19,11 @@ class UserSeeder extends Seeder
             'name'  => 'Muh Ghazali Akbar',
             'email' => 'muhghazaliakbar@icloud.com',
         ]);
+
+        factory(User::class)->state('admin')->create([
+            'name'  => 'Hanan Asyrawi',
+            'email' => 'hasyrawi@gmail.com',
+        ]);
+
     }
 }
