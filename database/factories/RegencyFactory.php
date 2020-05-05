@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Province;
+use App\Regency;
 use Faker\Generator as Faker;
 
-$factory->define(Province::class, function (Faker $faker) {
+$factory->define(Regency::class, function (Faker $faker) {
     return [
         //
     ];
