@@ -4,10 +4,10 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     container:
-      image: kirschbaumdevelopment/laravel-test-runner:7.4
+      image: mattiasgeniar/php73
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
         with:
           fetch-depth: 1
 
@@ -19,6 +19,10 @@ jobs:
           cp .env.ci .env
           php artisan key:generate
           chmod -R 777 storage bootstrap/cache
+      - name: Compile assets
+        run: |
+          yarn install --pure-lockfile
+          yarn run production --progress false
       - name: Set custom php.ini settings
         run: echo 'short_open_tag=off' >> /usr/local/etc/php/php.ini
       - name: Create Database
