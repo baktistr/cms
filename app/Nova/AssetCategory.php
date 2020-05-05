@@ -2,21 +2,21 @@
 
 namespace App\Nova;
 
+use Benjaminhirsch\NovaSlugField\Slug;
+use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class User extends Resource
+class AssetCategory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\User::class;
+    public static $model = \App\AssetCategory::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -31,7 +31,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'name',
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $group = 'Application';
+    public static $group = 'Asset';
 
     /**
      * Get the fields displayed by the resource.
@@ -52,28 +52,15 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            TextWithSlug::make('Name')
+                ->rules(['required', 'max:255'])
+                ->slug('slug'),
 
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            Slug::make('Slug')
+                ->rules(['required', 'unique:asset_categories,slug']),
 
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
-
-            Boolean::make('Is Super Admin')
-                ->sortable(),
-
-            Boolean::make('Is Admin')
-                ->sortable(),
+            Textarea::make('Description', 'desc')
+                ->nullable(),
         ];
     }
 
@@ -119,5 +106,15 @@ class User extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'Categories';
     }
 }
