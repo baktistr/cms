@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3e6a8897cc3af44965b6f58f4cb4748",
+    "content-hash": "d0d2506fa5f8e5f762c38ca1f43a8009",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -935,6 +935,39 @@
                 }
             ],
             "time": "2020-04-28T08:47:37+00:00"
+        },
+        {
+            "name": "gmt/nova-cms-theme",
+            "version": "dev-feature/laravel-nova",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/NovaCmsTheme",
+                "reference": "79b84c83a9c64b57d456b7e03d6c8dc30657b94f"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gmt\\NovaCmsTheme\\ThemeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gmt\\NovaCmsTheme\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova theme.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
         },
         {
             "name": "gregoriohc/laravel-nova-theme-responsive",

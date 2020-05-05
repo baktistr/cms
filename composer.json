@@ -8,6 +8,10 @@
         {
             "type": "path",
             "url": "./nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/NovaCmsTheme"
         }
     ],
     "require": {
@@ -21,7 +25,8 @@
         "laravel/helpers": "^1.2",
         "laravel/nova": "*",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0"
+        "laravel/ui": "^2.0",
+        "gmt/nova-cms-theme": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
