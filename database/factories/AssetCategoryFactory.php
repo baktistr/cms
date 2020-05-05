@@ -9,7 +9,8 @@ use Illuminate\Support\Str;
 $factory->define(AssetCategory::class, function (Faker $faker) {
     return [
         'name' => $faker->unique()->name,
-        'slug' => fn ($data) => Str::slug($data['name'] ),
+        'slug' => fn ($data) => Str::slug($data['name']),
         'desc' => $faker->paragraph
     ];
 });
+
