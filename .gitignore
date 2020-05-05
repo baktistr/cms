@@ -27,3 +27,4 @@ Homestead.yaml
 phpunit.xml
 .sqlite
 .sqlite-journal
+package-lock.json
