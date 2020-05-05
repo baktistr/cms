@@ -12,7 +12,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->create([
+        /**
+         * Create admin users
+         */
+        factory(User::class)->state('admin')->create([
             'name'  => 'Muh Ghazali Akbar',
             'email' => 'muhghazaliakbar@icloud.com',
         ]);
