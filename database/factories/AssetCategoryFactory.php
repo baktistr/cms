@@ -7,6 +7,9 @@ use Faker\Generator as Faker;
 
 $factory->define(AssetCategory::class, function (Faker $faker) {
     return [
-        //
+        'name' => $faker->name,
+        'slug' => $faker->slug,
+        'desc' => $faker->paragraph
     ];
 });
+

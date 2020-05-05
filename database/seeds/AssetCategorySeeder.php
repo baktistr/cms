@@ -1,5 +1,6 @@
 <?php
 
+use App\AssetCategory;
 use Illuminate\Database\Seeder;
 
 class AssetCategorySeeder extends Seeder
@@ -11,6 +12,21 @@ class AssetCategorySeeder extends Seeder
      */
     public function run()
     {
-        //
+
+        AssetCategory::create([
+            'name' => 'Tanah',
+            'slug' => 'asset-tanah',
+            'desc' => ''
+        ]);
+        AssetCategory::create([
+            'name' => 'Gedung',
+            'slug' => 'asset-Gedung',
+            'desc' => ''
+        ]);
+        AssetCategory::create([
+            'name' => 'Ruko',
+            'slug' => 'asset-Ruko',
+            'desc' => ''
+        ]);
     }
 }
