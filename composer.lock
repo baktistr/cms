@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3e6a8897cc3af44965b6f58f4cb4748",
+    "content-hash": "180dff460073667121fb4800a022f53b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -210,63 +210,6 @@
                 "time"
             ],
             "time": "2020-04-21T14:14:05+00:00"
-        },
-        {
-            "name": "cendekia/nova-setting-tool",
-            "version": "v0.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cendekia/nova-setting-tool.git",
-                "reference": "d0c47fe61f3f08cd769e598b39cffd707bcdcb60"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cendekia/nova-setting-tool/zipball/d0c47fe61f3f08cd769e598b39cffd707bcdcb60",
-                "reference": "d0c47fe61f3f08cd769e598b39cffd707bcdcb60",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/dbal": "^2.8",
-                "php": ">=7.1.0",
-                "unisharp/laravel-settings": "^2.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^3.6",
-                "phpunit/phpunit": "7.1"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Cendekia\\SettingTool\\ToolServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Cendekia\\SettingTool\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Cendekia Pramana Putra",
-                    "email": "me@cendekiapp.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "An app setting manager tool for laravel nova",
-            "homepage": "https://github.com/cendekia/nova-setting-tool",
-            "keywords": [
-                "laravel",
-                "nova",
-                "setting",
-                "tool"
-            ],
-            "time": "2019-01-11T11:37:37+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -4696,72 +4639,6 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2019-10-24T08:53:34+00:00"
-        },
-        {
-            "name": "unisharp/laravel-settings",
-            "version": "2.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/UniSharp/laravel-settings.git",
-                "reference": "e5289be6411d00d9b09f349c469de5ca582e0de9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/UniSharp/laravel-settings/zipball/e5289be6411d00d9b09f349c469de5ca582e0de9",
-                "reference": "e5289be6411d00d9b09f349c469de5ca582e0de9",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/cache": ">=5.0.0",
-                "illuminate/database": ">=5.0.0",
-                "illuminate/support": ">=5.0.0",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "codedungeon/phpunit-result-printer": "^0.5.3",
-                "mockery/mockery": "^0.9.9",
-                "phpunit/php-code-coverage": "^5.2",
-                "phpunit/phpunit": "^6.1",
-                "squizlabs/php_codesniffer": "^3.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Unisharp\\Setting\\SettingServiceProvider"
-                    ],
-                    "aliases": {
-                        "Setting": "Unisharp\\Setting\\SettingFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "database"
-                ],
-                "psr-4": {
-                    "Unisharp\\Setting\\": "src/Setting/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Unisharp Ltd.",
-                    "email": "service@unisharp.com"
-                }
-            ],
-            "description": "Persistent settings manager for laravel, translations are supported.",
-            "keywords": [
-                "Settings",
-                "key-value",
-                "laravel",
-                "persistent",
-                "storage"
-            ],
-            "time": "2018-01-29T09:02:03+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
