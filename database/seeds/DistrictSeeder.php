@@ -1,9 +1,9 @@
 <?php
 
-use App\Regency;
+use App\District;
 use Illuminate\Database\Seeder;
 
-class RegencySeeder extends Seeder
+class DistrictSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class RegencySeeder extends Seeder
      */
     public function run()
     {
-        $data = file(database_path('seeds\locations\regency.csv'));
+        $data = file(database_path('seeds\locations\districs.csv'));
         $newData = array();
         foreach ($data as $row) {
             $explode = explode(',', $row);
@@ -20,9 +20,9 @@ class RegencySeeder extends Seeder
         }
         collect($newData)
             ->each(function ($pro) {
-                factory(Regency::class)->create([
+                factory(District::class)->create([
                     'id' => $pro[0],
-                    'province_id' => $pro[1],
+                    'regency_id' => $pro[1],
                     'name' => $pro[2]
                 ]);
             });

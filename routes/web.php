@@ -1,7 +1,5 @@
 <?php
 
-use App\Province;
-use App\Regency;
 use Illuminate\Support\Facades\Route;
 
 /*

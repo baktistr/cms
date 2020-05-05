@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(District::class, function (Faker $faker) {
     return [
-        //
+        'name' => $faker->secondaryAddress,
+        'regency_id' => 1101,
     ];
 });

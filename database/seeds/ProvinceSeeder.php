@@ -11,8 +11,7 @@ class ProvinceSeeder extends Seeder
      */
     public function run()
     {
-        $path = database_path('seeds\locations\province.csv');
-        $data = file($path);
+        $data = file(database_path('seeds\locations\province.csv'));
         $newData = array();
         foreach ($data as $row) {
             $explode = explode(',', $row);
