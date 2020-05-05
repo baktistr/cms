@@ -15,6 +15,9 @@ class CreateAssetCategoriesTable extends Migration
     {
         Schema::create('asset_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->text('desc');
             $table->timestamps();
         });
     }
