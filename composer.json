@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": "^7.4",
+        "benjaminhirsch/nova-slug-field": "^1.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
