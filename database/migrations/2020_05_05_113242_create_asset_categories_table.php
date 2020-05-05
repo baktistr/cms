@@ -19,6 +19,7 @@ class CreateAssetCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->text('desc')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
