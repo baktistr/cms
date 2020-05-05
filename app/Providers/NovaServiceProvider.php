@@ -56,9 +56,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function cards()
     {
-        return [
-            new Help,
-        ];
+        return [];
     }
 
     /**
@@ -78,9 +76,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [
-            new \Cendekia\SettingTool\SettingTool,
-        ];
+        return [];
     }
 
     /**
