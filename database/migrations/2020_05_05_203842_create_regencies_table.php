@@ -16,12 +16,7 @@ class CreateRegenciesTable extends Migration
         Schema::create('regencies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('province_id');
-            $table->timestamps();
 
-            $table->foreign('province_id')
-                ->references('id')
-                ->on('provinces');
         });
     }
 
