@@ -71,6 +71,16 @@ class User extends Authenticatable
     }
 
     /**
+     * User Can impersonate
+     *
+     * @return Boolean
+     */
+    public function canImpersonate()
+    {
+        return $this->isSuperAdmin();
+    }
+
+    /**
      * A user can have many assets to manage.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

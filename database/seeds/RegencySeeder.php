@@ -20,7 +20,7 @@ class RegencySeeder extends Seeder
             factory(Regency::class)->create([
                 'id'          => $row[0],
                 'province_id' => $row[1],
-                'name'        => str_replace(PHP_EOL, '', ucfirst(strtolower($row[2]))),
+                'name'        => str_replace(PHP_EOL, '', ucwords(strtolower($row[2]))),
             ]);
         }
     }

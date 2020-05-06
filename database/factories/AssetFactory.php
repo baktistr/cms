@@ -4,6 +4,9 @@
 
 use App\Asset;
 use App\AssetCategory;
+use App\District;
+use App\Province;
+use App\Regency;
 use App\Testing\File;
 use App\User;
 use Faker\Generator as Faker;
@@ -22,7 +25,15 @@ $factory->define(Asset::class, function (Faker $faker) {
         'slug'              => function ($data) {
             return Str::slug($data['name']);
         },
-        // @todo location ID here
+        'province_id'       => function () {
+            return factory(Province::class)->create()->id;
+        },
+        'regency_id'       => function () {
+            return factory(Regency::class)->create()->id;
+        },
+        'district_id'       => function () {
+            return factory(District::class)->create()->id;
+        },
         'address_detail'    => $faker->streetAddress,
         'unit_area'         => $faker->randomFloat(0, 50, 300),
     ];

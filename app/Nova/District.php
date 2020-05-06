@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -55,6 +56,12 @@ class District extends Resource
                 ->sortable(),
 
             Text::make('Name'),
+
+            Text::make('Assets count', function () {
+                return $this->assets()->count();
+            }),
+
+            HasMany::make('Assets', 'assets', Asset::class),
         ];
     }
 

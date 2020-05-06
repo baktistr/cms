@@ -10,6 +10,8 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 
+use KABBOUCHI\NovaImpersonate\Impersonate;
+
 class User extends Resource
 {
     /**
@@ -69,6 +71,10 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+
+            Impersonate::make($this)->withMeta([
+                'redirect_to' => '/nova'
+            ]),
 
             Boolean::make('Is Super Admin')
                 ->sortable(),

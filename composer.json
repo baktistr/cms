@@ -25,6 +25,7 @@
         "laravel/nova": "^3.4.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "orlyapps/nova-belongsto-depend": "^2.0",
         "rimu/formatted-number": "^0.2.0",
         "spatie/laravel-medialibrary": "^8.0.0"
     },
