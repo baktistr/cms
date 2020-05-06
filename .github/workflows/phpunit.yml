@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
-          repository: muhghazaliakbar/nova
+          repository: https://github.com/muhghazaliakbar/nova.git
           token: ${{ secrets.NOVA }}
       - name: Install composer dependencies
         run: |
