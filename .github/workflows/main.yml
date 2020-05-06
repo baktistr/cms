@@ -9,8 +9,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GMT_CMS }}
+    - name: Configure git
+      env:
+        TOKEN: ${{ secrets.GMT_CMS }}
+      run: git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
     - name: Install Dependencies
