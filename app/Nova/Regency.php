@@ -59,11 +59,17 @@ class Regency extends Resource
             Text::make('Name')
                 ->sortable(),
 
-            Text::make('Districts', function () {
+            Text::make('Assets count', function () {
+                return $this->assets()->count();
+            }),
+
+            Text::make('Districts Count', function () {
                 return $this->districts()->count();
             }),
 
             HasMany::make('Districts', 'districts', District::class),
+
+            HasMany::make('Assets', 'assets', Asset::class),
         ];
     }
 

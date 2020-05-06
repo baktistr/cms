@@ -54,11 +54,21 @@ class Province extends Resource
             Text::make('Name')
                 ->sortable(),
 
-            Text::make('Regencies', function () {
+            Text::make('Assets Count', function () {
                 return $this->regencies()->count();
             }),
 
+            Text::make('Regencies Count', function () {
+                return $this->regencies()->count();
+            }),
+
+            Text::make('Districts Count', function () {
+                return $this->districts()->count();
+            }),
+
             HasMany::make('Regencies', 'regencies', Regency::class),
+
+            HasMany::make('Assets', 'assets', Asset::class),
         ];
     }
 

@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Rimu\FormattedNumber\FormattedNumber;
 
 class Asset extends Resource
@@ -80,7 +81,46 @@ class Asset extends Resource
                 ->rules(['required', 'unique:assets,slug,{{resourceId}}'])
                 ->hideFromIndex(),
 
-            // @todo Implement location fields
+            NovaBelongsToDepend::make('Province')
+                ->options(\App\Province::all())
+                ->hideFromIndex(),
+
+            NovaBelongsToDepend::make('Regency')
+                ->optionsResolve(function ($province) {
+                    return $province->regencies()->get(['id', 'name']);
+                })
+                ->dependsOn('Province')
+                ->hideFromIndex(),
+
+            NovaBelongsToDepend::make('District')
+                ->optionsResolve(function ($regency) {
+                    return $regency->districts()->get(['id', 'name']);
+                })
+                ->dependsOn('Regency')
+                ->hideFromIndex(),
+
+//            BelongsTo::make('Province')
+//                ->exceptOnForms(),
+//
+//            BelongsTo::make('Regency')
+//                ->exceptOnForms(),
+//
+//            BelongsTo::make('District')
+//                ->exceptOnForms(),
+//
+//            Select::make('Province', 'province_id')
+//                ->options($provinces)
+//                ->displayUsingLabels()
+//                ->rules(['required', 'exists:provinces,id'])
+//                ->onlyOnForms(),
+//
+//            NovaDependencyContainer::make([
+//
+//            ])->dependsOnNotEmpty('province.id'),
+//
+//            NovaDependencyContainer::make([
+//
+//            ])->dependsOnNotEmpty('regency.id'),
 
             Textarea::make('Address Detail')
                 ->rules('required')
