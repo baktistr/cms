@@ -68,4 +68,13 @@ class User extends Authenticatable
     {
         return $this->is_admin;
     }
+
+    /**
+     * User Can impersonet
+     * @return Boolean
+     */
+    public function canImpersonet()
+    {
+        return $this->isSuperAdmin();
+    }
 }
