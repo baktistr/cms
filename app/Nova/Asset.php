@@ -99,29 +99,6 @@ class Asset extends Resource
                 ->dependsOn('Regency')
                 ->hideFromIndex(),
 
-//            BelongsTo::make('Province')
-//                ->exceptOnForms(),
-//
-//            BelongsTo::make('Regency')
-//                ->exceptOnForms(),
-//
-//            BelongsTo::make('District')
-//                ->exceptOnForms(),
-//
-//            Select::make('Province', 'province_id')
-//                ->options($provinces)
-//                ->displayUsingLabels()
-//                ->rules(['required', 'exists:provinces,id'])
-//                ->onlyOnForms(),
-//
-//            NovaDependencyContainer::make([
-//
-//            ])->dependsOnNotEmpty('province.id'),
-//
-//            NovaDependencyContainer::make([
-//
-//            ])->dependsOnNotEmpty('regency.id'),
-
             Textarea::make('Address Detail')
                 ->rules('required')
                 ->alwaysShow(),
