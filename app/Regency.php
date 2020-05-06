@@ -3,10 +3,33 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Regency extends Model
 {
+    /**
+     * @inheritDoc
+     */
+    public $incrementing = false;
 
-    public $incrementing = false ;
+    /**
+     * A regency belongs to province.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function province(): BelongsTo
+    {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
 
+    /**
+     * A regency can have many districts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function districts(): HasMany
+    {
+        return $this->hasMany(District::class, 'regency_id');
+    }
 }
