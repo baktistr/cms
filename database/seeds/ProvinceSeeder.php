@@ -18,7 +18,7 @@ class ProvinceSeeder extends Seeder
 
             factory(Province::class)->create([
                 'id' => $row[0],
-                'name' => str_replace(PHP_EOL, '', ucfirst(strtolower($row[1]))),
+                'name' => str_replace(PHP_EOL, '', ucwords(strtolower($row[1]))),
             ]);
         }
     }

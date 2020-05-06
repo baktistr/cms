@@ -20,7 +20,7 @@ class DistrictSeeder extends Seeder
             factory(District::class)->create([
                 'id'         => $row[0],
                 'regency_id' => $row[1],
-                'name'       => str_replace(PHP_EOL, '', ucfirst(strtolower($row[2]))),
+                'name'       => str_replace(PHP_EOL, '', ucwords(strtolower($row[2]))),
             ]);
         }
     }

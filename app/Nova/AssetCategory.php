@@ -6,6 +6,7 @@ use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -58,11 +59,13 @@ class AssetCategory extends Resource
                 ->slug('slug'),
 
             Slug::make('Slug')
-                ->rules(['required', 'unique:asset_categories,slug'])
+                ->rules(['required', 'unique:asset_categories,slug,{{resourceId}}'])
                 ->hideFromIndex(),
 
             Textarea::make('Description', 'desc')
                 ->nullable(),
+
+            HasMany::make('Assets', 'assets', Asset::class),
 
             BelongsToMany::make('Assigned Admins', 'assignedAdmins', User::class),
         ];
