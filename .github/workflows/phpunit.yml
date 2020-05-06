@@ -9,7 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
         with:
-          fetch-depth: 1
           repository: muhghazaliakbar/nova
           token: ${{ secrets.GMT_CMS }}
       - name: Install composer dependencies
