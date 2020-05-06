@@ -3,7 +3,12 @@
 namespace App\Providers;
 
 use App\AssetCategory;
+use App\District;
 use App\Policies\AssetCategoryPolicy;
+use App\Policies\DistrictPolicy;
+use App\Policies\ProvincePolicy;
+use App\Policies\RegencyPolicy;
+use App\Province;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,7 +20,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-         AssetCategory::class => AssetCategoryPolicy::class,
+        Province::class      => ProvincePolicy::class,
+        RegencyPolicy::class => RegencyPolicy::class,
+        District::class      => DistrictPolicy::class,
+        AssetCategory::class => AssetCategoryPolicy::class,
     ];
 
     /**
