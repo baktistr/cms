@@ -7,7 +7,7 @@ jobs:
       image: mattiasgeniar/php73
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           token: ${{ secrets.GMT_CMS }}
       - name: Install composer dependencies
