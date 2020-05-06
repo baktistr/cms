@@ -11,7 +11,7 @@ jobs:
         with:
           fetch-depth: 1
           repository: muhghazaliakbar/nova
-          token: ${{ secrets.GMT_NOVA_READ_ONLY }}
+          token: ${{ secrets.GMT_CMS }}
       - name: Install composer dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
