@@ -7,10 +7,13 @@ jobs:
       image: mattiasgeniar/php73
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 1
-
+      - name: Configure git
+        env:
+          TOKEN: e0779d86a007ea8e7ed698a489175a80850ae77b
+        run: git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
       - name: Install composer dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
