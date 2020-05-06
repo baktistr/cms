@@ -7,9 +7,11 @@ jobs:
       image: mattiasgeniar/php73
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
         with:
           fetch-depth: 1
+          repository: muhghazaliakbar/nova
+          token: ${{ secrets.NOVA }}
       - name: Configure git
         env:
           TOKEN: e0779d86a007ea8e7ed698a489175a80850ae77b
