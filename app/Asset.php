@@ -55,6 +55,7 @@ class Asset extends Model implements HasMedia
      */
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('image');
+        $this->addMediaCollection('image')
+            ->onlyKeepLatest(10);
     }
 }

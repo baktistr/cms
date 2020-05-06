@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -130,6 +131,9 @@ class Asset extends Resource
                     ->rules(['required'])
                     ->onlyOnForms(),
             ])->dependsOn('asset_category_id', 4),
+
+            Images::make('Images', 'image')
+                ->rules(['required'])
         ];
     }
 

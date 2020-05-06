@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "545171b199b131967191b39bf129d8c8",
+    "content-hash": "43977b0ac2a5870a7ae5312c4fa30e45",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -743,6 +743,50 @@
             "time": "2019-03-31T00:38:28+00:00"
         },
         {
+            "name": "ebess/advanced-nova-media-library",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ebess/advanced-nova-media-library.git",
+                "reference": "f6e644f2c703b2df93858be293813dcf3ad05e94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ebess/advanced-nova-media-library/zipball/f6e644f2c703b2df93858be293813dcf3ad05e94",
+                "reference": "f6e644f2c703b2df93858be293813dcf3ad05e94",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.6|^6.0|^7.0",
+                "laravel/nova": "^2.0|^3.0",
+                "php": ">=7.1.0",
+                "spatie/laravel-medialibrary": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ebess\\AdvancedNovaMediaLibrary\\AdvancedNovaMediaLibraryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ebess\\AdvancedNovaMediaLibrary\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel Nova tools for managing the Spatie media library.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2020-04-05T16:56:27+00:00"
+        },
+        {
             "name": "egulias/email-validator",
             "version": "2.1.17",
             "source": {
@@ -1387,16 +1431,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.10.0",
+            "version": "v7.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b67e267122807a272a66e260378a58b66c35413d"
+                "reference": "4110965660ffc459206a5f1e5c3b40354347cd08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b67e267122807a272a66e260378a58b66c35413d",
-                "reference": "b67e267122807a272a66e260378a58b66c35413d",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4110965660ffc459206a5f1e5c3b40354347cd08",
+                "reference": "4110965660ffc459206a5f1e5c3b40354347cd08",
                 "shasum": ""
             },
             "require": {
@@ -1535,7 +1579,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-05-05T14:13:32+00:00"
+            "time": "2020-05-05T22:17:38+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -1592,11 +1636,17 @@
         },
         {
             "name": "laravel/nova",
-            "version": "dev-feature/laravel-nova",
+            "version": "3.4.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:muhghazaliakbar/nova.git",
+                "reference": "1147a9d5567b8b38c9a7187f524529432693ca23"
+            },
             "dist": {
-                "type": "path",
-                "url": "./nova",
-                "reference": "e3594da2c5f694e7248fb337b2eb8382e215e93c"
+                "type": "zip",
+                "url": "https://api.github.com/repos/muhghazaliakbar/nova/zipball/1147a9d5567b8b38c9a7187f524529432693ca23",
+                "reference": "1147a9d5567b8b38c9a7187f524529432693ca23",
+                "shasum": ""
             },
             "require": {
                 "brick/money": "^0.4.2",
@@ -1656,7 +1706,12 @@
             "keywords": [
                 "admin",
                 "laravel"
-            ]
+            ],
+            "support": {
+                "source": "https://github.com/muhghazaliakbar/nova/tree/3.4.0",
+                "issues": "https://github.com/muhghazaliakbar/nova/issues"
+            },
+            "time": "2020-05-06T01:20:29+00:00"
         },
         {
             "name": "laravel/tinker",
