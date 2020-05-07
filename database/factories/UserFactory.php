@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Testing\File;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -30,3 +31,9 @@ $factory->define(User::class, function (Faker $faker) {
 $factory->state(User::class, 'super-admin', ['is_super_admin' => true]);
 
 $factory->state(User::class, 'admin', ['is_admin' => true]);
+
+$factory->afterCreating(User::class, function (User $user) {
+    // Add avatar image to factory.
+    $user->addMedia(File::image("asset-{$user->id}-image"))
+            ->toMediaCollection('avatar');
+});

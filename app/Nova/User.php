@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Gravatar;
@@ -74,7 +75,10 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            Images::make('Avatar')
+                ->conversionOnIndexView('small')
+                ->conversionOnDetailView('large')
+                ->rules('required'),
 
             Text::make('Name')
                 ->sortable()
