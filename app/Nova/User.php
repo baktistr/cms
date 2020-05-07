@@ -92,7 +92,7 @@ class User extends Resource
                 ->updateRules('nullable', 'string', 'min:8'),
 
             Impersonate::make($this)->withMeta([
-                'redirect_to' => '/nova'
+                'redirect_to' => config('nova.path')
             ]),
 
             Boolean::make('Is Super Admin')
