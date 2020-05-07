@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Rimu\FormattedNumber\FormattedNumber;
 
@@ -47,6 +48,22 @@ class Asset extends Resource
      * @var string
      */
     public static $group = 'Asset';
+
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isSuperAdmin()) {
+            return $query;
+        }
+
+        return $query->where('admin_id', $request->user()->id);
+    }
 
     /**
      * Get the fields displayed by the resource.
