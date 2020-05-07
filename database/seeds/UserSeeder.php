@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
         $admins = collect([
             ['name' => 'Muh Ghazali Akbar', 'email' => 'muhghazaliakbar@icloud.com'],
             ['name' => 'Hanan Asyrawi', 'email' => 'hasyrawi@gmail.com'],
+            ['name' => 'Super Admin', 'email' => 'superadmin@example.com'],
         ]);
 
         $admins->each(function ($admin) {

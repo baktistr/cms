@@ -84,6 +84,10 @@
                 <div class="subtitle">
                     {{ config('app.name') }}
                 </div>
+
+                <div>
+                    Super admin email: <strong>superadmin@example.com</strong> password: <strong>password</strong>
+                </div>
             </div>
         </div>
     </body>
