@@ -21,6 +21,6 @@ return [
     'hide_update_and_continue_editing_button_on_mobile' => false,
 
     // If true, the sidebar will stay fixed on desktop view
-    'fixed_sidebar' => true,
+    'fixed_sidebar' => false,
 
 ];
