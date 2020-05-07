@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Asset;
 use App\AssetCategory;
 use App\District;
 use App\Policies\AssetCategoryPolicy;
+use App\Policies\AssetPolicy;
 use App\Policies\DistrictPolicy;
 use App\Policies\ProvincePolicy;
 use App\Policies\RegencyPolicy;
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         RegencyPolicy::class => RegencyPolicy::class,
         District::class      => DistrictPolicy::class,
         AssetCategory::class => AssetCategoryPolicy::class,
+        Asset::class         => AssetPolicy::class,
     ];
 
     /**
