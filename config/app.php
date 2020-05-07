@@ -170,6 +170,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \Gmt\NovaCmsTheme\ThemeServiceProvider::class,
 
         /*
          * Application Service Providers...
