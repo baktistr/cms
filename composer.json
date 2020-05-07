@@ -21,10 +21,12 @@
     "require": {
         "php": "^7.2",
         "benjaminhirsch/nova-slug-field": "^1.2",
+        "cloudcake/nova-fixed-bars": "^1.1",
         "ebess/advanced-nova-media-library": "^3.2.0",
         "epartment/nova-dependency-container": "^1.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
+        "gmt/nova-cms-theme": "*",
         "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
         "guzzlehttp/guzzle": "^6.3",
         "kabbouchi/nova-impersonate": "^1.2",
@@ -33,7 +35,6 @@
         "laravel/nova": "*",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "gmt/nova-cms-theme": "*",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "rimu/formatted-number": "^0.2.0",
         "spatie/laravel-medialibrary": "^8.0.0"
