@@ -37,7 +37,8 @@
         "laravel/ui": "^2.0",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "rimu/formatted-number": "^0.2.0",
-        "spatie/laravel-medialibrary": "^8.0.0"
+        "spatie/laravel-medialibrary": "^8.0.0",
+        "titasgailius/search-relations": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

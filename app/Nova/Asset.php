@@ -16,9 +16,12 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Rimu\FormattedNumber\FormattedNumber;
+use Titasgailius\SearchRelations\SearchesRelations;
 
 class Asset extends Resource
 {
+    use SearchesRelations;
+
     /**
      * The model the resource corresponds to.
      *
@@ -34,12 +37,39 @@ class Asset extends Resource
     public static $title = 'name';
 
     /**
+     * The relationships that should be eager loaded on index queries.
+     *
+     * @var array
+     */
+    public static $with = [
+        'admin',
+        'category',
+        'province',
+        'regency',
+        'district',
+    ];
+
+    /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
-        'id', 'name',
+        'id',
+        'name',
+    ];
+
+    /**
+     * The relationship columns that should be searched.
+     *
+     * @var array
+     */
+    public static $searchRelations = [
+        'admin'    => ['name'],
+        'category' => ['name'],
+        'province' => ['name'],
+        'regency'  => ['name'],
+        'district' => ['name'],
     ];
 
     /**
@@ -50,20 +80,10 @@ class Asset extends Resource
     public static $group = 'Asset';
 
     /**
-     * The relationships that should be eager loaded on index queries.
-     *
-     * @var array
-     */
-    public static $with = [
-        'category',
-        'admin'
-    ];
-
-    /**
      * Build an "index" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Database\Eloquent\Builder   $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function indexQuery(NovaRequest $request, $query)
@@ -168,7 +188,7 @@ class Asset extends Resource
                 FormattedNumber::make('Value (Rupiah)', 'value')
                     ->rules(['required', 'numeric']),
             ])->dependsOn('asset_category_id', 2)
-            ->dependsOn('asset_category_id', 3),
+                ->dependsOn('asset_category_id', 3),
 
             /**
              * Fields for komersil.
@@ -187,7 +207,7 @@ class Asset extends Resource
             ])->dependsOn('asset_category_id', 4),
 
             Images::make('Images', 'image')
-                ->rules(['required'])
+                ->rules(['required']),
         ];
     }
 
