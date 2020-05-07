@@ -44,6 +44,15 @@ class AssetCategory extends Resource
     public static $group = 'Asset';
 
     /**
+     * The relationships that should be eager loaded on index queries.
+     *
+     * @var array
+     */
+    public static $with = [
+        'assets',
+    ];
+
+    /**
      * Build a "relatable" query for the asset category.
      *
      * This query determines which instances of the model may be attached to other resources.

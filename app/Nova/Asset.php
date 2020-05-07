@@ -50,6 +50,16 @@ class Asset extends Resource
     public static $group = 'Asset';
 
     /**
+     * The relationships that should be eager loaded on index queries.
+     *
+     * @var array
+     */
+    public static $with = [
+        'category',
+        'admin'
+    ];
+
+    /**
      * Build an "index" query for the given resource.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
@@ -63,6 +73,16 @@ class Asset extends Resource
         }
 
         return $query->where('admin_id', $request->user()->id);
+    }
+
+    /**
+     * Get the search result subtitle for the resource.
+     *
+     * @return string
+     */
+    public function subtitle()
+    {
+        return "Category: {$this->category->name} | Admin: {$this->admin->name}";
     }
 
     /**
