@@ -11,7 +11,7 @@
         },
         {
             "type": "git",
-            "url": "git@github.com:gmt-property-management/advanced-nova-media-library.git"
+            "url": "git@github.com:muhghazaliakbar/advanced-nova-media-library.git"
         }
     ],
     "require": {
