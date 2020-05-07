@@ -12,20 +12,31 @@
         {
             "type": "path",
             "url": "./nova-components/NovaCmsTheme"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/muhghazaliakbar/advanced-nova-media-library.git"
         }
     ],
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2",
+        "benjaminhirsch/nova-slug-field": "^1.2",
+        "ebess/advanced-nova-media-library": "^3.2.0",
+        "epartment/nova-dependency-container": "^1.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
         "guzzlehttp/guzzle": "^6.3",
+        "kabbouchi/nova-impersonate": "^1.2",
         "laravel/framework": "^7.0",
         "laravel/helpers": "^1.2",
         "laravel/nova": "*",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "gmt/nova-cms-theme": "*"
+        "gmt/nova-cms-theme": "*",
+        "orlyapps/nova-belongsto-depend": "^2.0",
+        "rimu/formatted-number": "^0.2.0",
+        "spatie/laravel-medialibrary": "^8.0.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

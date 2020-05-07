@@ -3,13 +3,15 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Nova\Actions\Actionable;
 
 class User extends Authenticatable
 {
-    use Notifiable, Actionable;
+    use Notifiable, Actionable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -36,6 +38,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_super_admin'    => 'boolean',
         'is_admin'          => 'boolean',
     ];
 
@@ -43,8 +46,19 @@ class User extends Authenticatable
      * {@inheritDoc}
      */
     protected $attributes = [
-        'is_admin' => false
+        'is_super_admin' => false,
+        'is_admin'       => false,
     ];
+
+    /**
+     * Check if user is an super admin.
+     *
+     * @return boolean
+     */
+    public function isSuperAdmin()
+    {
+        return $this->is_super_admin;
+    }
 
     /**
      * Check if user is an admin.
@@ -54,5 +68,25 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->is_admin;
+    }
+
+    /**
+     * User Can impersonate
+     *
+     * @return Boolean
+     */
+    public function canImpersonate()
+    {
+        return $this->isSuperAdmin();
+    }
+
+    /**
+     * A user can have many assets to manage.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assets(): HasMany
+    {
+        return $this->hasMany(Asset::class, 'admin_id');
     }
 }

@@ -2,24 +2,23 @@
 
 namespace App\Nova;
 
+use Benjaminhirsch\NovaSlugField\Slug;
+use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-use KABBOUCHI\NovaImpersonate\Impersonate;
-
-class User extends Resource
+class AssetCategory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\User::class;
+    public static $model = \App\AssetCategory::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -34,7 +33,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'name',
     ];
 
     /**
@@ -42,7 +41,25 @@ class User extends Resource
      *
      * @var string
      */
-    public static $group = 'Application';
+    public static $group = 'Asset';
+
+    /**
+     * Build a "relatable" query for the asset category.
+     *
+     * This query determines which instances of the model may be attached to other resources.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function relatableQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isSuperAdmin()) {
+            return $query;
+        }
+
+        return $query->assignedAdmins()->where('user_id', $request->user()->id);
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -55,34 +72,20 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            TextWithSlug::make('Name')
+                ->rules(['required', 'max:255'])
+                ->slug('slug'),
 
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            Slug::make('Slug')
+                ->rules(['required', 'unique:asset_categories,slug,{{resourceId}}'])
+                ->hideFromIndex(),
 
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
-
-            Impersonate::make($this)->withMeta([
-                'redirect_to' => '/nova'
-            ]),
-
-            Boolean::make('Is Super Admin')
-                ->sortable(),
-
-            Boolean::make('Is Admin')
-                ->sortable(),
+            Textarea::make('Description', 'desc')
+                ->nullable(),
 
             HasMany::make('Assets', 'assets', Asset::class),
+
+            BelongsToMany::make('Assigned Admins', 'assignedAdmins', User::class),
         ];
     }
 
