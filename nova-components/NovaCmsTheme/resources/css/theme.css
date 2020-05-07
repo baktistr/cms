@@ -1,12 +1,12 @@
 :root {
-  --primary: #fe0181;
-  --primary-dark: #d10069;
-  --primary-70: rgba(254, 1, 129, 0.7);
-  --primary-50: rgba(254, 1, 129, 0.5);
-  --primary-30: rgba(254, 1, 129, 0.3);
-  --primary-10: rgba(254, 1, 129, 0.1);
-  --logo: #430051;
-  --sidebar-icon: #db34de;
+  --primary: #C1242B;
+  --primary-dark: #AB351D;
+  --primary-70: #CC3F5F;
+  --primary-50: #D55B8E;
+  --primary-30: #DF77B5;
+  --primary-10: #E794D5;
+  --logo: #FFFFFF;
+  --sidebar-icon: #CCCCCC;
 }
 
 .bg-grad-sidebar {
@@ -14,13 +14,13 @@
     linear,
     left bottom,
     left top,
-    from(#fe0181),
+    from(#C1242B),
     to(#3c4655)
   );
 
   background-image: linear-gradient(
     0deg,
-    rgb(254, 1, 129, 1),
-    rgb(100, 5, 113)
+    #CC3F5F,
+    #C1242B
   );
 }
