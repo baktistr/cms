@@ -73,14 +73,14 @@ class Asset extends Resource
      */
     public function fields(Request $request)
     {
-        $categories = \App\AssetCategory::pluck('name', 'id');
+        $categories = \App\AssetCategory::assignedAdmin($request->user())
+            ->pluck('name', 'id');
 
         return [
             ID::make()->sortable(),
 
             BelongsTo::make('Category', 'category', AssetCategory::class)
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ->exceptOnForms(),
 
             Select::make('Category', 'asset_category_id')
                 ->options($categories)

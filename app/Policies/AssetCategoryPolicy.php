@@ -18,7 +18,7 @@ class AssetCategoryPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isSuperAdmin();
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class AssetCategoryPolicy
      */
     public function view(User $user, AssetCategory $assetCategory)
     {
-        return $user->isSuperAdmin();
+        return $user->isSuperAdmin() || $assetCategory->assignedAdmins()->where('user_id', $user->id)->exists();
     }
 
     /**
