@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.TEST }}
-        ssh-key: ${{ secrets.gmt_cms_ssh_secret }}
     - name: setup-git-credentials
       uses: fusion-engineering/setup-git-credentials@v2
       with:
         credentials: ${{ secrets.GMT_CMS }}
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TEST }}
+        ssh-key: ${{ secrets.gmt_cms_ssh_secret }}
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
     - name: Install Dependencies
