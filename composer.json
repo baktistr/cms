@@ -10,8 +10,8 @@
             "url": "./nova"
         },
         {
-            "type": "git",
-            "url": "git@github.com:muhghazaliakbar/advanced-nova-media-library.git"
+            "type": "github",
+            "url": "https://github.com/muhghazaliakbar/advanced-nova-media-library.git"
         }
     ],
     "require": {
