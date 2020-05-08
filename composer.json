@@ -33,6 +33,7 @@
         "laravel/framework": "^7.0",
         "laravel/helpers": "^1.2",
         "laravel/nova": "*",
+        "laravel/sanctum": "^2.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "orlyapps/nova-belongsto-depend": "^2.0",
