@@ -19,6 +19,5 @@
     </filter>
     <php>
         <server name="APP_ENV" value="testing"/>
-        <server name="DB_CONNECTION" value="sqlite"/>
     </php>
 </phpunit>
