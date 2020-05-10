@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -74,6 +75,17 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * Scope the query only get users admin.
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAdmin($query)
+    {
+        return $query->where('is_admin', true);
+    }
+
+    /**
      * User Can impersonate
      *
      * @return Boolean
@@ -91,6 +103,17 @@ class User extends Authenticatable implements HasMedia
     public function assets(): HasMany
     {
         return $this->hasMany(Asset::class, 'admin_id');
+    }
+
+    /**
+     * A user can have many asset categories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function assignedCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(AssetCategory::class, 'asset_category_user', 'user_id', 'asset_category_id')
+            ->withTimestamps();
     }
 
     /**
