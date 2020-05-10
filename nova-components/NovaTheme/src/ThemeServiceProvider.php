@@ -1,6 +1,6 @@
 <?php
 
-namespace Gmt\NovaCmsTheme;
+namespace Gmt\NovaTheme;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
@@ -15,10 +15,10 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Nova::theme(asset('gmt/nova-cms-theme/theme.css'));
+        Nova::theme(asset('gmt/nova-theme/theme.css'));
 
         $this->publishes([
-            __DIR__.'/../resources/css' => public_path('gmt/nova-cms-theme'),
+            __DIR__.'/../resources/css' => public_path('gmt/nova-theme'),
         ], 'public');
     }
 

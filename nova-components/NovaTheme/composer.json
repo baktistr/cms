@@ -1,23 +1,20 @@
 {
-    "name": "gmt/nova-cms-theme",
-    "description": "A Laravel Nova theme.",
-    "keywords": [
-        "laravel",
-        "nova"
-    ],
-    "license": "MIT",
+    "name": "gmt/nova-theme",
+    "description": "Laravel nova theme for GMT projects",
+    "keywords": [],
+    "license": "proprietary",
     "require": {
         "php": ">=7.1.0"
     },
     "autoload": {
         "psr-4": {
-            "Gmt\\NovaCmsTheme\\": "src/"
+            "Gmt\\NovaTheme\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Gmt\\NovaCmsTheme\\ThemeServiceProvider"
+                "Gmt\\NovaTheme\\ThemeServiceProvider"
             ]
         }
     },

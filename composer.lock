@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fd8539cb82a0e97c2f1541f491efa11",
+    "content-hash": "f754eaf2cb4202ca07b6e06f236bf12d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1080,12 +1080,12 @@
             "time": "2020-04-28T08:47:37+00:00"
         },
         {
-            "name": "gmt/nova-cms-theme",
-            "version": "dev-feature/laravel-nova-custom-theme",
+            "name": "gmt/nova-theme",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
-                "url": "./nova-components/NovaCmsTheme",
-                "reference": "79b84c83a9c64b57d456b7e03d6c8dc30657b94f"
+                "url": "nova-components/NovaTheme",
+                "reference": "de55027b2e6862ef86b6ee2c89f05a8c7b211e6b"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -1094,23 +1094,19 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gmt\\NovaCmsTheme\\ThemeServiceProvider"
+                        "Gmt\\NovaTheme\\ThemeServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gmt\\NovaCmsTheme\\": "src/"
+                    "Gmt\\NovaTheme\\": "src/"
                 }
             },
             "license": [
-                "MIT"
+                "proprietary"
             ],
-            "description": "A Laravel Nova theme.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ]
+            "description": "Laravel nova theme for GMT project"
         },
         {
             "name": "gregoriohc/laravel-nova-theme-responsive",
