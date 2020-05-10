@@ -61,6 +61,10 @@ class Regency extends Resource
 
             Text::make('Assets count', function () {
                 return $this->assets()->count();
+            })->showOnIndex(function () use ($request) {
+                return $request->user()->isSuperAdmin();
+            })->showOnDetail(function () use ($request) {
+                return $request->user()->isSuperAdmin();
             }),
 
             Text::make('Districts Count', function () {
