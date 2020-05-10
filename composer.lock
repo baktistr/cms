@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c0994beda1eff929b653279bbac776c",
+    "content-hash": "d03dfbb7d0e9ff620a23cd840fb931f4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1745,7 +1745,7 @@
         },
         {
             "name": "laravel/nova",
-            "version": "dev-feature/rebuild-nova-theme",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./nova",
