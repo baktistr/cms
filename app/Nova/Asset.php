@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Outhebox\NovaHiddenField\HiddenField;
 use Rimu\FormattedNumber\FormattedNumber;
 use Titasgailius\SearchRelations\SearchesRelations;
 
@@ -123,6 +124,10 @@ class Asset extends Resource
                 ->options($this->assetCategories($request->user()))
                 ->displayUsingLabels()
                 ->rules(['required', 'exists:asset_categories,id'])
+                ->onlyOnForms(),
+
+            HiddenField::make('Admin', 'admin_id')
+                ->defaultValue($request->user()->id)
                 ->onlyOnForms(),
 
             BelongsTo::make('Admin', 'admin', User::class),
