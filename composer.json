@@ -10,8 +10,8 @@
             "url": "./nova"
         },
         {
-            "type": "path",
-            "url": "./nova-components/NovaCmsTheme"
+            "type": "github",
+            "url": "git@github.com:gmt-property-management/nova-theme.git"
         },
         {
             "type": "github",
@@ -30,7 +30,7 @@
         "epartment/nova-dependency-container": "^1.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
-        "gmt/nova-cms-theme": "*",
+        "gmt/nova-theme": "^1.0",
         "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
         "guzzlehttp/guzzle": "^6.3",
         "kabbouchi/nova-impersonate": "^1.2",
