@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->isSuperAdmin();
+        return $user->isSuperAdmin() || $user->id === $model->id;
     }
 
     /**
@@ -52,7 +52,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->isSuperAdmin();
+        return $user->isSuperAdmin() || $user->id === $model->id;
     }
 
     /**
