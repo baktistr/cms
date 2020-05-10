@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 
 use KABBOUCHI\NovaImpersonate\Impersonate;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class User extends Resource
 {
@@ -62,6 +63,22 @@ class User extends Resource
     public function subtitle()
     {
         return "Assets count: {$this->assets()->count()}";
+    }
+
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Database\Eloquent\Builder   $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isSuperAdmin()) {
+            return $query;
+        }
+
+        return $query->where('id', $request->user()->id);
     }
 
     /**
