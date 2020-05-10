@@ -18,7 +18,7 @@ class DistrictPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isSuperAdmin() || $user->isAdmin();
     }
 
     /**
@@ -30,7 +30,7 @@ class DistrictPolicy
      */
     public function view(User $user, District $district)
     {
-        return $user->isSuperAdmin();
+        return $user->isSuperAdmin() || $user->isAdmin();
     }
 
     /**
