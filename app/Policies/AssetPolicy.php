@@ -41,7 +41,7 @@ class AssetPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class AssetPolicy
      */
     public function update(User $user, Asset $asset)
     {
-        return $user->isSuperAdmin() || ($user->id === $asset->admin_id);
+        return $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,6 @@ class AssetPolicy
      */
     public function forceDelete(User $user, Asset $asset)
     {
-        return $user->isSuperAdmin() || ($user->id === $asset->admin_id);
+        return $user->isSuperAdmin();
     }
 }
