@@ -2,6 +2,9 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\AvailableAssets;
+use App\Nova\Metrics\TotalAssets;
+use App\Nova\Metrics\UnavailableAssets;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
@@ -221,7 +224,11 @@ class Asset extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new TotalAssets,
+            new AvailableAssets,
+            new UnavailableAssets,
+        ];
     }
 
     /**
