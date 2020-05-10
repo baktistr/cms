@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f754eaf2cb4202ca07b6e06f236bf12d",
+    "content-hash": "6c0994beda1eff929b653279bbac776c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -850,7 +850,10 @@
                 "laravel",
                 "nova"
             ],
-            "time": "2020-05-06T22:45:36+00:00"
+            "support": {
+                "source": "https://github.com/muhghazaliakbar/advanced-nova-media-library/tree/3.2.0"
+            },
+            "time": "2020-05-07T00:01:23+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1081,11 +1084,17 @@
         },
         {
             "name": "gmt/nova-theme",
-            "version": "dev-develop",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:gmt-property-management/nova-theme.git",
+                "reference": "1dab0b6c9d36c2af651db373b8acdba902f2f10a"
+            },
             "dist": {
-                "type": "path",
-                "url": "nova-components/NovaTheme",
-                "reference": "de55027b2e6862ef86b6ee2c89f05a8c7b211e6b"
+                "type": "zip",
+                "url": "https://api.github.com/repos/gmt-property-management/nova-theme/zipball/1dab0b6c9d36c2af651db373b8acdba902f2f10a",
+                "reference": "1dab0b6c9d36c2af651db373b8acdba902f2f10a",
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1.0"
@@ -1106,7 +1115,12 @@
             "license": [
                 "proprietary"
             ],
-            "description": "Laravel nova theme for GMT project"
+            "description": "Laravel nova theme for GMT projects",
+            "support": {
+                "source": "https://github.com/gmt-property-management/nova-theme/tree/1.0.0",
+                "issues": "https://github.com/gmt-property-management/nova-theme/issues"
+            },
+            "time": "2020-05-10T04:12:08+00:00"
         },
         {
             "name": "gregoriohc/laravel-nova-theme-responsive",
@@ -1731,7 +1745,7 @@
         },
         {
             "name": "laravel/nova",
-            "version": "dev-master",
+            "version": "dev-feature/rebuild-nova-theme",
             "dist": {
                 "type": "path",
                 "url": "./nova",
