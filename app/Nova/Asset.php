@@ -113,9 +113,6 @@ class Asset extends Resource
      */
     public function fields(Request $request)
     {
-        $categories = \App\AssetCategory::assignedAdmin($request->user())
-            ->pluck('name', 'id');
-
         return [
             ID::make()->sortable(),
 
@@ -123,7 +120,7 @@ class Asset extends Resource
                 ->exceptOnForms(),
 
             Select::make('Category', 'asset_category_id')
-                ->options($categories)
+                ->options($this->assetCategories($request->user()))
                 ->displayUsingLabels()
                 ->rules(['required', 'exists:asset_categories,id'])
                 ->onlyOnForms(),
@@ -253,5 +250,21 @@ class Asset extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get assets category depends on role.
+     *
+     * @param $user
+     * @return mixed
+     */
+    protected function assetCategories($user)
+    {
+        if ($user->isSuperAdmin()) {
+            return \App\AssetCategory::pluck('name', 'id');
+        }
+
+        return \App\AssetCategory::assignedAdmin($user)
+            ->pluck('name', 'id');
     }
 }
