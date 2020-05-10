@@ -76,7 +76,7 @@ $factory->state(Asset::class, 'komersil', function (Faker $faker) {
 
 $factory->afterCreating(Asset::class, function (Asset $asset) {
     for ($i=1; $i <= rand(1, 10); $i++) {
-        $asset->addMedia(File::image("asset-{$asset->id}-image-{$i}"))
+        $asset->addMedia(File::image("asset-{$asset->id}-image-{$i}.png"))
             ->toMediaCollection('image');
     }
 });
