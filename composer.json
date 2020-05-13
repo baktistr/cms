@@ -10,12 +10,16 @@
             "url": "./nova"
         },
         {
-            "type": "path",
-            "url": "./nova-components/NovaCmsTheme"
+            "type": "github",
+            "url": "https://github.com/gmt-property-management/nova-theme.git"
         },
         {
             "type": "github",
             "url": "https://github.com/muhghazaliakbar/advanced-nova-media-library.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:muhghazaliakbar/nova-hidden-field.git"
         }
     ],
     "require": {
@@ -26,7 +30,7 @@
         "epartment/nova-dependency-container": "^1.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
-        "gmt/nova-cms-theme": "*",
+        "gmt/nova-theme": "^1.0",
         "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
         "guzzlehttp/guzzle": "^6.3",
         "kabbouchi/nova-impersonate": "^1.2",
@@ -37,6 +41,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "orlyapps/nova-belongsto-depend": "^2.0",
+        "outhebox/nova-hidden-field": "^1.0",
         "rimu/formatted-number": "^0.2.0",
         "spatie/laravel-medialibrary": "^8.0.0",
         "titasgailius/search-relations": "^1.0"

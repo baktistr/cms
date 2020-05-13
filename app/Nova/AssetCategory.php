@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -88,6 +89,14 @@ class AssetCategory extends Resource
             Slug::make('Slug')
                 ->rules(['required', 'unique:asset_categories,slug,{{resourceId}}'])
                 ->hideFromIndex(),
+
+            Text::make('Total Assets', function () {
+                return $this->assets()->count();
+            }),
+
+            Text::make('Assigned Admins', function () {
+                return $this->assignedAdmins()->count();
+            }),
 
             Textarea::make('Description', 'desc')
                 ->nullable(),

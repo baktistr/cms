@@ -2,6 +2,9 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\AvailableAssets;
+use App\Nova\Metrics\TotalAssets;
+use App\Nova\Metrics\UnavailableAssets;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
@@ -15,6 +18,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Outhebox\NovaHiddenField\HiddenField;
 use Rimu\FormattedNumber\FormattedNumber;
 use Titasgailius\SearchRelations\SearchesRelations;
 
@@ -113,9 +117,6 @@ class Asset extends Resource
      */
     public function fields(Request $request)
     {
-        $categories = \App\AssetCategory::assignedAdmin($request->user())
-            ->pluck('name', 'id');
-
         return [
             ID::make()->sortable(),
 
@@ -123,9 +124,13 @@ class Asset extends Resource
                 ->exceptOnForms(),
 
             Select::make('Category', 'asset_category_id')
-                ->options($categories)
+                ->options($this->assetCategories($request->user()))
                 ->displayUsingLabels()
                 ->rules(['required', 'exists:asset_categories,id'])
+                ->onlyOnForms(),
+
+            HiddenField::make('Admin', 'admin_id')
+                ->defaultValue($request->user()->id)
                 ->onlyOnForms(),
 
             BelongsTo::make('Admin', 'admin', User::class),
@@ -219,7 +224,11 @@ class Asset extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new TotalAssets,
+            new AvailableAssets,
+            new UnavailableAssets,
+        ];
     }
 
     /**
@@ -253,5 +262,21 @@ class Asset extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get assets category depends on role.
+     *
+     * @param $user
+     * @return mixed
+     */
+    protected function assetCategories($user)
+    {
+        if ($user->isSuperAdmin()) {
+            return \App\AssetCategory::pluck('name', 'id');
+        }
+
+        return \App\AssetCategory::assignedAdmin($user)
+            ->pluck('name', 'id');
     }
 }

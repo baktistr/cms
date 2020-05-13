@@ -56,6 +56,10 @@ class Province extends Resource
 
             Text::make('Assets Count', function () {
                 return $this->regencies()->count();
+            })->showOnIndex(function () use ($request) {
+                return $request->user()->isSuperAdmin();
+            })->showOnDetail(function () use ($request) {
+                return $request->user()->isSuperAdmin();
             }),
 
             Text::make('Regencies Count', function () {
