@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * Authentication routes...
  */
-Route::prefix('auth')->name('auth.')->group(function () {
+Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
     Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::post('register', [RegisterController::class, 'register'])->name('register');
 });
