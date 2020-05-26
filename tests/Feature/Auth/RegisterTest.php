@@ -2,7 +2,10 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Notifications\Auth\EmailVerificationNotification;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -16,13 +19,13 @@ class RegisterTest extends TestCase
      * @param $params
      * @return array
      */
-    private function validParams($params)
+    private function validParams($params = [])
     {
         return array_merge([
             'name'                  => 'Muh Ghazali Akbar',
             'email'                 => 'muhghazaliakbar@live.com',
-            'password'              => 'password',
-            'password_confirmation' => 'password',
+            'password'              => 'my-password',
+            'password_confirmation' => 'my-password',
         ], $params);
     }
 
@@ -32,8 +35,8 @@ class RegisterTest extends TestCase
         $response = $this->postJson('/api/auth/register', [
             'name'                  => 'Muh Ghazali Akbar',
             'email'                 => 'muhghazaliakbar@live.com',
-            'password'              => 'password',
-            'password_confirmation' => 'password',
+            'password'              => 'my-password',
+            'password_confirmation' => 'my-password',
         ]);
 
         $response->assertStatus(201);

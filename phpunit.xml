@@ -20,5 +20,7 @@
     <php>
         <server name="APP_ENV" value="testing"/>
         <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="MAIL_HOST" value="0.0.0.0"/>
+        <server name="MAIL_PORT" value="1025"/>
     </php>
 </phpunit>
