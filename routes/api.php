@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationController;
@@ -23,4 +24,7 @@ Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
     Route::post('login', [LoginController::class, 'login'])->name('login');
     Route::post('register', [RegisterController::class, 'register'])->name('register');
     Route::get('verify', [VerificationController::class, 'verify'])->name('verify');
+
+    // Forgot password routes...
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 });
