@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature\Api\Auth;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

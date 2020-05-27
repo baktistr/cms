@@ -1,12 +1,10 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature\Api\Auth;
 
 use App\Notifications\Auth\EmailVerificationNotification;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
