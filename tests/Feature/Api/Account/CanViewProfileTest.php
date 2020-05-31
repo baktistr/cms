@@ -15,16 +15,24 @@ class CanViewProfileTest extends TestCase
     public function can_see_auth_user_profile()
     {
         $user = factory(User::class)->create([
-            'name'  => 'Muh Ghazali Akbar',
-            'email' => 'muhghazaliakbar@live.com',
+            'name'         => 'Muh Ghazali Akbar',
+            'email'        => 'muhghazaliakbar@live.com',
+            'phone_number' => '+6285110374321',
         ]);
 
         Sanctum::actingAs($user);
         $response = $this->getJson('/api/account');
 
         $response->assertJsonFragment([
-            'name'  => 'Muh Ghazali Akbar',
-            'email' => 'muhghazaliakbar@live.com',
+            'name'         => 'Muh Ghazali Akbar',
+            'email'        => 'muhghazaliakbar@live.com',
+            'phone_number' => '+6285110374321',
+            'avatar'       => [
+                'tiny'   => $user->getFirstMediaUrl('avatar', 'tiny'),
+                'small'  => $user->getFirstMediaUrl('avatar', 'small'),
+                'medium' => $user->getFirstMediaUrl('avatar', 'medium'),
+                'large'  => $user->getFirstMediaUrl('avatar', 'large'),
+            ],
         ]);
     }
 }
