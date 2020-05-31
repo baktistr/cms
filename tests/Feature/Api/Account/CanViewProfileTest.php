@@ -21,7 +21,7 @@ class CanViewProfileTest extends TestCase
         ]);
 
         Sanctum::actingAs($user);
-        $response = $this->getJson('/api/account');
+        $response = $this->getJson('/api/account/profile');
 
         $response->assertJsonFragment([
             'name'         => 'Muh Ghazali Akbar',

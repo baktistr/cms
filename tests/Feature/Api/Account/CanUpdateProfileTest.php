@@ -36,7 +36,7 @@ class CanUpdateProfileTest extends TestCase
         ]);
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', [
+        $response = $this->putJson('/api/account/profile', [
             'name'         => 'New name',
             'email'        => 'new_email@example.com',
             'phone_number' => '+6285971718998',
@@ -57,7 +57,7 @@ class CanUpdateProfileTest extends TestCase
         ]);
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'email' => 'ignore_me@example.com',
         ]));
 
@@ -71,7 +71,7 @@ class CanUpdateProfileTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'name' => '',
         ]));
 
@@ -84,7 +84,7 @@ class CanUpdateProfileTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'name' => 112132,
         ]));
 
@@ -97,7 +97,7 @@ class CanUpdateProfileTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'email' => '',
         ]));
 
@@ -110,7 +110,7 @@ class CanUpdateProfileTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'email' => 'invalid_email',
         ]));
 
@@ -123,7 +123,7 @@ class CanUpdateProfileTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'email' => 'invalid_email_format@example',
         ]));
 
@@ -137,7 +137,7 @@ class CanUpdateProfileTest extends TestCase
         $user2 = factory(User::class)->create(['email' => 'muhghazaliakbar@live.com']);
 
         Sanctum::actingAs($user2);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'email' => 'duplicate_email@example.com',
         ]));
 
@@ -153,7 +153,7 @@ class CanUpdateProfileTest extends TestCase
         ]);
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'email' => 'ignore_me@example.com',
         ]));
 
@@ -169,7 +169,7 @@ class CanUpdateProfileTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'phone_number' => '',
         ]));
 
@@ -182,7 +182,7 @@ class CanUpdateProfileTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'phone_number' => 'invalid-phone-number',
         ]));
 
@@ -195,7 +195,7 @@ class CanUpdateProfileTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account', $this->validParams([
+        $response = $this->putJson('/api/account/profile', $this->validParams([
             'phone_number' => '+1885885885',
         ]));
 

@@ -21,27 +21,33 @@ use Illuminate\Support\Facades\Route;
 /**
  * Authentication routes...
  */
-Route::prefix('auth')->name('auth.')->group(function () {
+Route::prefix('auth')
+    ->name('auth.')
+    ->group(function () {
+        // Auth routes for guest...
+        Route::middleware('guest')->group(function () {
+            Route::post('login', [LoginController::class, 'login'])->name('login');
+            Route::post('register', [RegisterController::class, 'register'])->name('register');
+            Route::get('verify', [VerificationController::class, 'verify'])->name('verify');
 
-    // Auth routes for guest...
-    Route::middleware('guest')->group(function () {
-        Route::post('login', [LoginController::class, 'login'])->name('login');
-        Route::post('register', [RegisterController::class, 'register'])->name('register');
-        Route::get('verify', [VerificationController::class, 'verify'])->name('verify');
+            // Forgot password routes...
+            Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+        });
 
-        // Forgot password routes...
-        Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+        // Auth routes for auth users
+        Route::middleware('auth:sanctum')->group(function () {
+            //
+        });
     });
-
-    // Auth routes for auth users
-    Route::middleware('auth:sanctum')->group(function () {
-        //
-    });
-});
 
 
 /**
  * Account routes...
  */
-Route::get('account', [ProfileController::class, 'show'])->name('account');
-Route::put('account', [ProfileController::class, 'update'])->name('account.update');
+Route::prefix('account')
+    ->name('account.')
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('profile', [ProfileController::class, 'show'])->name('profile');
+        Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+    });
