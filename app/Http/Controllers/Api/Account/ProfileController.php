@@ -10,14 +10,6 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     /**
-     * ProfileController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param \Illuminate\Http\Request $request
