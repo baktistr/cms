@@ -25,6 +25,7 @@
     "require": {
         "php": "^7.2",
         "benjaminhirsch/nova-slug-field": "^1.2",
+        "bissolli/nova-phone-field": "^0.0.4",
         "cloudcake/nova-fixed-bars": "^1.1",
         "ebess/advanced-nova-media-library": "^3.2.0",
         "epartment/nova-dependency-container": "^1.2",
@@ -42,6 +43,7 @@
         "laravel/ui": "^2.0",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "outhebox/nova-hidden-field": "^1.0",
+        "propaganistas/laravel-phone": "^4.2",
         "rimu/formatted-number": "^0.2.0",
         "spatie/laravel-medialibrary": "^8.0.0",
         "titasgailius/search-relations": "^1.0"
