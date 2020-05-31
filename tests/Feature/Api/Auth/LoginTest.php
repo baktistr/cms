@@ -49,6 +49,7 @@ class LoginTest extends TestCase
             'email' => '',
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
         $response->assertJsonValidationErrorsMessage('email', 'The email field is required.');
     }
@@ -60,6 +61,7 @@ class LoginTest extends TestCase
             'email' => 0000,
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
         $response->assertJsonValidationErrorsMessage('email', 'The email must be a string.');
     }
@@ -71,6 +73,7 @@ class LoginTest extends TestCase
             'email' => 'email_is_not_exists@example.com',
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
         $response->assertJsonValidationErrorsMessage('email', 'The selected email is invalid.');
     }
@@ -82,6 +85,7 @@ class LoginTest extends TestCase
             'email' => 'invalid_email',
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
         $response->assertJsonValidationErrorsMessage('email', 'The email must be a valid email address.');
     }
@@ -93,6 +97,7 @@ class LoginTest extends TestCase
             'password' => '',
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('password');
         $response->assertJsonValidationErrorsMessage('password', 'The password field is required.');
     }
@@ -104,6 +109,7 @@ class LoginTest extends TestCase
             'password' => 0000,
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('password');
         $response->assertJsonValidationErrorsMessage('password', 'The password must be a string.');
     }
@@ -121,6 +127,7 @@ class LoginTest extends TestCase
             'password' => 'invalid_password',
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
         $response->assertJsonValidationErrorsMessage('email', 'The provided credentials are incorrect.');
     }
@@ -132,6 +139,7 @@ class LoginTest extends TestCase
             'device_name' => '',
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('device_name');
         $response->assertJsonValidationErrorsMessage('device_name', 'The device name field is required.');
     }
@@ -143,6 +151,7 @@ class LoginTest extends TestCase
             'device_name' => 0000,
         ]));
 
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('device_name');
         $response->assertJsonValidationErrorsMessage('device_name', 'The device name must be a string.');
     }
