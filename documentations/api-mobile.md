@@ -2,7 +2,7 @@
 
 This describes the resources that make up REST API for the GMT - Commercial management System
 
-### [Authentication](#authentication)
+### Authentication
 #### Login
 
 **Login Success**
