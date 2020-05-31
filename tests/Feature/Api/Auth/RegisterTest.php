@@ -21,6 +21,7 @@ class RegisterTest extends TestCase
         return array_merge([
             'name'                  => 'Muh Ghazali Akbar',
             'email'                 => 'muhghazaliakbar@live.com',
+            'phone_number'          => '+6285110374321',
             'password'              => 'my-password',
             'password_confirmation' => 'my-password',
         ], $params);
@@ -32,6 +33,7 @@ class RegisterTest extends TestCase
         $response = $this->postJson('/api/auth/register', [
             'name'                  => 'Muh Ghazali Akbar',
             'email'                 => 'muhghazaliakbar@live.com',
+            'phone_number'          => '+6285110374321',
             'password'              => 'my-password',
             'password_confirmation' => 'my-password',
         ]);
@@ -97,6 +99,18 @@ class RegisterTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
         $response->assertJsonValidationErrorsMessage('email', 'The email must be a string.');
+    }
+
+    /** @test */
+    public function phone_number_is_required()
+    {
+        $response = $this->postJson('/api/auth/register', $this->validParams([
+            'phone_number' => '',
+        ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('phone_number');
+        $response->assertJsonValidationErrorsMessage('phone_number', 'The phone number field is required.');
     }
 
     /** @test */

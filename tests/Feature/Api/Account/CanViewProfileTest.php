@@ -7,12 +7,12 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
-class CanViewAccountTest extends TestCase
+class CanViewProfileTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function can_see_auth_user_detail()
+    public function can_see_auth_user_profile()
     {
         $user = factory(User::class)->create([
             'name'  => 'Muh Ghazali Akbar',

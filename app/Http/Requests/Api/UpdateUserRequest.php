@@ -25,12 +25,13 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|string',
-            'email' => [
+            'name'         => 'required|string',
+            'email'        => [
                 'required',
                 'email:strict,dns',
                 Rule::unique('users')->ignore($this->user()->id),
             ],
+            'phone_number' => 'required|phone:ID',
         ];
     }
 }

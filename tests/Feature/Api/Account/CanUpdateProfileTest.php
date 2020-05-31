@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
-class CanUpdateAccountTest extends TestCase
+class CanUpdateProfileTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -20,33 +20,37 @@ class CanUpdateAccountTest extends TestCase
     private function validParams($params = [])
     {
         return array_merge([
-            'name'  => 'Muh Ghazali Akbar',
-            'email' => 'muhghazaliakbar@live.com',
+            'name'         => 'Muh Ghazali Akbar',
+            'email'        => 'muhghazaliakbar@live.com',
+            'phone_number' => '+6285110374321',
         ], $params);
     }
 
     /** @test */
-    public function can_update_account_detail()
+    public function can_update_profile_detail()
     {
         $user = factory(User::class)->create([
-            'name'  => 'Old name',
-            'email' => 'old_email@example.com',
+            'name'         => 'Old name',
+            'email'        => 'old_email@example.com',
+            'phone_number' => '+6285110374321',
         ]);
 
         Sanctum::actingAs($user);
         $response = $this->putJson('/api/account', [
-            'name'  => 'New name',
-            'email' => 'new_email@example.com',
+            'name'         => 'New name',
+            'email'        => 'new_email@example.com',
+            'phone_number' => '+6285971718998',
         ]);
 
         $response->assertJsonFragment([
-            'name'  => 'New name',
-            'email' => 'new_email@example.com',
+            'name'         => 'New name',
+            'email'        => 'new_email@example.com',
+            'phone_number' => '+6285971718998',
         ]);
     }
 
     /** @test */
-    public function update_account_email_ignore_itself()
+    public function update_profile_email_ignore_itself()
     {
         $user = factory(User::class)->create([
             'email' => 'ignore_me@example.com',
@@ -143,6 +147,7 @@ class CanUpdateAccountTest extends TestCase
     /** @test */
     public function email_is_unique_but_ignore_itself()
     {
+        $this->withoutExceptionHandling();
         $user = factory(User::class)->create([
             'email' => 'ignore_me@example.com',
         ]);
@@ -156,5 +161,44 @@ class CanUpdateAccountTest extends TestCase
         $response->assertJsonFragment([
             'email' => 'ignore_me@example.com',
         ]);
+    }
+
+    /** @test */
+    public function phone_number_is_required()
+    {
+        $user = factory(User::class)->create();
+
+        Sanctum::actingAs($user);
+        $response = $this->putJson('/api/account', $this->validParams([
+            'phone_number' => '',
+        ]));
+
+        $response->assertJsonValidationErrors('phone_number');
+    }
+
+    /** @test */
+    public function phone_number_is_must_be_valid_phone_number()
+    {
+        $user = factory(User::class)->create();
+
+        Sanctum::actingAs($user);
+        $response = $this->putJson('/api/account', $this->validParams([
+            'phone_number' => 'invalid-phone-number',
+        ]));
+
+        $response->assertJsonValidationErrors('phone_number');
+    }
+
+    /** @test */
+    public function phone_number_is_must_be_indonesian_phone_number()
+    {
+        $user = factory(User::class)->create();
+
+        Sanctum::actingAs($user);
+        $response = $this->putJson('/api/account', $this->validParams([
+            'phone_number' => '+1885885885',
+        ]));
+
+        $response->assertJsonValidationErrors('phone_number');
     }
 }

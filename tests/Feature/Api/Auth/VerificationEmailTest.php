@@ -23,6 +23,7 @@ class VerificationEmailTest extends TestCase
         return array_merge([
             'name'                  => 'Muh Ghazali Akbar',
             'email'                 => 'muhghazaliakbar@live.com',
+            'phone_number'          => '+6285110374321',
             'password'              => 'my-password',
             'password_confirmation' => 'my-password',
         ], $params);
@@ -49,6 +50,6 @@ class VerificationEmailTest extends TestCase
 
     public function can_not_verify_account_with_wrong_code()
     {
-        
+
     }
 }
