@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\AccountController;
+use App\Http\Controllers\Api\Account\ProfileController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
@@ -43,5 +43,5 @@ Route::prefix('auth')->name('auth.')->group(function () {
 /**
  * Account routes...
  */
-Route::get('account', [AccountController::class, 'show'])->name('account');
-Route::put('account', [AccountController::class, 'update'])->name('account.update');
+Route::get('account', [ProfileController::class, 'show'])->name('account');
+Route::put('account', [ProfileController::class, 'update'])->name('account.update');

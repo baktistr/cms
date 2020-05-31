@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
-class AccountController extends Controller
+class ProfileController extends Controller
 {
     /**
-     * AccountController constructor.
+     * ProfileController constructor.
      */
     public function __construct()
     {
