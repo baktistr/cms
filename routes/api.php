@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Account\AvatarController;
 use App\Http\Controllers\Api\Account\ProfileController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
@@ -51,4 +52,7 @@ Route::prefix('account')
         // Account profile routes...
         Route::get('profile', [ProfileController::class, 'show'])->name('profile');
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+
+        // Account update avatar routes...
+        Route::put('avatar', [AvatarController::class, 'update'])->name('avatar.update');
     });
