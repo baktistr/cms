@@ -48,6 +48,7 @@ Route::prefix('account')
     ->name('account.')
     ->middleware('auth:sanctum')
     ->group(function () {
+        // Account profile routes...
         Route::get('profile', [ProfileController::class, 'show'])->name('profile');
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     });
