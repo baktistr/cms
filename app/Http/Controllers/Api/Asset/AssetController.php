@@ -42,14 +42,13 @@ class AssetController extends Controller
         if (!isset($request)) {
             return
                 AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
-                    ->paginate(5)
-                    ->where('is_available', true));
+                    ->get());
         } else {
             return AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
                 ->whereHas('category', function ($query) use ($request) {
                     $query->where('name', $request->get('category'));
                 })
-                ->paginate(5));
+                ->get());
         }
     }
 
