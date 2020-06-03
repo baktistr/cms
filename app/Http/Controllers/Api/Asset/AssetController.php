@@ -20,18 +20,6 @@ class AssetController extends Controller
             AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
                 ->paginate(5));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // todo
-    }
-
     /**
      * Display the specified resource.
      *
@@ -41,29 +29,6 @@ class AssetController extends Controller
     public function show(Asset $asset)
     {
         return new AssetResoure($asset);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        // Todo if need
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        // Todo if Need
     }
 
     /**
@@ -92,9 +57,19 @@ class AssetController extends Controller
      * search the specified resource .
      *
      * @return App\Http\Resources\AssetResoure
+     * @param Illuminate\Http\Request
      */
-    public function search()
+    public function search(Request $request)
     {
-        // Todo
+        if (!isset($request)) {
+            return
+                AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
+                    ->paginate(5));
+        } else {
+            return
+                AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
+                    ->where('name', 'LIKE', "%{$request->get('search')}%")
+                    ->paginate(5));
+        }
     }
 }
