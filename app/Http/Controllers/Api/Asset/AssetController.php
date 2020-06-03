@@ -64,12 +64,12 @@ class AssetController extends Controller
         if (!isset($request)) {
             return
                 AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
-                    ->paginate(5));
+                    ->get());
         } else {
             return
                 AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
                     ->where('name', 'LIKE', "%{$request->get('search')}%")
-                    ->paginate(5));
+                    ->get());
         }
     }
 }

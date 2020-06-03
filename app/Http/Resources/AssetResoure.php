@@ -29,7 +29,7 @@ class AssetResoure extends JsonResource
             'regency'           => $this->regency->name,
             'district'          => $this->district->name,
             'is_available'      => $this->is_available,
+            'image'             => $this->getFirstMediaUrl('image'),
         ];
     }
-
 }
