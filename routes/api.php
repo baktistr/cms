@@ -71,5 +71,6 @@ Route::prefix('assets')
     ->group(function () {
         // Route in Here
         Route::apiResource('/', 'Asset\AssetController')->except('update', 'delete', 'destroy');
+        Route::get('/filter', [AssetController::class, 'getByCategory'])->name('show.filter');
         Route::get('/{asset}', [AssetController::class, 'show'])->name('show.asset');
     });

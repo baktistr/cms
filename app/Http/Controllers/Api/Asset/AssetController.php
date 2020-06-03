@@ -12,11 +12,14 @@ class AssetController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\AssetResoure
      */
     public function index()
     {
-        return AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])->paginate(5));
+        return
+            AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
+                ->paginate(5)
+                ->where('is_available', true));
     }
 
     /**
@@ -64,7 +67,28 @@ class AssetController extends Controller
         // Todo if Need
     }
 
-    public function filterAssetWith()
+    /**
+     * filter the specified resource .
+     *
+     * @return App\Http\Resources\AssetResoure
+     * @param Illuminate\Http\Request
+     */
+    public function getByCategory(Request $request)
+    {
+        return
+            AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
+                ->whereHas('category', function ($query) use ($request) {
+                    $query->where('name', $request->get('category'));
+                })
+                ->paginate(5));
+    }
+
+    /**
+     * search the specified resource .
+     *
+     * @return App\Http\Resources\AssetResoure
+     */
+    public function search()
     {
         // Todo
     }

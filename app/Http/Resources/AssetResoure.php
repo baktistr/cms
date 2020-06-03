@@ -14,7 +14,6 @@ class AssetResoure extends JsonResource
      */
     public function toArray($request)
     {
-
         return [
             'id'                => $this->id,
             'name'              => $this->name,
@@ -29,6 +28,8 @@ class AssetResoure extends JsonResource
             'province'          => $this->province->name,
             'regency'           => $this->regency->name,
             'district'          => $this->district->name,
+            'is_available'      => $this->is_available,
         ];
     }
+
 }
