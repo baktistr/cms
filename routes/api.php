@@ -66,12 +66,12 @@ Route::prefix('account')
  * Assets routes ... 🔥
  */
 Route::prefix('assets')
-    ->name('assets')
+    ->name('assets.')
     ->middleware('auth:sanctum')
     ->group(function () {
         // Route in Here
-        Route::apiResource('/', 'Asset\AssetController')->except('update', 'delete', 'destroy');
-        Route::get('/filter', [AssetController::class, 'getByCategory'])->name('asset.filter');
-        Route::get('/search', [AssetController::class, 'search'])->name('asset.search');
-        Route::get('/{asset}', [AssetController::class, 'show'])->name('show.asset');
+        Route::get('/',         [AssetController::class, 'index'])->name('index');
+        Route::get('/filter',   [AssetController::class, 'getByCategory'])->name('filter');
+        Route::get('/search',   [AssetController::class, 'search'])->name('search');
+        Route::get('/{asset}',  [AssetController::class, 'show'])->name('asset');
     });
