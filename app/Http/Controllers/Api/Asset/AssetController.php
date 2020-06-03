@@ -18,8 +18,7 @@ class AssetController extends Controller
     {
         return
             AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
-                ->paginate(5)
-                ->where('is_available', true));
+                ->paginate(5));
     }
 
     /**
@@ -75,12 +74,18 @@ class AssetController extends Controller
      */
     public function getByCategory(Request $request)
     {
-        return
-            AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
+        if (!isset($request)) {
+            return
+                AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
+                    ->paginate(5)
+                    ->where('is_available', true));
+        } else {
+            return AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
                 ->whereHas('category', function ($query) use ($request) {
                     $query->where('name', $request->get('category'));
                 })
                 ->paginate(5));
+        }
     }
 
     /**
