@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Account\AvatarController;
 use App\Http\Controllers\Api\Account\PasswordController;
 use App\Http\Controllers\Api\Account\ProfileController;
+use App\Http\Controllers\Api\Asset\AssetController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
@@ -59,4 +60,16 @@ Route::prefix('account')
 
         // Account update password routes...
         Route::put('password', [PasswordController::class, 'update'])->name('password');
+    });
+
+/**
+ * Assets routes ... 🔥
+ */
+Route::prefix('assets')
+    ->name('assets')
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        // Route in Here
+        Route::apiResource('/', 'Asset\AssetController')->except('update', 'delete', 'destroy');
+        Route::get('/{asset}', [AssetController::class, 'show'])->name('show.asset');
     });
