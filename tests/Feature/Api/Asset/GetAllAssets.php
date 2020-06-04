@@ -39,11 +39,10 @@ class GetAllAssets extends TestCase
             'phone_number' => '+6285110374321',
         ]);
 
-        $user = User::first();
-
         Sanctum::actingAs($user);
 
-        $response = $this->getJson('api/assets/filter?category=tanah');
+        $response = $this->getJson('/api/assets/filter?category=tanah');
+
 
         $response
             ->assertJsonFragment(["data" => []])
@@ -67,7 +66,6 @@ class GetAllAssets extends TestCase
         $response
             ->assertJsonFragment(["data" => []])
             ->assertOk();
-
     }
 
     /**
