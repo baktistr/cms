@@ -67,8 +67,10 @@ class AssetController extends Controller
         } else {
             return
                 AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
-                    ->where('name', 'LIKE', "%{$request->get('search')}%")
-                    ->get());
+                    ->when(request()->q, function ($asset) {
+                        $asset = $asset->where('name', 'like', "%" . request()->q . "%");
+                    })
+                    ->paginate());
         }
     }
 }
