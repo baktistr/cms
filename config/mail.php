@@ -2,6 +2,17 @@
 
 return [
 
+    "driver" => "smtp",
+    "host" => "smtp.mailtrap.io",
+    "port" => 2525,
+    "from" => array(
+        "address" => "from@example.com",
+        "name" => "Example"
+    ),
+    "username" => "4ec9f9cb03927e", // your username,
+    "password" => "693cb43f21e79f", // your password,
+    "sendmail" => "/usr/sbin/sendmail -bs",
+
     /*
     |--------------------------------------------------------------------------
     | Default Mailer
@@ -106,5 +117,7 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
+
 
 ];

@@ -30,6 +30,7 @@ class RegisterTest extends TestCase
     /** @test */
     public function guest_can_register()
     {
+
         $response = $this->postJson('/api/auth/register', [
             'name'                  => 'Muh Ghazali Akbar',
             'email'                 => 'muhghazaliakbar@live.com',
@@ -37,7 +38,7 @@ class RegisterTest extends TestCase
             'password'              => 'my-password',
             'password_confirmation' => 'my-password',
         ]);
-
+        $response->assertCreated();
         $response->assertStatus(201);
     }
 
@@ -132,6 +133,7 @@ class RegisterTest extends TestCase
             'email' => 'invalid-email',
         ]));
 
+
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
         $response->assertJsonValidationErrorsMessage('email', 'The email must be a valid email address.');
@@ -141,7 +143,7 @@ class RegisterTest extends TestCase
     public function email_is_must_be_real_email()
     {
         $response = $this->postJson('/api/auth/register', $this->validParams([
-            'email' => 'fake@38r79238.com',
+            'email' => 'fake-238r79238.com',
         ]));
 
         $response->assertStatus(422);

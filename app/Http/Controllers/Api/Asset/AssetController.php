@@ -39,7 +39,7 @@ class AssetController extends Controller
      */
     public function getByCategory(Request $request)
     {
-        if (!isset($request)) {
+        if (empty($request->get('category'))) {
             return
                 AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
                     ->get());
