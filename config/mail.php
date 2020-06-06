@@ -2,17 +2,6 @@
 
 return [
 
-    "driver" => "smtp",
-    "host" => env('MAIL_HOST' , 'smtp.mailtrap.io'),
-    "port" => env('MAIL_PORT'),
-    "from" => array(
-        "address" => "from@gmttesting.com",
-        "name" => "gmttesting"
-    ),
-    "username" => env('MAIL_USERNAME'), // your username,
-    "password" => env('MAIL_PASSWORD'), // your password,
-    "sendmail" => "/usr/sbin/sendmail -bs",
-
     /*
     |--------------------------------------------------------------------------
     | Default Mailer

@@ -32,6 +32,8 @@ class RegisterTest extends TestCase
     /** @test */
     public function guest_can_register()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->postJson('/api/auth/register', [
             'name'         => 'Muh Ghazali Akbar',
             'username'     => 'muhghazaliakbar',
