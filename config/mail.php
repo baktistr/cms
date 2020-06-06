@@ -3,14 +3,14 @@
 return [
 
     "driver" => "smtp",
-    "host" => "smtp.mailtrap.io",
-    "port" => 2525,
+    "host" => env('MAIL_HOST' , 'smtp.mailtrap.io'),
+    "port" => env('MAIL_PORT'),
     "from" => array(
         "address" => "from@gmttesting.com",
         "name" => "gmttesting"
     ),
-    "username" => "304caef4a28e94", // your username,
-    "password" => "5eeaf670d573c2", // your password,
+    "username" => env('MAIL_USERNAME'), // your username,
+    "password" => env('MAIL_PASSWORD'), // your password,
     "sendmail" => "/usr/sbin/sendmail -bs",
 
     /*
