@@ -11,7 +11,6 @@ use App\Testing\File;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 $factory->define(Asset::class, function (Faker $faker) {
     return [
@@ -22,9 +21,6 @@ $factory->define(Asset::class, function (Faker $faker) {
             return factory(User::class)->state('admin')->create()->id;
         },
         'name'              => $faker->unique()->name,
-        'slug'              => function ($data) {
-            return Str::slug($data['name']);
-        },
         'province_id'       => function () {
             return factory(Province::class)->create()->id;
         },
@@ -75,7 +71,7 @@ $factory->state(Asset::class, 'komersil', function (Faker $faker) {
 });
 
 $factory->afterCreating(Asset::class, function (Asset $asset) {
-    for ($i=1; $i <= rand(1, 10); $i++) {
+    for ($i = 1; $i <= rand(1, 10); $i++) {
         $asset->addMedia(File::image("asset-{$asset->id}-image-{$i}.png"))
             ->toMediaCollection('image');
     }

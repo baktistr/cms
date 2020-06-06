@@ -165,6 +165,9 @@ class Asset extends Resource
                 ->rules('required')
                 ->alwaysShow(),
 
+            Text::make('Phone Number')
+                ->hideFromIndex(),
+
             Boolean::make('Available', 'is_available')
                 ->sortable(),
 
@@ -173,13 +176,26 @@ class Asset extends Resource
                 ->hideFromIndex(),
 
             /**
+             * Field for tanah and gedung.
+             */
+            NovaDependencyContainer::make([
+                Text::make('Value (Rupiah)', function () {
+                    return $this->formatted_value;
+                }),
+            ])->dependsOn('asset_category_id', 1)
+                ->dependsOn('asset_category_id', 2)
+                ->onlyOnIndex()
+                ->onlyOnDetail(),
+
+            /**
              * Fields for Tanah.
              * @todo better solution for dependency container relationship.
              */
             NovaDependencyContainer::make([
                 FormattedNumber::make('Value (Rupiah)', 'value')
                     ->rules(['required', 'numeric']),
-            ])->dependsOn('asset_category_id', 1),
+            ])->dependsOn('asset_category_id', 1)
+                ->onlyOnForms(),
 
 
             /**
@@ -188,12 +204,23 @@ class Asset extends Resource
              */
             NovaDependencyContainer::make([
                 Text::make('Number of Floors')
+                    ->rules(['required', 'numeric', 'min:1'])
+            ])->dependsOn('asset_category_id', 2)
+                ->dependsOn('asset_category_id', 3)
+                ->onlyOnDetail()
+                ->onlyOnIndex(),
+
+
+            NovaDependencyContainer::make([
+                Text::make('Number of Floors')
                     ->rules(['required', 'numeric', 'min:1']),
 
                 FormattedNumber::make('Value (Rupiah)', 'value')
-                    ->rules(['required', 'numeric']),
+                    ->rules(['required', 'numeric'])
+                    ->onlyOnForms(),
             ])->dependsOn('asset_category_id', 2)
-                ->dependsOn('asset_category_id', 3),
+                ->dependsOn('asset_category_id', 3)
+                ->onlyOnForms(),
 
             /**
              * Fields for komersil.

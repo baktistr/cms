@@ -27,9 +27,9 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function can_login()
+    public function can_login_using_email()
     {
-        $user = factory(User::class)->create(['email' => 'user@example.com']);
+        factory(User::class)->create(['email' => 'user@example.com']);
 
         $response = $this->postJson('/api/auth/login', [
             'email'       => 'user@example.com',
@@ -41,9 +41,23 @@ class LoginTest extends TestCase
     }
 
     /** @test */
+    public function can_login_using_username()
+    {
+        factory(User::class)->create(['username' => 'muhghazaliakbar']);
+
+        $response = $this->postJson('/api/auth/login', [
+            'email'       => 'muhghazaliakbar',
+            'password'    => 'password',
+            'device_name' => 'mobile',
+        ]);
+
+        $response->assertOk();
+    }
+
+    /** @test */
     public function email_is_required()
     {
-        $user = factory(User::class)->create(['email' => 'user@example.com']);
+        factory(User::class)->create(['email' => 'user@example.com']);
 
         $response = $this->postJson('/api/auth/login', $this->validParams([
             'email' => '',
@@ -64,30 +78,6 @@ class LoginTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
         $response->assertJsonValidationErrorsMessage('email', 'The email must be a string.');
-    }
-
-    /** @test */
-    public function email_is_must_be_exists_in_database()
-    {
-        $response = $this->postJson('/api/auth/login', $this->validParams([
-            'email' => 'email_is_not_exists@example.com',
-        ]));
-
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('email');
-        $response->assertJsonValidationErrorsMessage('email', 'The selected email is invalid.');
-    }
-
-    /** @test */
-    public function email_is_must_be_an_email()
-    {
-        $response = $this->postJson('/api/auth/login', $this->validParams([
-            'email' => 'invalid_email',
-        ]));
-
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('email');
-        $response->assertJsonValidationErrorsMessage('email', 'The email must be a valid email address.');
     }
 
     /** @test */

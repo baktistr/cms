@@ -49,6 +49,6 @@ class EmailVerificationNotification extends Notification
             ->subject('Verify your CMS account')
             ->greeting("Hello, {$this->user->name}!")
             ->line('Thank you for your registration, Please click on the below link to verify your account')
-            ->action('Verify', URL::signedRoute('api.auth.verify', ['user' => $this->user]));
+            ->action('Verify', URL::signedRoute('auth.verify', ['user' => $this->user]));
     }
 }

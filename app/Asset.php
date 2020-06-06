@@ -31,6 +31,16 @@ class Asset extends Model implements HasMedia
     ];
 
     /**
+     * Get formatted value on rupiah.
+     *
+     * @return string
+     */
+    public function getFormattedValueAttribute()
+    {
+        return 'Rp. ' . number_format($this->value);
+    }
+
+    /**
      * An asset belongs to asset category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

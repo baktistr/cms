@@ -6,11 +6,11 @@ return [
     "host" => "smtp.mailtrap.io",
     "port" => 2525,
     "from" => array(
-        "address" => "from@example.com",
-        "name" => "Example"
+        "address" => "from@gmttesting.com",
+        "name" => "gmttesting"
     ),
-    "username" => "4ec9f9cb03927e", // your username,
-    "password" => "693cb43f21e79f", // your password,
+    "username" => "304caef4a28e94", // your username,
+    "password" => "5eeaf670d573c2", // your password,
     "sendmail" => "/usr/sbin/sendmail -bs",
 
     /*

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\Auth;
 
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -19,11 +20,12 @@ class RegisterTest extends TestCase
     private function validParams($params = [])
     {
         return array_merge([
-            'name'                  => 'Muh Ghazali Akbar',
-            'email'                 => 'muhghazaliakbar@live.com',
-            'phone_number'          => '+6285110374321',
-            'password'              => 'my-password',
-            'password_confirmation' => 'my-password',
+            'name'         => 'Muh Ghazali Akbar',
+            'username'     => 'muhghazaliakbar',
+            'email'        => 'muhghazaliakbar@live.com',
+            'address'      => 'Jl. AP Pettarani Makassar',
+            'phone_number' => '+6285110374321',
+            'password'     => 'my-password',
         ], $params);
     }
 
@@ -32,11 +34,12 @@ class RegisterTest extends TestCase
     {
 
         $response = $this->postJson('/api/auth/register', [
-            'name'                  => 'Muh Ghazali Akbar',
-            'email'                 => 'muhghazaliakbar@live.com',
-            'phone_number'          => '+6285110374321',
-            'password'              => 'my-password',
-            'password_confirmation' => 'my-password',
+            'name'         => 'Muh Ghazali Akbar',
+            'username'     => 'muhghazaliakbar',
+            'email'        => 'muhghazaliakbar@live.com',
+            'address'      => 'Jl. AP Pettarani Makassar',
+            'phone_number' => '+6285110374321',
+            'password'     => 'my-password',
         ]);
 
         $response->assertCreated();
@@ -77,6 +80,46 @@ class RegisterTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('name');
         $response->assertJsonValidationErrorsMessage('name', 'The name may not be greater than 255 characters.');
+    }
+
+    /** @test */
+    public function username_is_required()
+    {
+        $response = $this->postJson('/api/auth/register', $this->validParams([
+            'username' => '',
+        ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('username');
+        $response->assertJsonValidationErrorsMessage('username', 'The username field is required.');
+    }
+
+    /** @test */
+    public function username_is_must_be_alpha_num()
+    {
+        $response = $this->postJson('/api/auth/register', $this->validParams([
+            'username' => 'invalid-username',
+        ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('username');
+        $response->assertJsonValidationErrorsMessage('username', 'The username may only contain letters and numbers.');
+    }
+
+    /** @test */
+    public function username_is_unique()
+    {
+        // Create user with username "muhghazaliakbar"
+        factory(User::class)->create(['username' => 'muhghazaliakbar']);
+
+        // Create user with same username we created before
+        $response = $this->postJson('/api/auth/register', $this->validParams([
+            'username' => 'muhghazaliakbar',
+        ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('username');
+        $response->assertJsonValidationErrorsMessage('username', 'The username has already been taken.');
     }
 
     /** @test */
@@ -174,18 +217,5 @@ class RegisterTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('password');
         $response->assertJsonValidationErrorsMessage('password', 'The password must be at least 8 characters.');
-    }
-
-    /** @test */
-    public function password_is_must_be_confirmed()
-    {
-        $response = $this->postJson('/api/auth/register', $this->validParams([
-            'password'              => 'my-password',
-            'password_confirmation' => 'different-password',
-        ]));
-
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('password');
-        $response->assertJsonValidationErrorsMessage('password', 'The password confirmation does not match.');
     }
 }
