@@ -30,7 +30,6 @@ Route::prefix('auth')
         Route::middleware('guest')->group(function () {
             Route::post('login', [LoginController::class, 'login'])->name('login');
             Route::post('register', [RegisterController::class, 'register'])->name('register');
-            Route::get('verify', [VerificationController::class, 'verify'])->name('verify');
 
             // Forgot password routes...
             Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');

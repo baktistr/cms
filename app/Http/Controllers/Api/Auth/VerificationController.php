@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
@@ -26,6 +27,13 @@ class VerificationController extends Controller
     use VerifiesEmails;
 
     /**
+     * Where to redirect users after verification.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/auth/verify/email-verified';
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -34,6 +42,17 @@ class VerificationController extends Controller
     {
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    /**
+     * Show the email verification notice.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function show()
+    {
+        return view('auth.verify');
     }
 
     /**
@@ -46,22 +65,34 @@ class VerificationController extends Controller
      */
     public function verify(Request $request)
     {
-        if (! hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {
-            throw new AuthorizationException;
+        $user = User::findOrFail(request('user'));
+
+        if ($user->hasVerifiedEmail()) {
+            return $request->wantsJson()
+                ? new Response('', 204)
+                : redirect($this->redirectPath());
         }
 
-        if (! hash_equals((string) $request->route('hash'), sha1($request->user()->getEmailForVerification()))) {
-            throw new AuthorizationException;
-        }
-
-        if ($request->user()->hasVerifiedEmail()) {
-            return new Response('', 204);
-        }
-
-        if ($request->user()->markEmailAsVerified()) {
+        if ($user->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return new Response('', 204);
+        if ($response = $this->verified($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new Response('', 204)
+            : redirect($this->redirectPath())->with('verified', true);
+    }
+
+    /**
+     * SHow email confirmed page.
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function showEmailVerifiedPage()
+    {
+        return view('pages.email_verified');
     }
 }
