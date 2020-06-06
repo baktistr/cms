@@ -18,11 +18,11 @@ class CreateAssetsTable extends Migration
             $table->unsignedBigInteger('asset_category_id');
             $table->unsignedBigInteger('admin_id');
             $table->string('name')->index();
-            $table->string('slug');
             $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('regency_id');
             $table->unsignedBigInteger('district_id');
             $table->text('address_detail');
+            $table->string('phone_number')->nullable();
             $table->float('unit_area', 8, 2)->nullable();
             $table->float('value', 12, 2)->nullable();
             $table->float('price', 12, 2)->nullable();

@@ -14,10 +14,15 @@ class LocalAssetSeeder extends Seeder
      */
     public function run()
     {
-        // Get the asset categories seeder before and seed some data each
-        $assetCategories = AssetCategory::get();
+        // Create Building from csv
+        $buildings = file(database_path('seeds/data/buildings.csv'));
 
-        $assetCategories->each(function ($category) {
+        foreach ($buildings as $building) {
+            $row = explode(';', $building);
+
+            // Get random asset category
+            $category = AssetCategory::inRandomOrder()->first();
+
             // Get random location data from
             $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
 
@@ -27,22 +32,16 @@ class LocalAssetSeeder extends Seeder
              */
 
             // Seed random unavailable assets to category and assign to random admin
-            factory(Asset::class, rand(1, 3))->state($category->slug)->create([
+            factory(Asset::class)->states([$category->slug, 'available'])->create([
                 'asset_category_id' => $category->id,
                 'admin_id'          => collect($category->assignedAdmins->pluck('id'))->random(),
                 'province_id'       => $randomDistrict->regency->province->id,
                 'regency_id'        => $randomDistrict->regency->id,
                 'district_id'       => $randomDistrict->id,
+                'name'              => $row[1],
+                'address_detail'    => $row[2],
+                'phone_number'      => $row[3],
             ]);
-
-            // Seed random available assets to category and assign to random admin
-            factory(Asset::class, rand(1, 3))->states(['available', $category->slug])->create([
-                'asset_category_id' => $category->id,
-                'admin_id'          => collect($category->assignedAdmins->pluck('id'))->random(),
-                'province_id'       => $randomDistrict->regency->province->id,
-                'regency_id'        => $randomDistrict->regency->id,
-                'district_id'       => $randomDistrict->id,
-            ]);
-        });
+        }
     }
 }
