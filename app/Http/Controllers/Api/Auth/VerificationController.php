@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Notifications\Auth\EmailVerificationNotification;
 use App\User;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
@@ -84,6 +83,25 @@ class VerificationController extends Controller
         return $request->wantsJson()
             ? new Response('', 204)
             : redirect($this->redirectPath())->with('verified', true);
+    }
+
+    /**
+     * Resend the email verification notification.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resend(Request $request)
+    {
+        $user = User::find($request->get('user'));
+
+        if ($user->hasVerifiedEmail()) {
+            return response()->json(['message' => 'Your account has been verified.']);
+        }
+
+        $user->notify(new EmailVerificationNotification($user));
+
+        return response()->json(['message' => 'The email verification link has been sent.'], 202);
     }
 
     /**
