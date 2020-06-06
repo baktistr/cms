@@ -23,7 +23,6 @@ class RegisterTest extends TestCase
             'email'                 => 'muhghazaliakbar@live.com',
             'phone_number'          => '+6285110374321',
             'password'              => 'my-password',
-            'password_confirmation' => 'my-password',
         ], $params);
     }
 
@@ -35,7 +34,6 @@ class RegisterTest extends TestCase
             'email'                 => 'muhghazaliakbar@live.com',
             'phone_number'          => '+6285110374321',
             'password'              => 'my-password',
-            'password_confirmation' => 'my-password',
         ]);
 
         $response->assertStatus(201);
@@ -171,18 +169,5 @@ class RegisterTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('password');
         $response->assertJsonValidationErrorsMessage('password', 'The password must be at least 8 characters.');
-    }
-
-    /** @test */
-    public function password_is_must_be_confirmed()
-    {
-        $response = $this->postJson('/api/auth/register', $this->validParams([
-            'password'              => 'my-password',
-            'password_confirmation' => 'different-password',
-        ]));
-
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('password');
-        $response->assertJsonValidationErrorsMessage('password', 'The password confirmation does not match.');
     }
 }
