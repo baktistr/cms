@@ -30,8 +30,8 @@ Route::prefix('auth')
         // Auth routes for guest...
         Route::middleware('guest')->group(function () {
             Route::post('login', [LoginController::class, 'login'])->name('login');
-            Route::post('register', [RegisterController::class , 'register'])->name('register');
-            Route::get('verify', [VerificationController::class, 'verify'])->name('verify');
+            Route::post('register', [RegisterController::class, 'register'])->name('register');
+            Route::post('verify/resend', [VerificationController::class, 'resend'])->name('verify.resend');
 
             // Forgot password routes...
             Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');

@@ -24,9 +24,12 @@ class RegisterController extends Controller
     {
         event(new Registered($user = $this->create($request->validated())));
 
-        $this->guard()->login($user);
-
-        return new Response('', 201);
+        return response()->json([
+            'message' => 'Register successfull.',
+            'data'    => [
+                'user' => $user,
+            ],
+        ], 201);
     }
 
     /**
