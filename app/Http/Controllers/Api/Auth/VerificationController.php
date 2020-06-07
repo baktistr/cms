@@ -96,7 +96,7 @@ class VerificationController extends Controller
         $user = User::where('email', $request->get('email'))->first();
 
         if (!$user) {
-            return response()->json(['message' => 'The user can not be found'], 404);
+            return response()->json(['message' => 'The user can not be found.'], 404);
         }
 
         if ($user->hasVerifiedEmail()) {
