@@ -102,18 +102,4 @@ class CanUpdatePasswordTest extends TestCase
 
         $response->assertJsonValidationErrors('new_password');
     }
-
-    /** @test */
-    public function password_field_is_must_be_confirmed()
-    {
-        $user = factory(User::class)->create();
-
-        Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account/password', $this->validParams([
-            'new_password'              => 'new-password',
-            'new_password_confirmation' => 'new-different-password',
-        ]));
-
-        $response->assertJsonValidationErrors('new_password');
-    }
 }
