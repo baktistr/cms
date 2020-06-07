@@ -63,6 +63,9 @@ $factory->state(Asset::class, 'ruko', function (Faker $faker) {
 
 $factory->state(Asset::class, 'komersil', function (Faker $faker) {
     return [
+        'type'       => function () {
+            return Arr::random(array_keys(Asset::$types));
+        },
         'price'      => $faker->randomFloat(0, 1000000, 50000000),
         'price_type' => function () {
             return Arr::random(array_keys(Asset::$priceTypes));

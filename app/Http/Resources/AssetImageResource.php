@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProvinceResource extends JsonResource
+class AssetImageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,8 @@ class ProvinceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'        => $this->id,
-            'name'      => $this->name,
-            'regencies' => RegencyResource::collection($this->whenLoaded('regencies')),
+            'default'   => $this->getFullUrl(),
+            'thumbnail' => $this->getFullUrl('thumbnail'),
         ];
     }
 }

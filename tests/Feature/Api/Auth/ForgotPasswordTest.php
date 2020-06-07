@@ -18,7 +18,6 @@ class ForgotPasswordTest extends TestCase
     public function can_send_reset_link_to_email()
     {
         Notification::fake();
-
         factory(User::class)->create(['email' => 'muhghazaliakbar@live.com']);
 
         $response = $this->postJson('/api/auth/password/email', [

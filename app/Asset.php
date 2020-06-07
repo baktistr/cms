@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Nova\Actions\Actionable;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -18,6 +19,14 @@ class Asset extends Model implements HasMedia
      */
     protected $casts = [
         'is_available' => 'boolean',
+    ];
+
+    /**
+     * {@inheritDoc}
+     */
+    public static $types = [
+        'rent' => 'Sewa',
+        'sale' => 'Jual',
     ];
 
     /**
@@ -37,7 +46,28 @@ class Asset extends Model implements HasMedia
      */
     public function getFormattedValueAttribute()
     {
-        return 'Rp. ' . number_format($this->value);
+        return 'Rp.' . number_format($this->value);
+    }
+
+    /**
+     * Get formatted price on rupiah.
+     *
+     * @return string
+     */
+    public function getFormattedPriceAttribute()
+    {
+        return 'Rp.' . number_format($this->price);
+    }
+
+    /**
+     * Scope a query to only include available assets.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->where('is_available', true);
     }
 
     /**
@@ -96,6 +126,12 @@ class Asset extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('image')
-            ->onlyKeepLatest(10);
+            ->onlyKeepLatest(10)
+            ->registerMediaConversions(function () {
+                $this->addMediaConversion('thumbnail')
+                    ->fit(Manipulations::FIT_CROP, 160, 105)
+                    ->performOnCollections('image')
+                    ->nonQueued();
+            });
     }
 }
