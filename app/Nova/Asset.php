@@ -139,10 +139,6 @@ class Asset extends Resource
                 ->rules(['required', 'max:255'])
                 ->slug('slug'),
 
-            Slug::make('Slug')
-                ->rules(['required', 'unique:assets,slug,{{resourceId}}'])
-                ->hideFromIndex(),
-
             NovaBelongsToDepend::make('Province')
                 ->options(\App\Province::all())
                 ->hideFromIndex(),
@@ -196,7 +192,6 @@ class Asset extends Resource
                     ->rules(['required', 'numeric']),
             ])->dependsOn('asset_category_id', 1)
                 ->onlyOnForms(),
-
 
             /**
              * Fields for Gedung dan ruko.
