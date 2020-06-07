@@ -6,19 +6,38 @@ use App\Asset;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AssetResoure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
-class AssetController extends Controller
+class AssetsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return App\Http\Resources\AssetResoure
      */
-    public function index()
+    public function index(Request $request)
     {
-        return
-            AssetResoure::collection(Asset::with(['district', 'province', 'regency', 'category'])
-                ->paginate(5));
+        $type = $request->get('type');
+        $category = $request->get('category');
+        $minPrice = $request->get('min_price');
+        $maxPrice = $request->get('max_price');
+
+        $assets = Asset::with(['district', 'regency', 'province', 'category'])
+            ->available()
+            ->when(isset($type) && !empty($type), function ($query) use ($type) {
+                $query->where('type', $type);
+            })
+            ->when(isset($category) && !empty($category), function ($query) use ($category) {
+                $query->where('asset_category_id', $category);
+            })
+            ->when(isset($minPrice) && !empty($minPrice), function ($query) use ($minPrice) {
+                $query->where('price', '>=', $minPrice);
+            })
+            ->when(isset($maxPrice) && !empty($maxPrice), function ($query) use ($maxPrice) {
+                $query->where('price', '<=', $maxPrice);
+            });
+
+        return AssetResoure::collection($assets->paginate($request->get('per_page', 10)));
     }
     /**
      * Display the specified resource.

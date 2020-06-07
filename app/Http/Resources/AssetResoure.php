@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Asset;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AssetResoure extends JsonResource
@@ -15,21 +16,18 @@ class AssetResoure extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'                => $this->id,
-            'name'              => $this->name,
-            'slug'              => $this->slug,
-            'category'          => $this->category->name,
-            'price'             => $this->price,
-            'price_type'        => $this->price_type,
-            'address_detail'    => $this->address_detail,
-            'unit_area'         => $this->unit_area,
-            'value'             => $this->value,
-            'number_of_floors'  => $this->number_of_floors,
-            'province'          => $this->province->name,
-            'regency'           => $this->regency->name,
-            'district'          => $this->district->name,
-            'is_available'      => $this->is_available,
-            'image'             => $this->getFirstMediaUrl('image'),
+            'id'             => $this->id,
+            'name'           => $this->name,
+            'type'           => Asset::$types[$this->type],
+            'price'          => $this->price,
+            'formattedPrice' => $this->formatted_price,
+            'priceType'      => $this->priceType,
+            'category'       => AssetCategoryResource::make($this->category),
+            'province'       => ProvinceResource::make($this->province),
+            'regency'        => RegencyResource::make($this->regency),
+            'district'       => DistrictResource::make($this->district),
+            'address'        => $this->address_detail,
+            'images'         => AssetImageResource::collection(collect($this->getMedia('image'))),
         ];
     }
 }

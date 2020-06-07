@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\Account\AvatarController;
 use App\Http\Controllers\Api\Account\PasswordController;
 use App\Http\Controllers\Api\Account\ProfileController;
-use App\Http\Controllers\Api\Asset\AssetController;
+use App\Http\Controllers\Api\Asset\AssetsController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
@@ -64,19 +64,16 @@ Route::prefix('account')
     });
 
 /**
- * Assets routes ... 🔥
+ * Assets routes ...
  */
-Route::prefix('assets')
-    ->name('assets.')
-    ->middleware('auth:sanctum')
-    ->group(function () {
-        Route::get('/',         [AssetController::class, 'index'])->name('index');
-        Route::get('/filter',   [AssetController::class, 'getByCategory'])->name('filter');
-        Route::get('/search',   [AssetController::class, 'search'])->name('search');
-        Route::get('/{asset}',  [AssetController::class, 'show'])->name('asset');
-    });
+Route::get('assets', [AssetsController::class, 'index'])->name('assets');
+// Route::get('assets/filter', [AssetController::class, 'getByCategory'])->name('filter');
+// Route::get('assets/search', [AssetController::class, 'search'])->name('search');
+// Route::get('assets/{asset}', [AssetController::class, 'show'])->name('asset');
 
-
+/**
+ * Data routes...
+ */
 Route::prefix('data')
     ->name('data.')
     ->group(function () {

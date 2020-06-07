@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProvinceResource extends JsonResource
+class RegencyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,8 @@ class ProvinceResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,
-            'regencies' => RegencyResource::collection($this->whenLoaded('regencies')),
+            'province'  => ProvinceResource::make($this->whenLoaded('province')),
+            'districts' => DistrictResource::collection($this->whenLoaded('districts')),
         ];
     }
 }
