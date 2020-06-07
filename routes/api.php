@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationController;
+use App\Http\Controllers\Api\Data\ProvincesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +57,7 @@ Route::prefix('account')
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 
         // Account update avatar routes...
-        Route::put('avatar', [AvatarController::class, 'update'])->name('avatar.update');
+        Route::post('avatar', [AvatarController::class, 'update'])->name('avatar.update');
 
         // Account update password routes...
         Route::put('password', [PasswordController::class, 'update'])->name('password');
@@ -69,9 +70,15 @@ Route::prefix('assets')
     ->name('assets.')
     ->middleware('auth:sanctum')
     ->group(function () {
-        // Route in Here
         Route::get('/',         [AssetController::class, 'index'])->name('index');
         Route::get('/filter',   [AssetController::class, 'getByCategory'])->name('filter');
         Route::get('/search',   [AssetController::class, 'search'])->name('search');
         Route::get('/{asset}',  [AssetController::class, 'show'])->name('asset');
+    });
+
+
+Route::prefix('data')
+    ->name('data.')
+    ->group(function () {
+        Route::get('provinces', [ProvincesController::class, 'index'])->name('provinces');
     });
