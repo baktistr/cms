@@ -93,7 +93,11 @@ class VerificationController extends Controller
      */
     public function resend(Request $request)
     {
-        $user = User::find($request->get('user'));
+        $user = User::where('email', $request->get('email'))->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'The user can not be found'], 404);
+        }
 
         if ($user->hasVerifiedEmail()) {
             return response()->json(['message' => 'Your account has been verified.']);

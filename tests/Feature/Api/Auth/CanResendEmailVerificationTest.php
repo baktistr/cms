@@ -17,7 +17,7 @@ class CanResendEmailVerificationTest extends TestCase
         $user = factory(User::class)->state('unverified')->create();
 
         $response = $this->postJson('/api/auth/verify/resend', [
-            'user' => $user->id,
+            'email' => $user->email,
         ]);
 
         Notification::assertSentTo([$user], EmailVerificationNotification::class);
@@ -34,7 +34,7 @@ class CanResendEmailVerificationTest extends TestCase
         $user = factory(User::class)->create();
 
         $response = $this->postJson('/api/auth/verify/resend', [
-            'user' => $user->id,
+            'email' => $user->email,
         ]);
 
         Notification::assertNotSentTo([$user], EmailVerificationNotification::class);
