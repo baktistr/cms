@@ -227,15 +227,23 @@ class Asset extends Resource
              * @todo better solution for dependency container relationship.
              */
             NovaDependencyContainer::make([
+                Select::make('Type')
+                    ->options(\App\Asset::$types)
+                    ->displayUsingLabels()
+                    ->rules(['required'])
+                    ->onlyOnForms(),
+
                 FormattedNumber::make('Price (Rupiah)', 'price')
                     ->rules(['required', 'numeric'])
                     ->onlyOnForms(),
 
-                Select::make('Price Type')
-                    ->options(\App\Asset::$priceTypes)
-                    ->displayUsingLabels()
-                    ->rules(['required'])
-                    ->onlyOnForms(),
+                NovaDependencyContainer::make([
+                    Select::make('Price Type')
+                        ->options(\App\Asset::$priceTypes)
+                        ->displayUsingLabels()
+                        ->rules(['required'])
+                        ->onlyOnForms(),
+                ])->dependsOn('type', 'rent')
             ])->dependsOn('asset_category_id', 4),
 
             Images::make('Images', 'image')

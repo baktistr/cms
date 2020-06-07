@@ -23,6 +23,14 @@ class Asset extends Model implements HasMedia
     /**
      * {@inheritDoc}
      */
+    public static $types = [
+        'rent' => 'Sewa',
+        'sale' => 'Jual',
+    ];
+
+    /**
+     * {@inheritDoc}
+     */
     public static $priceTypes = [
         'hourly'  => '/jam',
         'daily'   => '/hari',
