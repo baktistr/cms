@@ -21,7 +21,9 @@ class CanUpdateProfileTest extends TestCase
     {
         return array_merge([
             'name'         => 'Muh Ghazali Akbar',
+            'username'     => 'muhghazaliakbar',
             'email'        => 'muhghazaliakbar@live.com',
+            'address'      => 'Jl. AP Pettarani Makassar',
             'phone_number' => '+6285110374321',
         ], $params);
     }
@@ -31,6 +33,7 @@ class CanUpdateProfileTest extends TestCase
     {
         $user = factory(User::class)->create([
             'name'         => 'Old name',
+            'username'     => 'muhghazaliakbar',
             'email'        => 'old_email@example.com',
             'phone_number' => '+6285110374321',
         ]);
@@ -38,6 +41,7 @@ class CanUpdateProfileTest extends TestCase
         Sanctum::actingAs($user);
         $response = $this->putJson('/api/account/profile', [
             'name'         => 'New name',
+            'username'     => 'newuniqueusername',
             'email'        => 'new_email@example.com',
             'phone_number' => '+6285971718998',
         ]);
@@ -89,6 +93,63 @@ class CanUpdateProfileTest extends TestCase
         ]));
 
         $response->assertJsonValidationErrors('name');
+    }
+
+    /** @test */
+    public function username_is_required()
+    {
+        $user = factory(User::class)->create();
+
+        Sanctum::actingAs($user);
+        $response = $this->putJson('/api/account/profile', $this->validParams([
+            'username' => '',
+        ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('username');
+    }
+
+    /** @test */
+    public function username_is_must_be_alpha_num()
+    {
+        $user = factory(User::class)->create();
+
+        Sanctum::actingAs($user);
+        $response = $this->putJson('/api/account/profile', $this->validParams([
+            'username' => 'invalid-username',
+        ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('username');
+    }
+
+    /** @test */
+    public function username_is_unique()
+    {
+        $user1 = factory(User::class)->create(['username' => 'muhghazaliakbar']);
+        $user2 = factory(User::class)->create(['username' => 'otherusername']);
+
+        Sanctum::actingAs($user1);
+        $response = $this->putJson('/api/account/profile', $this->validParams([
+            'username' => 'otherusername',
+        ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('username');
+    }
+
+    /** @test */
+    public function username_is_unique_but_ignore_itself()
+    {
+        // Create user with username "muhghazaliakbar"
+        $user = factory(User::class)->create(['username' => 'muhghazaliakbar']);
+
+        Sanctum::actingAs($user);
+        $response = $this->putJson('/api/account/profile', $this->validParams([
+            'username' => 'muhghazaliakbar',
+        ]));
+
+        $response->assertOk();
     }
 
     /** @test */
