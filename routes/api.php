@@ -55,7 +55,7 @@ Route::prefix('account')
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 
         // Account update avatar routes...
-        Route::put('avatar', [AvatarController::class, 'update'])->name('avatar.update');
+        Route::post('avatar', [AvatarController::class, 'update'])->name('avatar.update');
 
         // Account update password routes...
         Route::put('password', [PasswordController::class, 'update'])->name('password');

@@ -17,7 +17,7 @@ class CanUpdateAvatarTest extends TestCase
         $imageFile = UploadedFile::fake()->image("user-avatar.jpg");
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account/avatar', [
+        $response = $this->postJson('/api/account/avatar', [
             'avatar' => $imageFile,
         ]);
 
@@ -30,7 +30,7 @@ class CanUpdateAvatarTest extends TestCase
         $user = factory(User::class)->create();
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account/avatar', [
+        $response = $this->postjson('/api/account/avatar', [
             'avatar' => '',
         ]);
 
@@ -45,7 +45,7 @@ class CanUpdateAvatarTest extends TestCase
         $notImageFile = UploadedFile::fake()->create("user-avatar.docx");
 
         Sanctum::actingAs($user);
-        $response = $this->putJson('/api/account/avatar', [
+        $response = $this->postJson('/api/account/avatar', [
             'avatar' => $notImageFile,
         ]);
 
