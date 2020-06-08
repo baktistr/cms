@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationController;
+use App\Http\Controllers\Api\Data\AssetCategoriesController;
 use App\Http\Controllers\Api\Data\ProvincesController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,5 +66,6 @@ Route::prefix('account')
 Route::prefix('data')
     ->name('data.')
     ->group(function () {
+        Route::get('asset-categories', [AssetCategoriesController::class, 'index'])->name('asset-categories');
         Route::get('provinces', [ProvincesController::class, 'index'])->name('provinces');
     });
