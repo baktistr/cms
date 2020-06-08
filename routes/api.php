@@ -67,7 +67,7 @@ Route::prefix('account')
 /**
  * Assets routes ...
  */
-Route::get('assets', [AssetsController::class, 'index'])->name('assets');
+Route::post('assets', [AssetsController::class, 'index'])->name('assets');
 // Route::get('assets/filter', [AssetController::class, 'getByCategory'])->name('filter');
 // Route::get('assets/search', [AssetController::class, 'search'])->name('search');
 // Route::get('assets/{asset}', [AssetController::class, 'show'])->name('asset');
