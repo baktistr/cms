@@ -18,6 +18,7 @@ class CreateAssetsTable extends Migration
             $table->unsignedBigInteger('asset_category_id');
             $table->unsignedBigInteger('admin_id');
             $table->string('name')->index();
+            $table->text('description');
             $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('regency_id');
             $table->unsignedBigInteger('district_id');

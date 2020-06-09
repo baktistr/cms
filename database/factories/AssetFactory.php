@@ -21,10 +21,11 @@ $factory->define(Asset::class, function (Faker $faker) {
             return factory(User::class)->state('admin')->create()->id;
         },
         'name'              => $faker->unique()->name,
+        'description'       => $faker->realText(),
         'province_id'       => function () {
             return factory(Province::class)->create()->id;
         },
-        'regency_id'       => function () {
+        'regency_id'        => function () {
             return factory(Regency::class)->create()->id;
         },
         'district_id'       => function () {

@@ -140,6 +140,9 @@ class Asset extends Resource
                 ->rules(['required', 'max:255'])
                 ->slug('slug'),
 
+            Textarea::make('Description')
+                ->rules('required'),
+
             NovaBelongsToDepend::make('Province')
                 ->options(\App\Province::all())
                 ->hideFromIndex(),

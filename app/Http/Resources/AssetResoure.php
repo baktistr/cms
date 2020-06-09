@@ -19,6 +19,8 @@ class AssetResoure extends JsonResource
             'id'             => $this->id,
             'name'           => $this->name,
             'type'           => $this->type,
+            'description'    => $this->description,
+            'address'        => $this->address_detail,
             'numberOfFloors' => $this->number_of_floors,
             'price'          => $this->when($this->type === 'sale', $this->price),
             'formattedPrice' => $this->when($this->type === 'sale', $this->formatted_price),
@@ -27,7 +29,6 @@ class AssetResoure extends JsonResource
             'province'       => ProvinceResource::make($this->province),
             'regency'        => RegencyResource::make($this->regency),
             'district'       => DistrictResource::make($this->district),
-            'address'        => $this->address_detail,
             'images'         => AssetImageResource::collection(collect($this->getMedia('image'))),
         ];
     }
