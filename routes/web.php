@@ -1,7 +1,7 @@
 <?php
 
-use App\Province;
-use App\Regency;
+use App\Http\Controllers\Api\Auth\VerificationController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +22,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('auth')
+    ->name('auth.')
+    ->group(function () {
+        // Auth routes for guest...
+        Route::middleware('guest')->group(function () {
+            Route::get('verify', [VerificationController::class, 'verify'])->name('verify');
+            Route::get('verify/email-verified', [VerificationController::class, 'showEmailVerifiedPage'])->name('verify.email-verified');
+        });
+    });

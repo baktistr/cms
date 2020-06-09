@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Bissolli\NovaPhoneField\PhoneNumber;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
@@ -107,20 +108,23 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
+            PhoneNumber::make('Phone Number')
+                ->onlyCountries('ID'),
+
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-
-            Impersonate::make($this)->withMeta([
-                'redirect_to' => config('nova.path')
-            ]),
 
             Boolean::make('Is Super Admin')
                 ->sortable(),
 
             Boolean::make('Is Admin')
                 ->sortable(),
+
+            Impersonate::make($this)->withMeta([
+                'redirect_to' => config('nova.path')
+            ]),
 
             HasMany::make('Assets', 'assets', Asset::class),
         ];

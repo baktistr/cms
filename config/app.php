@@ -170,7 +170,8 @@ return [
         /*
          * Package Service Providers...
          */
-        \Gmt\NovaTheme\ThemeServiceProvider::class,
+        Gmt\NovaTheme\ThemeServiceProvider::class,
+        Propaganistas\LaravelPhone\PhoneServiceProvider::class,
 
         /*
          * Application Service Providers...
