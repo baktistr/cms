@@ -21,6 +21,8 @@ class AssetResoure extends JsonResource
             'type'           => $this->type,
             'description'    => $this->description,
             'address'        => $this->address_detail,
+            'latitude'       => $this->latitude,
+            'longitude'      => $this->longitude,
             'numberOfFloors' => $this->number_of_floors,
             'price'          => $this->when($this->type === 'sale', $this->price),
             'formattedPrice' => $this->when($this->type === 'sale', $this->formatted_price),
