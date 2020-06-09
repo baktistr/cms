@@ -45,8 +45,16 @@ class AssetsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Asset $asset)
+    public function show($id)
     {
+        $asset = Asset::with(['district', 'regency', 'province', 'category'])
+            ->available()
+            ->find($id);
+
+        if (!$asset) {
+            return response()->json(['message' => "Asset not found with id:{$id}"], 404);
+        }
+
         return new AssetResoure($asset);
     }
 
