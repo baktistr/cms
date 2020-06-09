@@ -32,6 +32,7 @@ $factory->define(Asset::class, function (Faker $faker) {
         },
         'address_detail'    => $faker->streetAddress,
         'unit_area'         => $faker->randomFloat(0, 50, 300),
+        'price'             => $faker->randomFloat(0, 1000000, 50000000),
     ];
 });
 
@@ -41,44 +42,31 @@ $factory->state(Asset::class, 'available', ['is_available' => true]);
 /**
  * Add states for each asset categories
  */
-$factory->state(Asset::class, 'tanah', function (Faker $faker) {
-    return [
-        'value' => $faker->randomFloat(0, 50000000, 1000000000),
-        'type'  => 'sale'
-    ];
-});
+$factory->state(Asset::class, 'tanah', ['type' => 'sale']);
 
 $factory->state(Asset::class, 'gedung', function (Faker $faker) {
     return [
         'number_of_floors' => $faker->randomNumber(1),
-        'value'            => $faker->randomFloat(0, 50000000, 1000000000),
-        'type'       => function () {
+        'type'             => function () {
             return Arr::random(array_keys(Asset::$types));
-        }
+        },
     ];
 });
 
 $factory->state(Asset::class, 'ruko', function (Faker $faker) {
     return [
         'number_of_floors' => $faker->randomNumber(1),
-        'value'            => $faker->randomFloat(0, 50000000, 1000000000),
-        'type'       => function () {
+        'type'             => function () {
             return Arr::random(array_keys(Asset::$types));
-        }
+        },
     ];
 });
 
-$factory->state(Asset::class, 'komersil', function (Faker $faker) {
-    return [
-        'type'       => function () {
-            return Arr::random(array_keys(Asset::$types));
-        },
-        'price'      => $faker->randomFloat(0, 1000000, 50000000),
-        'price_type' => function () {
-            return Arr::random(array_keys(Asset::$priceTypes));
-        },
-    ];
-});
+$factory->state(Asset::class, 'komersil', [
+    'type' => function () {
+        return Arr::random(array_keys(Asset::$types));
+    }
+]);
 
 $factory->afterCreating(Asset::class, function (Asset $asset) {
     for ($i = 1; $i <= rand(1, 10); $i++) {

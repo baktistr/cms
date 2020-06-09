@@ -12,6 +12,7 @@ use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
@@ -164,34 +165,14 @@ class Asset extends Resource
             Text::make('Phone Number')
                 ->hideFromIndex(),
 
-            Boolean::make('Available', 'is_available')
-                ->sortable(),
+            Select::make('Type')
+                ->options(\App\Asset::$types)
+                ->displayUsingLabels()
+                ->rules(['required']),
 
             Text::make('Unit area (m2)', 'unit_area')
                 ->rules(['required', 'numeric'])
                 ->hideFromIndex(),
-
-            /**
-             * Field for tanah and gedung.
-             */
-            NovaDependencyContainer::make([
-                Text::make('Value (Rupiah)', function () {
-                    return $this->formatted_value;
-                }),
-            ])->dependsOn('asset_category_id', 1)
-                ->dependsOn('asset_category_id', 2)
-                ->onlyOnIndex()
-                ->onlyOnDetail(),
-
-            /**
-             * Fields for Tanah.
-             * @todo better solution for dependency container relationship.
-             */
-            NovaDependencyContainer::make([
-                FormattedNumber::make('Value (Rupiah)', 'value')
-                    ->rules(['required', 'numeric']),
-            ])->dependsOn('asset_category_id', 1)
-                ->onlyOnForms(),
 
             /**
              * Fields for Gedung dan ruko.
@@ -205,44 +186,22 @@ class Asset extends Resource
                 ->onlyOnDetail()
                 ->onlyOnIndex(),
 
-
             NovaDependencyContainer::make([
-                Text::make('Number of Floors')
-                    ->rules(['required', 'numeric', 'min:1']),
-
-                FormattedNumber::make('Value (Rupiah)', 'value')
-                    ->rules(['required', 'numeric'])
-                    ->onlyOnForms(),
-            ])->dependsOn('asset_category_id', 2)
-                ->dependsOn('asset_category_id', 3)
-                ->onlyOnForms(),
-
-            /**
-             * Fields for komersil.
-             * @todo better solution for dependency container relationship.
-             */
-            NovaDependencyContainer::make([
-                Select::make('Type')
-                    ->options(\App\Asset::$types)
-                    ->displayUsingLabels()
-                    ->rules(['required'])
-                    ->onlyOnForms(),
-
                 FormattedNumber::make('Price (Rupiah)', 'price')
                     ->rules(['required', 'numeric'])
                     ->onlyOnForms(),
+            ])->dependsOn('type', 'sale'),
 
-                NovaDependencyContainer::make([
-                    Select::make('Price Type')
-                        ->options(\App\Asset::$priceTypes)
-                        ->displayUsingLabels()
-                        ->rules(['required'])
-                        ->onlyOnForms(),
-                ])->dependsOn('type', 'rent')
-            ])->dependsOn('asset_category_id', 4),
+            Boolean::make('Available', 'is_available')
+                ->sortable(),
 
             Images::make('Images', 'image')
                 ->rules(['required']),
+
+            HasMany::make('Prices', 'prices', AssetPrice::class)
+                ->canSee(function () {
+                    return $this->type === 'rent';
+                }),
         ];
     }
 

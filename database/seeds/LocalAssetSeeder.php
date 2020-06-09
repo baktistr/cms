@@ -2,8 +2,10 @@
 
 use App\Asset;
 use App\AssetCategory;
+use App\AssetPrice;
 use App\District;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class LocalAssetSeeder extends Seeder
 {
@@ -17,31 +19,49 @@ class LocalAssetSeeder extends Seeder
         // Create Building from csv
         $buildings = file(database_path('seeds/data/buildings.csv'));
 
-        foreach ($buildings as $building) {
-            $row = explode(';', $building);
+        AssetCategory::get()
+            ->each(function ($category) use ($buildings) {
+                // Seed available random assets to category and assign to random admin
+                for ($i = 1; $i < rand(3, 5); $i++) {
+                    // Get random location data from
+                    $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
+                    $randomBuilding = explode(';', Arr::random($buildings));
 
-            // Get random asset category
-            $category = AssetCategory::inRandomOrder()->first();
+                    factory(Asset::class)->states([$category->slug, 'available'])->create([
+                        'asset_category_id' => $category->id,
+                        'admin_id'          => collect($category->assignedAdmins->pluck('id'))->random(),
+                        'province_id'       => $randomDistrict->regency->province->id,
+                        'regency_id'        => $randomDistrict->regency->id,
+                        'district_id'       => $randomDistrict->id,
+                        'name'              => $randomBuilding[1],
+                        'address_detail'    => $randomBuilding[2],
+                        'phone_number'      => $randomBuilding[3],
+                    ]);
+                }
 
-            // Get random location data from
-            $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
 
-            /**
-             * That because the category slug had same name with the states,
-             * we can just use it to factory state.
-             */
+                // Seed random rent assets
+                if ($category->slug === 'komersil') {
+                    for ($i = 1; $i < rand(1, 3); $i++) {
+                        // Get random location data from
+                        $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
+                        $randomBuilding = explode(';', Arr::random($buildings));
 
-            // Seed random unavailable assets to category and assign to random admin
-            factory(Asset::class)->states([$category->slug, 'available'])->create([
-                'asset_category_id' => $category->id,
-                'admin_id'          => collect($category->assignedAdmins->pluck('id'))->random(),
-                'province_id'       => $randomDistrict->regency->province->id,
-                'regency_id'        => $randomDistrict->regency->id,
-                'district_id'       => $randomDistrict->id,
-                'name'              => $row[1],
-                'address_detail'    => $row[2],
-                'phone_number'      => $row[3],
-            ]);
-        }
+                        $asset = factory(Asset::class)->states('available')->create([
+                            'asset_category_id' => $category->id,
+                            'admin_id'          => collect($category->assignedAdmins->pluck('id'))->random(),
+                            'province_id'       => $randomDistrict->regency->province->id,
+                            'regency_id'        => $randomDistrict->regency->id,
+                            'district_id'       => $randomDistrict->id,
+                            'name'              => $randomBuilding[1],
+                            'type'              => 'rent',
+                            'address_detail'    => $randomBuilding[2],
+                            'phone_number'      => $randomBuilding[3],
+                        ]);
+
+                        factory(AssetPrice::class, rand(1, 3))->create(['asset_id' => $asset->id]);
+                    }
+                }
+            });
     }
 }

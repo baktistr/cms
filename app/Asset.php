@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Nova\Actions\Actionable;
 use Spatie\Image\Manipulations;
@@ -27,16 +28,6 @@ class Asset extends Model implements HasMedia
     public static $types = [
         'rent' => 'Sewa',
         'sale' => 'Jual',
-    ];
-
-    /**
-     * {@inheritDoc}
-     */
-    public static $priceTypes = [
-        'hourly'  => '/jam',
-        'daily'   => '/hari',
-        'monthly' => '/bulan',
-        'yearly'  => '/tahun',
     ];
 
     /**
@@ -118,6 +109,16 @@ class Asset extends Model implements HasMedia
     public function district(): BelongsTo
     {
         return $this->belongsTo(District::class, 'district_id');
+    }
+
+    /**
+     * An asset can have many prices.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function prices(): HasMany
+    {
+        return $this->hasMany(AssetPrice::class, 'asset_id');
     }
 
     /**
