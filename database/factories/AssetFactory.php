@@ -32,6 +32,8 @@ $factory->define(Asset::class, function (Faker $faker) {
             return factory(District::class)->create()->id;
         },
         'address_detail'    => $faker->streetAddress,
+        'latitude'          => $faker->latitude,
+        'longitude'         => $faker->longitude,
         'unit_area'         => $faker->randomFloat(0, 50, 300),
         'price'             => $faker->randomFloat(0, 1000000, 50000000),
     ];

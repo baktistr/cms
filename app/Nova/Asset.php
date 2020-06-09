@@ -9,6 +9,7 @@ use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -164,6 +165,10 @@ class Asset extends Resource
             Textarea::make('Address Detail')
                 ->rules('required')
                 ->alwaysShow(),
+
+            MapMarker::make('Location')
+                ->rules('required')
+                ->hideFromIndex(),
 
             Text::make('Phone Number')
                 ->hideFromIndex(),
