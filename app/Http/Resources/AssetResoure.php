@@ -15,15 +15,14 @@ class AssetResoure extends JsonResource
      */
     public function toArray($request)
     {
-        $type = Asset::$types[$this->type] ?? null;
-
         return [
             'id'             => $this->id,
             'name'           => $this->name,
-            'type'           => $this->when($this->type, $type),
-            'price'          => $this->price,
-            'formattedPrice' => $this->formatted_price,
-            'priceType'      => $this->priceType,
+            'type'           => $this->type,
+            'numberOfFloors' => $this->number_of_floors,
+            'price'          => $this->when($this->type === 'sale', $this->price),
+            'formattedPrice' => $this->when($this->type === 'sale', $this->formatted_price),
+            'prices'         => $this->when($this->type === 'rent', AssetPriceResource::collection($this->prices)),
             'category'       => AssetCategoryResource::make($this->category),
             'province'       => ProvinceResource::make($this->province),
             'regency'        => RegencyResource::make($this->regency),

@@ -18,6 +18,16 @@ class AssetPrice extends Model
     ];
 
     /**
+     * Get formatted price on rupiah.
+     *
+     * @return string
+     */
+    public function getFormattedPriceAttribute()
+    {
+        return 'Rp.' . number_format($this->price);
+    }
+
+    /**
      * An asset price belongs to asset.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

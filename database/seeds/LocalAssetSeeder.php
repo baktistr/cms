@@ -41,13 +41,13 @@ class LocalAssetSeeder extends Seeder
 
 
                 // Seed random rent assets
-                if ($category->slug === 'komersil') {
+                if ($category->slug === 'komersil' || $category->slug === 'gedung') {
                     for ($i = 1; $i < rand(1, 3); $i++) {
                         // Get random location data from
                         $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
                         $randomBuilding = explode(';', Arr::random($buildings));
 
-                        $asset = factory(Asset::class)->states('available')->create([
+                        $asset = factory(Asset::class)->states([$category->slug, 'available'])->create([
                             'asset_category_id' => $category->id,
                             'admin_id'          => collect($category->assignedAdmins->pluck('id'))->random(),
                             'province_id'       => $randomDistrict->regency->province->id,

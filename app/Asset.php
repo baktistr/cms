@@ -31,16 +31,6 @@ class Asset extends Model implements HasMedia
     ];
 
     /**
-     * Get formatted value on rupiah.
-     *
-     * @return string
-     */
-    public function getFormattedValueAttribute()
-    {
-        return 'Rp.' . number_format($this->value);
-    }
-
-    /**
      * Get formatted price on rupiah.
      *
      * @return string
