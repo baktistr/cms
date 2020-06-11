@@ -21,6 +21,7 @@ class AssetsController extends Controller
         $category = $request->get('category');
         $minPrice = $request->get('min_price');
         $maxPrice = $request->get('max_price');
+        $province = $request->get('province');
 
         $assets = Asset::with(['district', 'regency', 'province', 'category'])
             ->available()
@@ -35,8 +36,9 @@ class AssetsController extends Controller
             })
             ->when(isset($maxPrice) && !empty($maxPrice), function ($query) use ($maxPrice) {
                 $query->where('price', '<=', $maxPrice);
+            })->when(isset($province) && !empty($province), function ($query) use ($province) {
+                $query->where('province_id', $province);
             });
-
         return AssetResoure::collection($assets->paginate($request->get('per_page', 10)));
     }
     /**
