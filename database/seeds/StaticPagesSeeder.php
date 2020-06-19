@@ -12,6 +12,23 @@ class StaticPagesSeeder extends Seeder
      */
     public function run()
     {
-        factory(StaticPages::class)->create();
+        $title = collect([
+            [
+                'title' => 'Terms & Conditions',
+                'slug'  => 'terms-conditions'
+            ],
+            [
+                'title' => 'Privacy Policy',
+                'slug'  => 'privacy-policy'
+            ]
+
+        ]);
+
+        $title->each(function ($title) {
+            factory(StaticPages::class)->create([
+                'title' => $title['title'],
+                'slug'  => $title['slug']
+            ]);
+        });
     }
 }

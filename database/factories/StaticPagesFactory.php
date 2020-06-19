@@ -4,12 +4,14 @@
 
 use App\StaticPages;
 use Faker\Generator as Faker;
-use Illuminate\Support\Str ;
+use Illuminate\Support\Str;
 
 $factory->define(StaticPages::class, function (Faker $faker) {
     return [
         'title'     => $faker->unique()->sentence,
-        'slug'      => Str::slug($faker->unique()->sentence, '-'),
+        'slug'      => function ($data) {
+            return Str::slug($data['title']);
+        },
         'content'   => $faker->paragraph,
     ];
 });

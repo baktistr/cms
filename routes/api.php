@@ -78,8 +78,7 @@ Route::get('assets/{id}', [AssetsController::class, 'show'])->name('assets.show'
 Route::prefix('static-pages')
     ->name('static-pages.')
     ->group(function () {
-        Route::get('term-and-conditions', [StaticPagesController::class , 'show'])->name('term-and-conditions');
-        Route::get('privacy-policy', [StaticPagesController::class , 'show'])->name('term-and-conditions');
+        Route::get('{slug}', [StaticPagesController::class , 'show'])->name('term-and-conditions');
     });
 
 

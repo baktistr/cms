@@ -14,12 +14,10 @@ class StaticPagesController extends Controller
      * Show Static pages
      * 
      * @return Illuminate\Http\Resources\Json\JsonResource
+     * @param $slug 
      */
-    public function show() : JsonResource
+    public function show(StaticPages $slug) : JsonResource
     {
-        $asset = StaticPages::all();
-
-        return StaticPagesResource::collection($asset);
+        return new StaticPagesResource($slug);
     }
 }
-
