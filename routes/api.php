@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationController;
 use App\Http\Controllers\Api\Data\AssetCategoriesController;
 use App\Http\Controllers\Api\Data\ProvincesController;
+use App\Http\Controllers\Api\StaticPages\StaticPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,4 +79,10 @@ Route::prefix('data')
     ->group(function () {
         Route::get('asset-categories', [AssetCategoriesController::class, 'index'])->name('asset-categories');
         Route::get('provinces', [ProvincesController::class, 'index'])->name('provinces');
+    });
+
+Route::prefix('tos')
+    ->name('tos.')
+    ->group(function () {
+        Route::get('service' , [StaticPageController::class , 'index'])->name('service');
     });
