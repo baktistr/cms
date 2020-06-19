@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ProvinceSeeder::class);
         $this->call(RegencySeeder::class);
         $this->call(DistrictSeeder::class);
+        $this->call(StaticPagesSeeder::class);
 
         // Run seeder only in local environment
         if (App::environment() === 'local') {
             $this->call(LocalAssetSeeder::class);
-            $this->call(StaticPagesSeeder::class);
         }
     }
 }
