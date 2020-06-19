@@ -21,24 +21,27 @@ class VerificationEmailTest extends TestCase
     private function validParams($params = [])
     {
         return array_merge([
-            'name'                  => 'Muh Ghazali Akbar',
-            'email'                 => 'muhghazaliakbar@live.com',
-            'phone_number'          => '+6285110374321',
-            'password'              => 'my-password',
-            'password_confirmation' => 'my-password',
+            'name'         => 'Muh Ghazali Akbar',
+            'username'     => 'muhghazaliakbar',
+            'email'        => 'muhghazaliakbar@live.com',
+            'address'      => 'Jl. AP Pettarani Makassar',
+            'phone_number' => '+6285110374321',
+            'password'     => 'my-password',
         ], $params);
     }
 
     /** @test */
     public function can_send_verification_email()
     {
+        $this->withoutExceptionHandling();
         Notification::fake();
 
-        $this->postJson('/api/auth/register', $this->validParams());
+        $this->postJson('/api/auth/register', $this->validParams())
+             ->assertCreated();
 
         $user = User::latest()->first();
 
-        Notification::assertSentTo([$user], EmailVerificationNotification::class);
+        Notification::assertSentTo($user, EmailVerificationNotification::class);
     }
 
     /** @test */
@@ -50,6 +53,5 @@ class VerificationEmailTest extends TestCase
 
     public function can_not_verify_account_with_wrong_code()
     {
-
     }
 }
