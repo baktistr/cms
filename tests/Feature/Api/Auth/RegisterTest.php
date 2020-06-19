@@ -42,7 +42,6 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertCreated();
-        $response->assertStatus(201);
     }
 
     /** @test */
