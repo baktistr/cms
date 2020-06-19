@@ -25,6 +25,15 @@ class StaticPages extends Resource
      */
     public static $title = 'title';
 
+
+    
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Master Data';
+
     /**
      * The columns that should be searched.
      *
