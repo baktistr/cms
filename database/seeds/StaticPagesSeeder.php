@@ -1,0 +1,17 @@
+<?php
+
+use App\StaticPages;
+use Illuminate\Database\Seeder;
+
+class StaticPagesSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        factory(StaticPages::class)->create();
+    }
+}
