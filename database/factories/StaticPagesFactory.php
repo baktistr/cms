@@ -8,8 +8,8 @@ use Illuminate\Support\Str ;
 
 $factory->define(StaticPages::class, function (Faker $faker) {
     return [
-        'title'     => $faker->sentence,
-        'slug'      => Str::slug($faker->sentence , '-'),
+        'title'     => $faker->unique()->sentence,
+        'slug'      => Str::slug($faker->unique()->sentence, '-'),
         'content'   => $faker->paragraph,
     ];
 });

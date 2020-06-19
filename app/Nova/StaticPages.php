@@ -51,10 +51,10 @@ class StaticPages extends Resource
                 ->rules('string', 'required'),
 
             Slug::make('Slug', 'slug')
-                ->rules('string', 'required'),
+                ->rules('string', 'required' , 'unique:static_pages,slug'),
 
             Markdown::make('Content', 'content')
-                ->rules('string', 'required'),
+                ->rules('required'),
         ];
     }
 
