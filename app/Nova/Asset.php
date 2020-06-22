@@ -162,15 +162,15 @@ class Asset extends Resource
                 ->dependsOn('Regency')
                 ->hideFromIndex(),
 
-            Textarea::make('Detail Alamat')
+            Textarea::make('Detail Alamat' , 'address_detail')
                 ->rules('required')
                 ->alwaysShow(),
 
-            MapMarker::make('Lokasi')
+            MapMarker::make('Lokasi' , 'location')
                 ->rules('required')
                 ->hideFromIndex(),
 
-            Text::make('Nomor Handphone')
+            Text::make('Nomor Handphone' , 'phone_number')
                 ->hideFromIndex(),
 
             Select::make('Tipe' , 'type')
