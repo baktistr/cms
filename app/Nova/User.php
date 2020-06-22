@@ -98,17 +98,17 @@ class User extends Resource
                 ->conversionOnDetailView('large')
                 ->rules('required'),
 
-            Text::make('Name')
+            Text::make('Nama' , 'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email')
+            Text::make('Email' , 'email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            PhoneNumber::make('Phone Number')
+            PhoneNumber::make('Nomor Handphone' , 'phone_number')
                 ->onlyCountries('ID'),
 
             Password::make('Password')
@@ -116,10 +116,10 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
-            Boolean::make('Is Super Admin')
+            Boolean::make('Super Admin')
                 ->sortable(),
 
-            Boolean::make('Is Admin')
+            Boolean::make('Admin')
                 ->sortable(),
 
             Impersonate::make($this)->withMeta([

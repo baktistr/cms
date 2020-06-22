@@ -52,12 +52,12 @@ class District extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Regency', 'regency', Regency::class)
+            BelongsTo::make('Kabupaten', 'regency', Regency::class)
                 ->sortable(),
 
-            Text::make('Name'),
+            Text::make('Nama' , 'name'),
 
-            Text::make('Assets count', function () {
+            Text::make('Total Asset', function () {
                 return $this->assets()->count();
             })->showOnIndex(function () use ($request) {
                 return $request->user()->isSuperAdmin();
@@ -111,5 +111,15 @@ class District extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Kecamatan');
     }
 }

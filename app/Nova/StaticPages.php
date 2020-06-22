@@ -26,7 +26,7 @@ class StaticPages extends Resource
     public static $title = 'title';
 
 
-    
+
     /**
      * The logical group associated with the resource.
      *
@@ -60,7 +60,7 @@ class StaticPages extends Resource
                 ->rules('string', 'required'),
 
             Slug::make('Slug', 'slug')
-                ->rules('string', 'required' , 'unique:static_pages,slug'),
+                ->rules('string', 'required', 'unique:static_pages,slug'),
 
             Markdown::make('Content', 'content')
                 ->rules('required'),
@@ -109,5 +109,14 @@ class StaticPages extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Halaman Statis');
     }
 }

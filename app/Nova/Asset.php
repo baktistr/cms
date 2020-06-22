@@ -122,10 +122,10 @@ class Asset extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Category', 'category', AssetCategory::class)
+            BelongsTo::make('Kategori', 'category', AssetCategory::class)
                 ->exceptOnForms(),
 
-            Select::make('Category', 'asset_category_id')
+            Select::make('Kategori', 'asset_category_id')
                 ->options($this->assetCategories($request->user()))
                 ->displayUsingLabels()
                 ->rules(['required', 'exists:asset_categories,id'])
@@ -137,11 +137,11 @@ class Asset extends Resource
 
             BelongsTo::make('Admin', 'admin', User::class),
 
-            TextWithSlug::make('Name')
+            TextWithSlug::make('Nama' , 'name')
                 ->rules(['required', 'max:255'])
                 ->slug('slug'),
 
-            Textarea::make('Description')
+            Textarea::make('Deskripsi')
                 ->rules('required'),
 
             NovaBelongsToDepend::make('Province')
@@ -162,23 +162,23 @@ class Asset extends Resource
                 ->dependsOn('Regency')
                 ->hideFromIndex(),
 
-            Textarea::make('Address Detail')
+            Textarea::make('Detail Alamat')
                 ->rules('required')
                 ->alwaysShow(),
 
-            MapMarker::make('Location')
+            MapMarker::make('Lokasi')
                 ->rules('required')
                 ->hideFromIndex(),
 
-            Text::make('Phone Number')
+            Text::make('Nomor Handphone')
                 ->hideFromIndex(),
 
-            Select::make('Type')
+            Select::make('Tipe' , 'type')
                 ->options(\App\Asset::$types)
                 ->displayUsingLabels()
                 ->rules(['required']),
 
-            Text::make('Unit area (m2)', 'unit_area')
+            Text::make('Luas area (m2)', 'unit_area')
                 ->rules(['required', 'numeric'])
                 ->hideFromIndex(),
 
@@ -187,7 +187,7 @@ class Asset extends Resource
              * @todo better solution for dependency container relationship.
              */
             NovaDependencyContainer::make([
-                Text::make('Number of Floors')
+                Text::make('Jumlah Lantai')
                     ->rules(['required', 'numeric', 'min:1'])
             ])->dependsOn('asset_category_id', 2)
                 ->dependsOn('asset_category_id', 3)
@@ -195,18 +195,18 @@ class Asset extends Resource
                 ->onlyOnIndex(),
 
             NovaDependencyContainer::make([
-                FormattedNumber::make('Price (Rupiah)', 'price')
+                FormattedNumber::make('Harga (Rupiah)', 'price')
                     ->rules(['required', 'numeric'])
                     ->onlyOnForms(),
             ])->dependsOn('type', 'sale'),
 
-            Boolean::make('Available', 'is_available')
+            Boolean::make('Ketersedian', 'is_available')
                 ->sortable(),
 
-            Images::make('Images', 'image')
+            Images::make('Gambar', 'image')
                 ->rules(['required']),
 
-            HasMany::make('Prices', 'prices', AssetPrice::class)
+            HasMany::make('Harga', 'prices', AssetPrice::class)
                 ->canSee(function () {
                     return $this->type === 'rent';
                 }),
@@ -275,5 +275,15 @@ class Asset extends Resource
 
         return \App\AssetCategory::assignedAdmin($user)
             ->pluck('name', 'id');
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Asset');
     }
 }

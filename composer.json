@@ -27,6 +27,7 @@
         "benjaminhirsch/nova-slug-field": "^1.2",
         "bissolli/nova-phone-field": "^0.0.4",
         "cloudcake/nova-fixed-bars": "^1.1",
+        "coderello/laravel-nova-lang": "^1.4",
         "ebess/advanced-nova-media-library": "^3.2.0",
         "epartment/nova-dependency-container": "^1.2",
         "fideloper/proxy": "^4.2",

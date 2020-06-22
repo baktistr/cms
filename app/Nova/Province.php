@@ -51,10 +51,10 @@ class Province extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make('Nama' , 'name')
                 ->sortable(),
 
-            Text::make('Assets Count', function () {
+            Text::make('Total Asset', function () {
                 return $this->regencies()->count();
             })->showOnIndex(function () use ($request) {
                 return $request->user()->isSuperAdmin();
@@ -62,15 +62,15 @@ class Province extends Resource
                 return $request->user()->isSuperAdmin();
             }),
 
-            Text::make('Regencies Count', function () {
+            Text::make('Total Kabupaten', function () {
                 return $this->regencies()->count();
             }),
 
-            Text::make('Districts Count', function () {
+            Text::make('Total Kecamatan', function () {
                 return $this->districts()->count();
             }),
 
-            HasMany::make('Regencies', 'regencies', Regency::class),
+            HasMany::make('Kecamatan', 'regencies', Regency::class),
 
             HasMany::make('Assets', 'assets', Asset::class),
         ];
@@ -118,5 +118,15 @@ class Province extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Provinsi');
     }
 }
