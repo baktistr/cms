@@ -116,10 +116,10 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
-            Boolean::make('Super Admin')
+            Boolean::make('Super Admin', 'is_super_admin')
                 ->sortable(),
 
-            Boolean::make('Admin')
+            Boolean::make('Admin', 'is_admin')
                 ->sortable(),
 
             Impersonate::make($this)->withMeta([

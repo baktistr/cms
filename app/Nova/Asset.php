@@ -141,7 +141,7 @@ class Asset extends Resource
                 ->rules(['required', 'max:255'])
                 ->slug('slug'),
 
-            Textarea::make('Deskripsi')
+            Textarea::make('Deskripsi' , 'description')
                 ->rules('required'),
 
             NovaBelongsToDepend::make('Province')
@@ -166,7 +166,7 @@ class Asset extends Resource
                 ->rules('required')
                 ->alwaysShow(),
 
-            MapMarker::make('Lokasi' , 'location')
+            MapMarker::make('Location')
                 ->rules('required')
                 ->hideFromIndex(),
 
@@ -187,7 +187,7 @@ class Asset extends Resource
              * @todo better solution for dependency container relationship.
              */
             NovaDependencyContainer::make([
-                Text::make('Jumlah Lantai')
+                Text::make('Jumlah Lantai','number_of_floors')
                     ->rules(['required', 'numeric', 'min:1'])
             ])->dependsOn('asset_category_id', 2)
                 ->dependsOn('asset_category_id', 3)
