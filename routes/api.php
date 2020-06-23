@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationController;
 use App\Http\Controllers\Api\Data\AssetCategoriesController;
 use App\Http\Controllers\Api\Data\ProvincesController;
+use App\Http\Controllers\Api\StaticPagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,6 +70,16 @@ Route::prefix('account')
  */
 Route::post('assets', [AssetsController::class, 'index'])->name('assets');
 Route::get('assets/{id}', [AssetsController::class, 'show'])->name('assets.show');
+
+
+/**
+ * Term Of Condition & Privacy And Policy
+ */
+Route::get('static-pages/{slug}', [StaticPagesController::class , 'show'])->name('static-pages');
+
+
+
+
 
 /**
  * Data routes...
