@@ -3,20 +3,19 @@
 namespace App\Nova;
 
 use Benjaminhirsch\NovaSlugField\Slug;
+use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Markdown;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
-class StaticPages extends Resource
+class StaticPage extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\StaticPages::class;
+    public static $model = \App\StaticPage::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -25,14 +24,12 @@ class StaticPages extends Resource
      */
     public static $title = 'title';
 
-
-
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Master Data';
+    public static $group = 'Application';
 
     /**
      * The columns that should be searched.
@@ -56,14 +53,16 @@ class StaticPages extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Title', 'title')
-                ->rules('string', 'required'),
+            TextWithSlug::make('Title')
+                ->rules(['string', 'required'])
+                ->slug(),
 
-            Slug::make('Slug', 'slug')
-                ->rules('string', 'required', 'unique:static_pages,slug'),
+            Slug::make('Slug')
+                ->rules(['string', 'required' , 'unique:static_pages,slug,{{resourceId}}']),
 
             Markdown::make('Content', 'content')
-                ->rules('required'),
+                ->rules(['required'])
+                ->alwaysShow(),
         ];
     }
 

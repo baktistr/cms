@@ -1,7 +1,7 @@
 <?php
 
 use App\District;
-use App\StaticPages;
+use App\StaticPage;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;

@@ -1,6 +1,6 @@
 <?php
 
-use App\StaticPages;
+use App\StaticPage;
 use Illuminate\Database\Seeder;
 
 class StaticPagesSeeder extends Seeder
@@ -25,7 +25,7 @@ class StaticPagesSeeder extends Seeder
         ]);
 
         $title->each(function ($title) {
-            factory(StaticPages::class)->create([
+            factory(StaticPage::class)->create([
                 'title' => $title['title'],
                 'slug'  => $title['slug']
             ]);
