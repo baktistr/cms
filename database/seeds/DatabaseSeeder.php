@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DistrictSeeder::class);
         $this->call(StaticPagesSeeder::class);
         $this->call(TelkomRegionalSeeder::class);
+        $this->call(WilayahTelekomunikasiSeeder::class);
 
         // Run seeder only in local environment
         if (App::environment() === 'local') {

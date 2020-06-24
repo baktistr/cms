@@ -130,6 +130,10 @@ class Asset extends Resource
                 ->rules(['required'])
                 ->sortable(),
 
+            BelongsTo::make('Wilayah Telekomunikasi', 'witel', WilayahTelekomunikasi::class)
+                ->rules(['required'])
+                ->sortable(),
+
             Select::make('Kategori', 'asset_category_id')
                 ->options($this->assetCategories($request->user()))
                 ->displayUsingLabels()

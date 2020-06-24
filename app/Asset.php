@@ -112,6 +112,16 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * An asset belongs to wilayah telekomunikasi.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function witel(): BelongsTo
+    {
+        return $this->belongsTo(WilayahTelekomunikasi::class, 'witel_id');
+    }
+
+    /**
      * An asset can have many prices.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

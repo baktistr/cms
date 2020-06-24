@@ -5,6 +5,7 @@ use App\AssetCategory;
 use App\AssetPrice;
 use App\District;
 use App\TelkomRegional;
+use App\WilayahTelekomunikasi;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -28,10 +29,12 @@ class LocalAssetSeeder extends Seeder
                     $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
                     $randomBuilding = explode(';', Arr::random($buildings));
                     $randomRegional = TelkomRegional::inRandomOrder()->first();
+                    $randomWitel = WilayahTelekomunikasi::inRandomOrder()->first();
 
                     factory(Asset::class)->states([$category->slug, 'available'])->create([
                         'asset_category_id'  => $category->id,
                         'telkom_regional_id' => $randomRegional->id,
+                        'witel_id'           => $randomWitel->id,
                         'admin_id'           => collect($category->assignedAdmins->pluck('id'))->random(),
                         'province_id'        => $randomDistrict->regency->province->id,
                         'regency_id'         => $randomDistrict->regency->id,
@@ -50,10 +53,12 @@ class LocalAssetSeeder extends Seeder
                         $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
                         $randomBuilding = explode(';', Arr::random($buildings));
                         $randomRegional = TelkomRegional::inRandomOrder()->first();
+                        $randomWitel = WilayahTelekomunikasi::inRandomOrder()->first();
 
                         $asset = factory(Asset::class)->states([$category->slug, 'available'])->create([
                             'asset_category_id'  => $category->id,
                             'telkom_regional_id' => $randomRegional->id,
+                            'witel_id'           => $randomWitel->id,
                             'admin_id'           => collect($category->assignedAdmins->pluck('id'))->random(),
                             'province_id'        => $randomDistrict->regency->province->id,
                             'regency_id'         => $randomDistrict->regency->id,
