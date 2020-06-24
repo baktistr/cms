@@ -15,11 +15,11 @@ class WilayahTelekomunikasiSeeder extends Seeder
         $witel = collect([
             'Banten',
             'Tangerang',
-            'Jakarta Barat',
-            'Jakarta Pusat',
-            'Jakarta Selatan',
-            'Jakarta Timur',
-            'Jakarta Utara',
+            'Jakbar',
+            'Jakpus',
+            'Jaksel',
+            'Jaktim',
+            'Jakut',
             'Bekasi',
             'Bogor',
         ]);
