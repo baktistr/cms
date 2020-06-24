@@ -15,8 +15,9 @@ class CreateAssetsTable extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('asset_category_id');
-            $table->unsignedBigInteger('admin_id');
+            $table->foreignId('asset_category_id');
+            $table->foreignId('telkom_regional_id');
+            $table->foreignId('admin_id');
             $table->string('name')->index();
             $table->text('description');
             $table->text('address_detail');

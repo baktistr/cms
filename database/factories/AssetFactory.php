@@ -7,6 +7,7 @@ use App\AssetCategory;
 use App\District;
 use App\Province;
 use App\Regency;
+use App\TelkomRegional;
 use App\Testing\File;
 use App\User;
 use Faker\Generator as Faker;
@@ -16,6 +17,9 @@ $factory->define(Asset::class, function (Faker $faker) {
     return [
         'asset_category_id' => function () {
             return factory(AssetCategory::class)->create()->id;
+        },
+        'telkom_regional_id' => function () {
+            return factory(TelkomRegional::class)->create()->id;
         },
         'admin_id'          => function () {
             return factory(User::class)->state('admin')->create()->id;

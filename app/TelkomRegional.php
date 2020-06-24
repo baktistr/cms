@@ -14,6 +14,6 @@ class TelkomRegional extends Model
      */
     public function assets(): HasMany
     {
-        return $this->hasMany(TelkomRegional::class, 'telkom_regional_id');
+        return $this->hasMany(Asset::class, 'telkom_regional_id');
     }
 }

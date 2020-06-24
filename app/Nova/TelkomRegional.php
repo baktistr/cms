@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -52,6 +53,12 @@ class TelkomRegional extends Resource
 
             Text::make('Name')
                 ->rules(['required', 'string']),
+
+            Text::make('Jumlah Aset', function () {
+                return $this->assets()->count();
+            }),
+
+            HasMany::make('Aset', 'assets', Asset::class),
         ];
     }
 

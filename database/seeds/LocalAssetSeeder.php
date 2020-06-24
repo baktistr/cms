@@ -4,6 +4,7 @@ use App\Asset;
 use App\AssetCategory;
 use App\AssetPrice;
 use App\District;
+use App\TelkomRegional;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -26,16 +27,18 @@ class LocalAssetSeeder extends Seeder
                     // Get random location data from
                     $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
                     $randomBuilding = explode(';', Arr::random($buildings));
+                    $randomRegional = TelkomRegional::inRandomOrder()->first();
 
                     factory(Asset::class)->states([$category->slug, 'available'])->create([
-                        'asset_category_id' => $category->id,
-                        'admin_id'          => collect($category->assignedAdmins->pluck('id'))->random(),
-                        'province_id'       => $randomDistrict->regency->province->id,
-                        'regency_id'        => $randomDistrict->regency->id,
-                        'district_id'       => $randomDistrict->id,
-                        'name'              => $randomBuilding[1],
-                        'address_detail'    => $randomBuilding[2],
-                        'phone_number'      => $randomBuilding[3],
+                        'asset_category_id'  => $category->id,
+                        'telkom_regional_id' => $randomRegional->id,
+                        'admin_id'           => collect($category->assignedAdmins->pluck('id'))->random(),
+                        'province_id'        => $randomDistrict->regency->province->id,
+                        'regency_id'         => $randomDistrict->regency->id,
+                        'district_id'        => $randomDistrict->id,
+                        'name'               => $randomBuilding[1],
+                        'address_detail'     => $randomBuilding[2],
+                        'phone_number'       => $randomBuilding[3],
                     ]);
                 }
 
@@ -46,17 +49,19 @@ class LocalAssetSeeder extends Seeder
                         // Get random location data from
                         $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
                         $randomBuilding = explode(';', Arr::random($buildings));
+                        $randomRegional = TelkomRegional::inRandomOrder()->first();
 
                         $asset = factory(Asset::class)->states([$category->slug, 'available'])->create([
-                            'asset_category_id' => $category->id,
-                            'admin_id'          => collect($category->assignedAdmins->pluck('id'))->random(),
-                            'province_id'       => $randomDistrict->regency->province->id,
-                            'regency_id'        => $randomDistrict->regency->id,
-                            'district_id'       => $randomDistrict->id,
-                            'name'              => $randomBuilding[1],
-                            'type'              => 'rent',
-                            'address_detail'    => $randomBuilding[2],
-                            'phone_number'      => $randomBuilding[3],
+                            'asset_category_id'  => $category->id,
+                            'telkom_regional_id' => $randomRegional->id,
+                            'admin_id'           => collect($category->assignedAdmins->pluck('id'))->random(),
+                            'province_id'        => $randomDistrict->regency->province->id,
+                            'regency_id'         => $randomDistrict->regency->id,
+                            'district_id'        => $randomDistrict->id,
+                            'name'               => $randomBuilding[1],
+                            'type'               => 'rent',
+                            'address_detail'     => $randomBuilding[2],
+                            'phone_number'       => $randomBuilding[3],
                         ]);
 
                         factory(AssetPrice::class, rand(1, 3))->create(['asset_id' => $asset->id]);

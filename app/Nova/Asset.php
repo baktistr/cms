@@ -123,7 +123,12 @@ class Asset extends Resource
             ID::make()->sortable(),
 
             BelongsTo::make('Kategori', 'category', AssetCategory::class)
-                ->exceptOnForms(),
+                ->exceptOnForms()
+                ->sortable(),
+
+            BelongsTo::make('Regional', 'regional', TelkomRegional::class)
+                ->rules(['required'])
+                ->sortable(),
 
             Select::make('Kategori', 'asset_category_id')
                 ->options($this->assetCategories($request->user()))
@@ -135,11 +140,13 @@ class Asset extends Resource
                 ->defaultValue($request->user()->id)
                 ->onlyOnForms(),
 
-            BelongsTo::make('Admin', 'admin', User::class),
+            BelongsTo::make('Admin', 'admin', User::class)
+                ->hideFromIndex(),
 
             TextWithSlug::make('Nama' , 'name')
                 ->rules(['required', 'max:255'])
-                ->slug('slug'),
+                ->slug('slug')
+                ->sortable(),
 
             Textarea::make('Deskripsi' , 'description')
                 ->rules('required'),

@@ -102,6 +102,16 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * An asset belongs to regional.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function regional(): BelongsTo
+    {
+        return $this->belongsTo(TelkomRegional::class, 'telkom_regional_id');
+    }
+
+    /**
      * An asset can have many prices.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
