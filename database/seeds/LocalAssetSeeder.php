@@ -4,6 +4,7 @@ use App\Asset;
 use App\AssetCategory;
 use App\AssetPrice;
 use App\District;
+use App\Regency;
 use App\TelkomRegional;
 use App\WilayahTelekomunikasi;
 use Illuminate\Database\Seeder;
@@ -21,57 +22,33 @@ class LocalAssetSeeder extends Seeder
         // Create Building from csv
         $buildings = file(database_path('seeds/data/buildings.csv'));
 
-        AssetCategory::get()
-            ->each(function ($category) use ($buildings) {
-                // Seed available random assets to category and assign to random admin
-                for ($i = 1; $i < rand(3, 5); $i++) {
-                    // Get random location data from
-                    $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
-                    $randomBuilding = explode(';', Arr::random($buildings));
-                    $randomRegional = TelkomRegional::inRandomOrder()->first();
-                    $randomWitel = WilayahTelekomunikasi::inRandomOrder()->first();
+        // Seed to buildings
+        $buildingCategory = AssetCategory::where('slug', 'gedung')->first();
 
-                    factory(Asset::class)->states([$category->slug, 'available'])->create([
-                        'asset_category_id'  => $category->id,
-                        'telkom_regional_id' => $randomRegional->id,
-                        'witel_id'           => $randomWitel->id,
-                        'admin_id'           => collect($category->assignedAdmins->pluck('id'))->random(),
-                        'province_id'        => $randomDistrict->regency->province->id,
-                        'regency_id'         => $randomDistrict->regency->id,
-                        'district_id'        => $randomDistrict->id,
-                        'name'               => $randomBuilding[1],
-                        'address_detail'     => $randomBuilding[2],
-                        'phone_number'       => $randomBuilding[3],
-                    ]);
-                }
+        foreach ($buildings as $item) {
+            $building = str_getcsv($item, ',');
 
+            $treg = TelkomRegional::where('name', $building[1])->first();
+            $witel = WilayahTelekomunikasi::where('name', $building[4])->first();
+            $regency = Regency::with('province')->where('name', $building[13])->first();
 
-                // Seed random rent assets
-                if ($category->slug === 'komersil' || $category->slug === 'gedung') {
-                    for ($i = 1; $i < rand(1, 3); $i++) {
-                        // Get random location data from
-                        $randomDistrict = District::with('regency.province')->inRandomOrder()->first();
-                        $randomBuilding = explode(';', Arr::random($buildings));
-                        $randomRegional = TelkomRegional::inRandomOrder()->first();
-                        $randomWitel = WilayahTelekomunikasi::inRandomOrder()->first();
-
-                        $asset = factory(Asset::class)->states([$category->slug, 'available'])->create([
-                            'asset_category_id'  => $category->id,
-                            'telkom_regional_id' => $randomRegional->id,
-                            'witel_id'           => $randomWitel->id,
-                            'admin_id'           => collect($category->assignedAdmins->pluck('id'))->random(),
-                            'province_id'        => $randomDistrict->regency->province->id,
-                            'regency_id'         => $randomDistrict->regency->id,
-                            'district_id'        => $randomDistrict->id,
-                            'name'               => $randomBuilding[1],
-                            'type'               => 'rent',
-                            'address_detail'     => $randomBuilding[2],
-                            'phone_number'       => $randomBuilding[3],
-                        ]);
-
-                        factory(AssetPrice::class, rand(1, 3))->create(['asset_id' => $asset->id]);
-                    }
-                }
-            });
+            factory(Asset::class)->states([$buildingCategory->slug, 'available'])->create([
+                'asset_category_id'  => $buildingCategory->id,
+                'telkom_regional_id' => $treg->id,
+                'witel_id'           => $witel->id,
+                'admin_id'           => collect($buildingCategory->assignedAdmins->pluck('id'))->random(),
+                'province_id'        => $regency && $regency->province ? $regency->province->id : null,
+                'regency_id'         => $regency ? $regency->id : null,
+                'district_id'        => null,
+                'name'               => $building[6],
+                'address_detail'     => $building[7],
+                'location_code'      => $building[8],
+                'building_code'      => $building[10],
+                'latitude'           => explode(',', $building[11])[0],
+                'longitude'          => explode(',', $building[11])[1],
+                'allotment'          => $building[12],
+                'phone_number'       => null,
+            ]);
+        }
     }
 }
