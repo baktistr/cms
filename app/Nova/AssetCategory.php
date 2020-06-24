@@ -158,6 +158,6 @@ class AssetCategory extends Resource
      */
     public static function label()
     {
-        return __('Kategori Asset');
+        return __('Kategori Aset');
     }
 }

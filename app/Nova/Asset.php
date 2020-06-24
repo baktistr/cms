@@ -284,6 +284,6 @@ class Asset extends Resource
      */
     public static function label()
     {
-        return __('Asset');
+        return __('Aset');
     }
 }
