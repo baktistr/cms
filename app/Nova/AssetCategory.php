@@ -82,7 +82,7 @@ class AssetCategory extends Resource
         return [
             ID::make()->sortable(),
 
-            TextWithSlug::make('Name')
+            TextWithSlug::make('Nama' , 'name')
                 ->rules(['required', 'max:255'])
                 ->slug('slug'),
 
@@ -94,16 +94,16 @@ class AssetCategory extends Resource
                 return $this->assets()->count();
             }),
 
-            Text::make('Assigned Admins', function () {
+            Text::make('Admin Pengelolah', function () {
                 return $this->assignedAdmins()->count();
             }),
 
-            Textarea::make('Description', 'desc')
+            Textarea::make('Deskripsi', 'desc')
                 ->nullable(),
 
-            HasMany::make('Assets', 'assets', Asset::class),
+            HasMany::make('Asset', 'assets', Asset::class),
 
-            BelongsToMany::make('Assigned Admins', 'assignedAdmins', User::class),
+            BelongsToMany::make('Admin Pengelolah', 'assignedAdmins', User::class),
         ];
     }
 
@@ -149,5 +149,15 @@ class AssetCategory extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Kategori Aset');
     }
 }

@@ -52,14 +52,14 @@ class Regency extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Province', 'province', Province::class)
+            BelongsTo::make('Provinsi', 'province', Province::class)
                 ->sortable()
                 ->searchable(),
 
-            Text::make('Name')
+            Text::make('Nama' , 'name')
                 ->sortable(),
 
-            Text::make('Assets count', function () {
+            Text::make('Total Asset', function () {
                 return $this->assets()->count();
             })->showOnIndex(function () use ($request) {
                 return $request->user()->isSuperAdmin();
@@ -67,11 +67,11 @@ class Regency extends Resource
                 return $request->user()->isSuperAdmin();
             }),
 
-            Text::make('Districts Count', function () {
+            Text::make('Total Kecamatan', function () {
                 return $this->districts()->count();
             }),
 
-            HasMany::make('Districts', 'districts', District::class),
+            HasMany::make('Kecamatan', 'districts', District::class),
 
             HasMany::make('Assets', 'assets', Asset::class),
         ];
@@ -119,5 +119,15 @@ class Regency extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Kabupaten');
     }
 }
