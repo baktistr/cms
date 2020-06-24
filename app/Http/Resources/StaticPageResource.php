@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StaticPagesResource extends JsonResource
+class StaticPageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,9 @@ class StaticPagesResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'        => $this->id,
-            'title'     => $this->title , 
-            'slug'      => $this->slug,
-            'content'   => $this->content,
+            'title'   => $this->title ,
+            'slug'    => $this->slug,
+            'content' => $this->formatted_markdown_content,
         ];
     }
 }
