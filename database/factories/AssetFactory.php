@@ -15,31 +15,34 @@ use Illuminate\Support\Arr;
 
 $factory->define(Asset::class, function (Faker $faker) {
     return [
-        'asset_category_id' => function () {
+        'asset_category_id'  => function () {
             return factory(AssetCategory::class)->create()->id;
         },
         'telkom_regional_id' => function () {
             return factory(TelkomRegional::class)->create()->id;
         },
-        'admin_id'          => function () {
+        'admin_id'           => function () {
             return factory(User::class)->state('admin')->create()->id;
         },
-        'name'              => $faker->unique()->name,
-        'description'       => $faker->realText(),
-        'province_id'       => function () {
+        'name'               => $faker->unique()->name,
+        'description'        => $faker->realText(),
+        'province_id'        => function () {
             return factory(Province::class)->create()->id;
         },
-        'regency_id'        => function () {
+        'regency_id'         => function () {
             return factory(Regency::class)->create()->id;
         },
-        'district_id'       => function () {
+        'district_id'        => function () {
             return factory(District::class)->create()->id;
         },
-        'address_detail'    => $faker->streetAddress,
-        'latitude'          => $faker->latitude,
-        'longitude'         => $faker->longitude,
-        'unit_area'         => $faker->randomFloat(0, 50, 300),
-        'price'             => $faker->randomFloat(0, 1000000, 50000000),
+        'address_detail'     => $faker->streetAddress,
+        'location_code'      => $faker->uuid,
+        'building_code'      => $faker->optional()->uuid,
+        'allotment'          => $faker->realText(),
+        'latitude'           => $faker->latitude,
+        'longitude'          => $faker->longitude,
+        'unit_area'          => $faker->randomFloat(0, 50, 300),
+        'price'              => $faker->randomFloat(0, 1000000, 50000000),
     ];
 });
 

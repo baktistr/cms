@@ -177,7 +177,17 @@ class Asset extends Resource
                 ->rules('required')
                 ->alwaysShow(),
 
-            MapMarker::make('Location')
+            Text::make('Kode Lokasi', 'location_code')
+                ->rules(['required', 'unique:assets,location_code,{{resourceId}}']),
+
+            Text::make('Kode Gedung', 'building_code')
+                ->rules(['nullable', 'unique:assets,building_code,{{resourceId}}']),
+
+            Textarea::make('Peruntukan' , 'allotment')
+                ->nullable()
+                ->alwaysShow(),
+
+            MapMarker::make('Lokasi')
                 ->rules('required')
                 ->hideFromIndex(),
 
