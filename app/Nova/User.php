@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Text;
 
 use KABBOUCHI\NovaImpersonate\Impersonate;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Vyuldashev\NovaPermission\RoleSelect;
 
 class User extends Resource
 {
@@ -98,17 +99,17 @@ class User extends Resource
                 ->conversionOnDetailView('large')
                 ->rules('required'),
 
-            Text::make('Nama' , 'name')
+            Text::make('Nama', 'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email' , 'email')
+            Text::make('Email', 'email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            PhoneNumber::make('Nomor Handphone' , 'phone_number')
+            PhoneNumber::make('Nomor Handphone', 'phone_number')
                 ->onlyCountries('ID'),
 
             Password::make('Password')
@@ -116,11 +117,7 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
-            Boolean::make('Super Admin', 'is_super_admin')
-                ->sortable(),
-
-            Boolean::make('Pic', 'is_admin')
-                ->sortable(),
+            RoleSelect::make('Role', 'roles'),
 
             Impersonate::make($this)->withMeta([
                 'redirect_to' => config('nova.path')

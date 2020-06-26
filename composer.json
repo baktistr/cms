@@ -50,7 +50,8 @@
         "rimu/formatted-number": "^0.2.0",
         "spatie/laravel-medialibrary": "^8.0.0",
         "spatie/laravel-permission": "^3.13",
-        "titasgailius/search-relations": "^1.0"
+        "titasgailius/search-relations": "^1.0",
+        "vyuldashev/nova-permission": "^2.9"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
