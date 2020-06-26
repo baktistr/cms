@@ -119,7 +119,7 @@ class User extends Resource
             Boolean::make('Super Admin', 'is_super_admin')
                 ->sortable(),
 
-            Boolean::make('Admin', 'is_admin')
+            Boolean::make('Pic', 'is_admin')
                 ->sortable(),
 
             Impersonate::make($this)->withMeta([
