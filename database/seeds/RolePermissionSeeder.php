@@ -23,6 +23,6 @@ class RolePermissionSeeder extends Seeder
          * - Admin 
          */
         Role::create(['name' => 'Super Admin']);
-        Role::create(['name' => 'pic']);
+        Role::create(['name' => 'PIC']);
     }
 }

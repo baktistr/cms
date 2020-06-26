@@ -21,7 +21,7 @@ class AssetCategorySeeder extends Seeder
                 ]);
 
                 // Create random count pic
-                $pic = factory(User::class, rand(1, 5))->state('pic')->create();
+                $pic = factory(User::class, rand(1, 5))->state('PIC')->create();
 
                 // Assign some pic to category
                 $category->assignedAdmins()->attach($pic->pluck('id'));
