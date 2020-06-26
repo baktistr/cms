@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         });
 
         // Create admin users.
-        factory(User::class, 5)->state('admin')->create();
+        factory(User::class, 5)->state('pic')->create();
 
         // Create user
         factory(User::class)->create([

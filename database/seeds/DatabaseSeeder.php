@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Artisan::call('optimize:clear');
-
+        
+        $this->call(RolePermissionSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(AssetCategorySeeder::class);
         $this->call(ProvinceSeeder::class);

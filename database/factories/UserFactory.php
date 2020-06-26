@@ -35,7 +35,16 @@ $factory->state(User::class, 'unverified', ['email_verified_at' => null]);
 
 $factory->state(User::class, 'super-admin', ['is_super_admin' => true]);
 
-$factory->state(User::class, 'admin', ['is_admin' => true]);
+$factory->state(User::class, 'pic', ['is_admin' => true]);
+
+
+$factory->afterCreatingState(User::class , 'pic' , function(User $user){
+    $user->assignRole('pic');
+});
+
+$factory->afterCreatingState(User::class , 'super-admin' , function(User $user){
+    $user->assignRole('Super Admin');
+});
 
 $factory->afterCreating(User::class, function (User $user) {
     // Add avatar image to factory.

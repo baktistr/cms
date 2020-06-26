@@ -21,7 +21,7 @@ class AssetCategorySeeder extends Seeder
                 ]);
 
                 // Create random count admins
-                $admins = factory(User::class, rand(1, 5))->state('admin')->create();
+                $admins = factory(User::class, rand(1, 5))->state('pic')->create();
 
                 // Assign some admins to category
                 $category->assignedAdmins()->attach($admins->pluck('id'));
