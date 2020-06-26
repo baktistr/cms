@@ -172,6 +172,7 @@ return [
          */
         Gmt\NovaTheme\ThemeServiceProvider::class,
         Propaganistas\LaravelPhone\PhoneServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...

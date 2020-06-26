@@ -13,10 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
-    use Notifiable, Actionable, SoftDeletes, InteractsWithMedia, HasApiTokens;
+    use Notifiable, Actionable, SoftDeletes, InteractsWithMedia, HasApiTokens , HasRoles;
 
     /**
      * The attributes that are mass assignable.
