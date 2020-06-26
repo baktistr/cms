@@ -49,6 +49,7 @@
         "propaganistas/laravel-phone": "^4.2",
         "rimu/formatted-number": "^0.2.0",
         "spatie/laravel-medialibrary": "^8.0.0",
+        "spatie/laravel-permission": "^3.13",
         "titasgailius/search-relations": "^1.0"
     },
     "require-dev": {
