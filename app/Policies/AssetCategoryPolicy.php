@@ -30,7 +30,7 @@ class AssetCategoryPolicy
      */
     public function view(User $user, AssetCategory $assetCategory)
     {
-        return $user->isSuperAdmin() || $assetCategory->assignedAdmins()->where('user_id', $user->id)->exists();
+        return $user->hasRole('Super Admin') || $assetCategory->assignedAdmins()->where('user_id', $user->id)->exists();
     }
 
     /**
@@ -41,7 +41,7 @@ class AssetCategoryPolicy
      */
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('Super Admin') ;
     }
 
     /**
@@ -53,7 +53,7 @@ class AssetCategoryPolicy
      */
     public function update(User $user, AssetCategory $assetCategory)
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('Super Admin') ;
     }
 
     /**
@@ -65,7 +65,7 @@ class AssetCategoryPolicy
      */
     public function delete(User $user, AssetCategory $assetCategory)
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('Super Admin') ;
     }
 
     /**
@@ -77,7 +77,7 @@ class AssetCategoryPolicy
      */
     public function restore(User $user, AssetCategory $assetCategory)
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('Super Admin') ;
     }
 
     /**
@@ -89,6 +89,6 @@ class AssetCategoryPolicy
      */
     public function forceDelete(User $user, AssetCategory $assetCategory)
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('Super Admin') ;
     }
 }
