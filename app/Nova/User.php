@@ -76,7 +76,7 @@ class User extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if ($request->user()->isSuperAdmin()) {
+        if ($request->user()->hasRole('Super Admin')) {
             return $query;
         }
 
