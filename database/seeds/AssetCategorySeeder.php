@@ -20,11 +20,11 @@ class AssetCategorySeeder extends Seeder
                     'desc' => null, // @todo Add description text?
                 ]);
 
-                // Create random count admins
-                $admins = factory(User::class, rand(1, 5))->state('pic')->create();
+                // Create random count pic
+                $pic = factory(User::class, rand(1, 5))->state('pic')->create();
 
-                // Assign some admins to category
-                $category->assignedAdmins()->attach($admins->pluck('id'));
+                // Assign some pic to category
+                $category->assignedAdmins()->attach($pic->pluck('id'));
             });
     }
 }

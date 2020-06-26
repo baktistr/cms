@@ -33,9 +33,9 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->state(User::class, 'unverified', ['email_verified_at' => null]);
 
-$factory->state(User::class, 'super-admin', ['is_super_admin' => true]);
+$factory->state(User::class, 'super-admin', []);
 
-$factory->state(User::class, 'pic', ['is_admin' => true]);
+$factory->state(User::class, 'pic', []);
 
 
 $factory->afterCreatingState(User::class , 'pic' , function(User $user){
