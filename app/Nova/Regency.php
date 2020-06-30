@@ -56,15 +56,15 @@ class Regency extends Resource
                 ->sortable()
                 ->searchable(),
 
-            Text::make('Nama' , 'name')
+            Text::make('Nama', 'name')
                 ->sortable(),
 
             Text::make('Total Asset', function () {
                 return $this->assets()->count();
             })->showOnIndex(function () use ($request) {
-                return $request->user()->isSuperAdmin();
+                return $request->user()->hasRole('Super Admin');
             })->showOnDetail(function () use ($request) {
-                return $request->user()->isSuperAdmin();
+                return $request->user()->hasRole('Super Admin');
             }),
 
             Text::make('Total Kecamatan', function () {

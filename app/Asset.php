@@ -62,13 +62,13 @@ class Asset extends Model implements HasMedia
     }
 
     /**
-     * An asset belongs to admin user.
+     * An asset belongs to pic user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin(): BelongsTo
+    public function pic(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'admin_id');
+        return $this->belongsTo(User::class, 'pic_id');
     }
 
     /**

@@ -41,7 +41,7 @@ class WilayahTelekomunikasiPolicy
      */
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('Super Admin');
     }
 
     /**
@@ -53,7 +53,7 @@ class WilayahTelekomunikasiPolicy
      */
     public function update(User $user, WilayahTelekomunikasi $wilayahTelekomunikasi)
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('Super Admin');
     }
 
     /**

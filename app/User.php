@@ -13,10 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
-    use Notifiable, Actionable, SoftDeletes, InteractsWithMedia, HasApiTokens;
+    use Notifiable, Actionable, SoftDeletes, InteractsWithMedia, HasApiTokens, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -38,7 +39,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'is_super_admin', 'is_admin',
+        'password', 'remember_token',
     ];
 
     /**
@@ -48,48 +49,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_super_admin'    => 'boolean',
-        'is_admin'          => 'boolean',
     ];
-
-    /**
-     * {@inheritDoc}
-     */
-    protected $attributes = [
-        'is_super_admin' => false,
-        'is_admin'       => false,
-    ];
-
-    /**
-     * Check if user is an super admin.
-     *
-     * @return boolean
-     */
-    public function isSuperAdmin()
-    {
-        return $this->is_super_admin;
-    }
-
-    /**
-     * Check if user is an admin.
-     *
-     * @return boolean
-     */
-    public function isAdmin()
-    {
-        return $this->is_admin;
-    }
-
-    /**
-     * Scope the query only get users admin.
-     *
-     * @param $query
-     * @return mixed
-     */
-    public function scopeAdmin($query)
-    {
-        return $query->where('is_admin', true);
-    }
 
     /**
      * User Can impersonate
@@ -98,7 +58,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
      */
     public function canImpersonate()
     {
-        return $this->isSuperAdmin();
+        return $this->hasRole('Super Admin');
     }
 
     /**
@@ -108,7 +68,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
      */
     public function assets(): HasMany
     {
-        return $this->hasMany(Asset::class, 'admin_id');
+        return $this->hasMany(Asset::class, 'pic_id');
     }
 
     /**

@@ -51,15 +51,15 @@ class Province extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Nama' , 'name')
+            Text::make('Nama', 'name')
                 ->sortable(),
 
             Text::make('Total Asset', function () {
                 return $this->regencies()->count();
             })->showOnIndex(function () use ($request) {
-                return $request->user()->isSuperAdmin();
+                return $request->user()->hasRole('Super Admin');
             })->showOnDetail(function () use ($request) {
-                return $request->user()->isSuperAdmin();
+                return $request->user()->hasRole('Super Admin');
             }),
 
             Text::make('Total Kabupaten', function () {

@@ -18,7 +18,7 @@ class CreateAssetsTable extends Migration
             $table->foreignId('asset_category_id');
             $table->foreignId('telkom_regional_id')->nullable(); // @todo required?
             $table->foreignId('witel_id')->nullable(); // @todo required?
-            $table->foreignId('admin_id');
+            $table->foreignId('pic_id');
             $table->string('name')->index();
             $table->text('description');
             $table->text('address_detail');

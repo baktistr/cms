@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ccffeb9e38eca129df0ac181b979371",
+    "content-hash": "84b26ab399e2e8a0f1f361135d77e1ef",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4058,6 +4058,84 @@
             "time": "2020-06-22T10:20:34+00:00"
         },
         {
+            "name": "spatie/laravel-permission",
+            "version": "3.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-permission.git",
+                "reference": "49b8063fbb9ec52ebef98cc6ec527a80d8853141"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/49b8063fbb9ec52ebef98cc6ec527a80d8853141",
+                "reference": "49b8063fbb9ec52ebef98cc6ec527a80d8853141",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^5.8|^6.0|^7.0",
+                "illuminate/container": "^5.8|^6.0|^7.0",
+                "illuminate/contracts": "^5.8|^6.0|^7.0",
+                "illuminate/database": "^5.8|^6.0|^7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.8|^4.0|^5.0",
+                "phpunit/phpunit": "^8.0|^9.0",
+                "predis/predis": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Permission\\PermissionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Permission\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Permission handling for Laravel 5.8 and up",
+            "homepage": "https://github.com/spatie/laravel-permission",
+            "keywords": [
+                "acl",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-permission/issues",
+                "source": "https://github.com/spatie/laravel-permission/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-05-20T00:31:29+00:00"
+        },
+        {
             "name": "spatie/once",
             "version": "2.2.0",
             "source": {
@@ -6268,6 +6346,56 @@
                 "php"
             ],
             "time": "2020-06-15T23:49:30+00:00"
+        },
+        {
+            "name": "vyuldashev/nova-permission",
+            "version": "v2.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vyuldashev/nova-permission.git",
+                "reference": "5c5a1a94495873136944724bd8732c9e477487ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vyuldashev/nova-permission/zipball/5c5a1a94495873136944724bd8732c9e477487ab",
+                "reference": "5c5a1a94495873136944724bd8732c9e477487ab",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "spatie/laravel-permission": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Vyuldashev\\NovaPermission\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vyuldashev\\NovaPermission\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool for Spatie's Permission library.",
+            "keywords": [
+                "laravel",
+                "nova",
+                "spatie-permission"
+            ],
+            "support": {
+                "issues": "https://github.com/vyuldashev/nova-permission/issues",
+                "source": "https://github.com/vyuldashev/nova-permission/tree/master"
+            },
+            "time": "2020-04-25T18:30:25+00:00"
         }
     ],
     "packages-dev": [
@@ -8271,5 +8399,6 @@
     "platform": {
         "php": "^7.2"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
