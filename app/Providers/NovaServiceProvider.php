@@ -61,10 +61,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new TotalAssets,
-            new UnavailableAssets,
-            new AvailableAssets,
-            new NewUser,
+            (new TotalAssets)->width('1/4'),
+            (new UnavailableAssets)->width('1/4'),
+            (new AvailableAssets)->width('1/4'),
+            (new NewUser)->width('1/4'),
         ];
     }
 
