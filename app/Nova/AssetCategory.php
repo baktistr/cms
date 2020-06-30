@@ -82,7 +82,7 @@ class AssetCategory extends Resource
         return [
             ID::make()->sortable(),
 
-            TextWithSlug::make('Nama' , 'name')
+            TextWithSlug::make('Nama', 'name')
                 ->rules(['required', 'max:255'])
                 ->slug('slug'),
 
@@ -94,16 +94,16 @@ class AssetCategory extends Resource
                 return $this->assets()->count();
             }),
 
-            Text::make('Admin Pengelolah', function () {
-                return $this->assignedAdmins()->count();
-            }),
+            // Text::make('Jumlah Admin Pengelola', function () {
+            //     return "{$this->assignedAdmins()->count()} orang";
+            // }),
 
             Textarea::make('Deskripsi', 'desc')
                 ->nullable(),
 
-            HasMany::make('Asset', 'assets', Asset::class),
+            HasMany::make('Aset', 'assets', Asset::class),
 
-            BelongsToMany::make('Admin Pengelolah', 'assignedAdmins', User::class),
+            // BelongsToMany::make('PIC', 'assignedAdmins', User::class),
         ];
     }
 

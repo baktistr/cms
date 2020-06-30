@@ -55,14 +55,14 @@ class District extends Resource
             BelongsTo::make('Kabupaten', 'regency', Regency::class)
                 ->sortable(),
 
-            Text::make('Nama' , 'name'),
+            Text::make('Nama', 'name'),
 
             Text::make('Total Asset', function () {
                 return $this->assets()->count();
             })->showOnIndex(function () use ($request) {
-                return $request->user()->isSuperAdmin();
+                return $request->user()->hasRole('Super Admin');
             })->showOnDetail(function () use ($request) {
-                return $request->user()->isSuperAdmin();
+                return $request->user()->hasRole('Super Admin');
             }),
 
             HasMany::make('Assets', 'assets', Asset::class),

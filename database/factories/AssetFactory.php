@@ -21,8 +21,8 @@ $factory->define(Asset::class, function (Faker $faker) {
         'telkom_regional_id' => function () {
             return factory(TelkomRegional::class)->create()->id;
         },
-        'admin_id'           => function () {
-            return factory(User::class)->state('admin')->create()->id;
+        'pic_id'           => function () {
+            return factory(User::class)->state('PIC')->create()->id;
         },
         'name'               => $faker->unique()->name,
         'description'        => $faker->realText(),

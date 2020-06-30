@@ -16,7 +16,7 @@ class TotalAssets extends Value
      */
     public function calculate(NovaRequest $request)
     {
-        if ($request->user()->isAdmin()) {
+        if ($request->user()->hasRole('PIC')) {
             return $this->result(Asset::where('admin_id', $request->user()->id)->count());
         }
 
@@ -40,7 +40,7 @@ class TotalAssets extends Value
      */
     public function cacheFor()
     {
-//         return now()->addMinutes(5);
+        //         return now()->addMinutes(5);
     }
 
     /**
