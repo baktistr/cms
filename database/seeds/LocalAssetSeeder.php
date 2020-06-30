@@ -2,13 +2,10 @@
 
 use App\Asset;
 use App\AssetCategory;
-use App\AssetPrice;
-use App\District;
 use App\Regency;
 use App\TelkomRegional;
 use App\WilayahTelekomunikasi;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 
 class LocalAssetSeeder extends Seeder
 {
@@ -36,7 +33,6 @@ class LocalAssetSeeder extends Seeder
                 'asset_category_id'  => $buildingCategory->id,
                 'telkom_regional_id' => $treg->id,
                 'witel_id'           => $witel->id,
-                'admin_id'           => collect($buildingCategory->assignedAdmins->pluck('id'))->random(),
                 'province_id'        => $regency && $regency->province ? $regency->province->id : null,
                 'regency_id'         => $regency ? $regency->id : null,
                 'district_id'        => null,

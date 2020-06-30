@@ -18,7 +18,7 @@ class ProvincePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasRole('Super Admin')  || $user->isAdmin();
+        return $user->hasRole('Super Admin');
     }
 
     /**
@@ -30,7 +30,7 @@ class ProvincePolicy
      */
     public function view(User $user, Province $province)
     {
-        return $user->hasRole('Super Admin')  || $user->isAdmin();
+        return $user->hasRole('Super Admin');
     }
 
     /**
@@ -77,7 +77,7 @@ class ProvincePolicy
      */
     public function restore(User $user, Province $province)
     {
-        return $user->hasRole('Super Admin') ;
+        return $user->hasRole('Super Admin');
     }
 
     /**

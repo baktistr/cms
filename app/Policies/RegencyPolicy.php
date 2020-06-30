@@ -18,7 +18,7 @@ class RegencyPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasRole('Super Admin')  || $user->isAdmin();
+        return $user->hasRole('Super Admin');
     }
 
     /**
@@ -30,7 +30,7 @@ class RegencyPolicy
      */
     public function view(User $user, Regency $regency)
     {
-        return $user->hasRole('Super Admin')  || $user->isAdmin();
+        return $user->hasRole('Super Admin');
     }
 
     /**

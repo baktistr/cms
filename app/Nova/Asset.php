@@ -48,7 +48,7 @@ class Asset extends Resource
      * @var array
      */
     public static $with = [
-        'admin',
+        'pic',
         'category',
         'province',
         'regency',
@@ -71,7 +71,7 @@ class Asset extends Resource
      * @var array
      */
     public static $searchRelations = [
-        'admin'    => ['name'],
+        'pic'      => ['name'],
         'category' => ['name'],
         'province' => ['name'],
         'regency'  => ['name'],
@@ -94,11 +94,11 @@ class Asset extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if ($request->user()->isSuperAdmin()) {
+        if ($request->user()->hasRole('Super Admin')) {
             return $query;
         }
 
-        return $query->where('admin_id', $request->user()->id);
+        return $query->where('pic_id', $request->user()->id);
     }
 
     /**
@@ -108,7 +108,7 @@ class Asset extends Resource
      */
     public function subtitle()
     {
-        return "Category: {$this->category->name} | Admin: {$this->admin->name}";
+        return "Category: {$this->category->name} | PIC: {$this->pic->name}";
     }
 
     /**
@@ -140,19 +140,19 @@ class Asset extends Resource
                 ->rules(['required', 'exists:asset_categories,id'])
                 ->onlyOnForms(),
 
-            HiddenField::make('Admin', 'admin_id')
+            HiddenField::make('PIC', 'pic_id')
                 ->defaultValue($request->user()->id)
                 ->onlyOnForms(),
 
-            BelongsTo::make('Admin', 'admin', User::class)
+            BelongsTo::make('PIC', 'pic', User::class)
                 ->hideFromIndex(),
 
-            TextWithSlug::make('Nama' , 'name')
+            TextWithSlug::make('Nama', 'name')
                 ->rules(['required', 'max:255'])
                 ->slug('slug')
                 ->sortable(),
 
-            Textarea::make('Deskripsi' , 'description')
+            Textarea::make('Deskripsi', 'description')
                 ->rules('required'),
 
             NovaBelongsToDepend::make('Province')
@@ -173,7 +173,7 @@ class Asset extends Resource
                 ->dependsOn('Regency')
                 ->hideFromIndex(),
 
-            Textarea::make('Detail Alamat' , 'address_detail')
+            Textarea::make('Detail Alamat', 'address_detail')
                 ->rules('required')
                 ->alwaysShow(),
 
@@ -183,7 +183,7 @@ class Asset extends Resource
             Text::make('Kode Gedung', 'building_code')
                 ->rules(['nullable', 'unique:assets,building_code,{{resourceId}}']),
 
-            Textarea::make('Peruntukan' , 'allotment')
+            Textarea::make('Peruntukan', 'allotment')
                 ->nullable()
                 ->alwaysShow(),
 
@@ -191,10 +191,10 @@ class Asset extends Resource
                 ->rules('required')
                 ->hideFromIndex(),
 
-            Text::make('Nomor Handphone' , 'phone_number')
+            Text::make('Nomor Handphone', 'phone_number')
                 ->hideFromIndex(),
 
-            Select::make('Tipe' , 'type')
+            Select::make('Tipe', 'type')
                 ->options(\App\Asset::$types)
                 ->displayUsingLabels()
                 ->rules(['required']),
@@ -208,7 +208,7 @@ class Asset extends Resource
              * @todo better solution for dependency container relationship.
              */
             NovaDependencyContainer::make([
-                Text::make('Jumlah Lantai','number_of_floors')
+                Text::make('Jumlah Lantai', 'number_of_floors')
                     ->rules(['required', 'numeric', 'min:1'])
             ])->dependsOn('asset_category_id', 2)
                 ->dependsOn('asset_category_id', 3)
@@ -290,7 +290,7 @@ class Asset extends Resource
      */
     protected function assetCategories($user)
     {
-        if ($user->isSuperAdmin()) {
+        if ($user->hasRole('Super Admin')) {
             return \App\AssetCategory::pluck('name', 'id');
         }
 
