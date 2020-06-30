@@ -16,7 +16,11 @@ class NewUser extends Value
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->count($request, User::class);
+        return $this->result(
+            User::where('is_admin', false)
+                ->where('is_super_admin', false)
+                ->count()
+        )->allowZeroResult(true);
     }
 
     /**
@@ -27,13 +31,12 @@ class NewUser extends Value
     public function ranges()
     {
         return [
-            30 => '30 Days',
-            60 => '60 Days',
-            365 => '365 Days',
-            'TODAY' => 'Today',
-            'MTD' => 'Month To Date',
-            'QTD' => 'Quarter To Date',
-            'YTD' => 'Year To Date',
+            30 => '30 Hari',
+            60 => '60 Hari',
+            365 => '365 Hari',
+            'TODAY' => 'Hari ini',
+            'MTD' => 'Bulan Ke Hari',
+            'YTD' => 'Tahun Ke Hari',
         ];
     }
 
@@ -44,7 +47,7 @@ class NewUser extends Value
      */
     public function cacheFor()
     {
-        return now()->addMinutes(5);
+        // return now()->addMinutes(5);
     }
 
     /**
