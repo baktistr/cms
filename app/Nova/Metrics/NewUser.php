@@ -16,11 +16,9 @@ class NewUser extends Value
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->result(
-            User::where('is_admin', false)
-                ->where('is_super_admin', false)
-                ->count()
-        )->allowZeroResult(true);
+       return $this->result(
+           User::query()->doesntHave('roles')->count()
+       )->allowZeroResult();
     }
 
     /**
