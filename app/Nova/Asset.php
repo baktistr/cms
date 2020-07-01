@@ -177,11 +177,16 @@ class Asset extends Resource
                 ->rules('required')
                 ->alwaysShow(),
 
-            Text::make('Kode Lokasi', 'location_code')
-                ->rules(['required', 'unique:assets,location_code,{{resourceId}}']),
+            BelongsTo::make('Kode Lokasi', 'locationCode', LocationCode::class)
+                ->rules(['required']),
 
             Text::make('Kode Gedung', 'building_code')
-                ->rules(['nullable', 'unique:assets,building_code,{{resourceId}}']),
+                ->rules(['required'])
+                ->onlyOnForms(),
+
+            Text::make('Kode Gedung', function () {
+                return "{$this->locationCode->code}-{$this->building_code}";
+            }),
 
             Textarea::make('Peruntukan', 'allotment')
                 ->nullable()

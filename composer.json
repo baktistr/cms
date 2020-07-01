@@ -51,7 +51,8 @@
         "spatie/laravel-medialibrary": "^8.0.0",
         "spatie/laravel-permission": "^3.13",
         "titasgailius/search-relations": "^1.0",
-        "vyuldashev/nova-permission": "^2.9"
+        "vyuldashev/nova-permission": "^2.9",
+        "wemersonrv/input-mask": "^0.1.2"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

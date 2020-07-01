@@ -122,6 +122,16 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * An asset belongs to location code.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function locationCode(): BelongsTo
+    {
+        return $this->belongsTo(LocationCode::class, 'location_code_id');
+    }
+
+    /**
      * An asset can have many prices.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
