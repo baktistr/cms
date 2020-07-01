@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Nova\Metrics\AvailableAssets;
 use App\Nova\Metrics\NewUser;
+use App\Nova\Metrics\NewUserTrend;
 use App\Nova\Metrics\TotalAssets;
 use App\Nova\Metrics\UnavailableAssets;
 use Illuminate\Support\Facades\Gate;
@@ -64,7 +65,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             (new TotalAssets)->width('1/4'),
             (new UnavailableAssets)->width('1/4'),
             (new AvailableAssets)->width('1/4'),
-            (new NewUser)->width('1/4'),
+            (new NewUserTrend)->width('1/4'),
         ];
     }
 

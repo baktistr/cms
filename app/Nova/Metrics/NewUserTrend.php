@@ -4,9 +4,9 @@ namespace App\Nova\Metrics;
 
 use App\User;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Metrics\Value;
+use Laravel\Nova\Metrics\Trend;
 
-class NewUser extends Value
+class NewUserTrend extends Trend
 {
     /**
      * Calculate the value of the metric.
@@ -16,9 +16,7 @@ class NewUser extends Value
      */
     public function calculate(NovaRequest $request)
     {
-       return $this->result(
-           User::query()->doesntHave('roles')->count()
-       )->allowZeroResult();
+        return $this->countByDays($request , User::query()->doesntHave('roles'));   
     }
 
     /**
@@ -29,12 +27,9 @@ class NewUser extends Value
     public function ranges()
     {
         return [
-            30 => '30 Hari',
-            60 => '60 Hari',
-            365 => '365 Hari',
-            'TODAY' => 'Hari ini',
-            'MTD' => 'Bulan Ke Hari',
-            'YTD' => 'Tahun Ke Hari',
+            30 => '30 Days',
+            60 => '60 Days',
+            90 => '90 Days',
         ];
     }
 
@@ -55,6 +50,6 @@ class NewUser extends Value
      */
     public function uriKey()
     {
-        return 'new-user';
+        return 'new-user-trend';
     }
 }
