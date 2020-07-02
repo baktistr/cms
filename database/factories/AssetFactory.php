@@ -5,6 +5,7 @@
 use App\Asset;
 use App\AssetCategory;
 use App\District;
+use App\LocationCode;
 use App\Province;
 use App\Regency;
 use App\TelkomRegional;
@@ -36,8 +37,12 @@ $factory->define(Asset::class, function (Faker $faker) {
             return factory(District::class)->create()->id;
         },
         'address_detail'     => $faker->streetAddress,
-        'location_code'      => $faker->uuid,
-        'building_code'      => $faker->optional()->uuid,
+        'location_code_id'   => function () {
+            return factory(LocationCode::class)->create()->id;
+        },
+        'building_code'      => function ($data) {
+            return "{$data['location_code']}-A";
+        },
         'allotment'          => $faker->realText(),
         'latitude'           => $faker->latitude,
         'longitude'          => $faker->longitude,

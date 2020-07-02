@@ -2,6 +2,7 @@
 
 use App\Asset;
 use App\AssetCategory;
+use App\LocationCode;
 use App\Regency;
 use App\TelkomRegional;
 use App\WilayahTelekomunikasi;
@@ -38,8 +39,8 @@ class LocalAssetSeeder extends Seeder
                 'district_id'        => null,
                 'name'               => $building[6],
                 'address_detail'     => $building[7],
-                'location_code'      => $building[8],
-                'building_code'      => $building[10],
+                'location_code_id'   => LocationCode::inRandomOrder()->first()->id,
+                'building_code'      => 'A',
                 'latitude'           => explode(',', $building[11])[0],
                 'longitude'          => explode(',', $building[11])[1],
                 'allotment'          => $building[12],
