@@ -14,6 +14,6 @@ class LocationCode extends Model
      */
     public function assets(): HasMany
     {
-        return $this->hasMany(Asset::class, 'location_code');
+        return $this->hasMany(Asset::class, 'location_code_id');
     }
 }
