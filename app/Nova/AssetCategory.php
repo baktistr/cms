@@ -42,7 +42,7 @@ class AssetCategory extends Resource
      *
      * @var string
      */
-    public static $group = 'Asset';
+    public static $group = 'Aset';
 
     /**
      * The relationships that should be eager loaded on index queries.
@@ -80,8 +80,6 @@ class AssetCategory extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-
             TextWithSlug::make('Nama', 'name')
                 ->rules(['required', 'max:255'])
                 ->slug('slug'),
@@ -90,7 +88,7 @@ class AssetCategory extends Resource
                 ->rules(['required', 'unique:asset_categories,slug,{{resourceId}}'])
                 ->hideFromIndex(),
 
-            Text::make('Total Assets', function () {
+            Text::make('Total Aset', function () {
                 return $this->assets()->count();
             }),
 

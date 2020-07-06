@@ -38,7 +38,7 @@ class LocationCode extends Resource
      *
      * @var string
      */
-    public static $group = 'Asset';
+    public static $group = 'Aset';
 
     /**
      * Get the fields displayed by the resource.
@@ -53,7 +53,7 @@ class LocationCode extends Resource
                 ->mask('#-##-##-##')
                 ->rules(['required', 'unique:location_codes,code,{{resourceId}}']),
 
-            Text::make('Jumlah Aset', function () {
+            Text::make('Total Aset', function () {
                 return $this->assets()->count();
             }),
 

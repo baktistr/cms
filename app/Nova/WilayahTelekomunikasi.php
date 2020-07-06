@@ -38,7 +38,7 @@ class WilayahTelekomunikasi extends Resource
      *
      * @var string
      */
-    public static $group = 'Asset';
+    public static $group = 'Aset';
 
     /**
      * Get the fields displayed by the resource.
@@ -51,7 +51,7 @@ class WilayahTelekomunikasi extends Resource
         return [
             Text::make('Nama Wilayah', 'name'),
 
-            Text::make('Jumlah Aset', function () {
+            Text::make('Total Aset', function () {
                 return $this->assets()->count();
             }),
 

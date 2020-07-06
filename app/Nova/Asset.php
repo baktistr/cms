@@ -22,12 +22,9 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Outhebox\NovaHiddenField\HiddenField;
 use Rimu\FormattedNumber\FormattedNumber;
-use Titasgailius\SearchRelations\SearchesRelations;
 
 class Asset extends Resource
 {
-    use SearchesRelations;
-
     /**
      * The model the resource corresponds to.
      *
@@ -53,6 +50,8 @@ class Asset extends Resource
         'province',
         'regency',
         'district',
+        'locationCode',
+        'witel',
     ];
 
     /**
@@ -63,6 +62,7 @@ class Asset extends Resource
     public static $search = [
         'id',
         'name',
+        'building_code',
     ];
 
     /**
@@ -71,11 +71,12 @@ class Asset extends Resource
      * @var array
      */
     public static $searchRelations = [
-        'pic'      => ['name'],
-        'category' => ['name'],
-        'province' => ['name'],
-        'regency'  => ['name'],
-        'district' => ['name'],
+        'pic'          => ['name'],
+        'category'     => ['name'],
+        'province'     => ['name'],
+        'regency'      => ['name'],
+        'district'     => ['name'],
+        'locationCode' => ['code'],
     ];
 
     /**
@@ -83,7 +84,7 @@ class Asset extends Resource
      *
      * @var string
      */
-    public static $group = 'Asset';
+    public static $group = 'Aset';
 
     /**
      * Build an "index" query for the given resource.

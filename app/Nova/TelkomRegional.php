@@ -38,7 +38,7 @@ class TelkomRegional extends Resource
      *
      * @var string
      */
-    public static $group = 'Asset';
+    public static $group = 'Aset';
 
     /**
      * Get the fields displayed by the resource.
@@ -49,12 +49,10 @@ class TelkomRegional extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-
             Text::make('Name')
                 ->rules(['required', 'string']),
 
-            Text::make('Jumlah Aset', function () {
+            Text::make('Total Aset', function () {
                 return $this->assets()->count();
             }),
 

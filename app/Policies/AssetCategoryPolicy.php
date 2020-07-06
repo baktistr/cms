@@ -65,7 +65,7 @@ class AssetCategoryPolicy
      */
     public function delete(User $user, AssetCategory $assetCategory)
     {
-        return $user->hasRole('Super Admin');
+        return false;
     }
 
     /**
@@ -89,6 +89,6 @@ class AssetCategoryPolicy
      */
     public function forceDelete(User $user, AssetCategory $assetCategory)
     {
-        return $user->hasRole('Super Admin');
+        return false;
     }
 }
