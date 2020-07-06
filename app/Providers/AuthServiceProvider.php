@@ -10,8 +10,10 @@ use App\Policies\AssetPolicy;
 use App\Policies\DistrictPolicy;
 use App\Policies\ProvincePolicy;
 use App\Policies\RegencyPolicy;
+use App\Policies\StaticPagePolicy;
 use App\Policies\UserPolicy;
 use App\Province;
+use App\StaticPage;
 use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -30,6 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         District::class      => DistrictPolicy::class,
         AssetCategory::class => AssetCategoryPolicy::class,
         Asset::class         => AssetPolicy::class,
+        StaticPage::class    => StaticPagePolicy::class,
     ];
 
     /**
