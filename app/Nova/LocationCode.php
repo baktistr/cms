@@ -5,6 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Wemersonrv\InputMask\InputMask;
 
@@ -52,6 +53,10 @@ class LocationCode extends Resource
             InputMask::make('Kode Lokasi', 'code')
                 ->mask('#-##-##-##')
                 ->rules(['required', 'unique:location_codes,code,{{resourceId}}']),
+
+            Text::make('Jumlah Aset', function () {
+                return $this->assets()->count();
+            }),
 
             HasMany::make('Aset', 'assets', Asset::class),
         ];
