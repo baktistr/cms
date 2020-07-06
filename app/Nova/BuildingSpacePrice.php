@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\BuildingSpacePrice as AppBuildingSpacePrice;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
@@ -9,14 +10,14 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Rimu\FormattedNumber\FormattedNumber;
 
-class AssetPrice extends Resource
+class BuildingSpacePrice extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\AssetPrice::class;
+    public static $model = \App\BuildingSpacePrice::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -42,6 +43,16 @@ class AssetPrice extends Resource
     public static $displayInNavigation = false;
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'Daftar Harga';
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -50,13 +61,16 @@ class AssetPrice extends Resource
     public function fields(Request $request)
     {
         return [
-            BelongsTo::make('Asset'),
+            ID::make()->sortable(),
 
-            FormattedNumber::make('Price (Rupiah)', 'price')
+            BelongsTo::make('Space Gedung', 'buildingSpace', BuildingSpace::class),
+
+            FormattedNumber::make('Harga (Rupiah)', 'price')
                 ->rules(['required', 'numeric']),
 
-            Select::make('Price Type', 'type')
-                ->options(\App\AssetPrice::$types)
+            Select::make('Tipe Sewa', 'type')
+                ->options(AppBuildingSpacePrice::$types)
+                ->displayUsingLabels()
                 ->rules(['required']),
         ];
     }
