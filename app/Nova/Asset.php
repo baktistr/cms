@@ -235,7 +235,7 @@ class Asset extends Resource
 
             HasMany::make('Harga', 'prices', AssetPrice::class)
                 ->canSee(function () {
-                    return $this->type === 'rent';
+                    return $this->type === 'rent' && $this->category->slug !== 'gedung';
                 }),
         ];
     }

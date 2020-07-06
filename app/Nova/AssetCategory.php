@@ -64,7 +64,7 @@ class AssetCategory extends Resource
      */
     public static function relatableQuery(NovaRequest $request, $query)
     {
-        if ($request->user()->isSuperAdmin()) {
+        if ($request->user()->hasRole('Super Admin')) {
             return $query;
         }
 
@@ -101,7 +101,7 @@ class AssetCategory extends Resource
 
             HasMany::make('Aset', 'assets', Asset::class),
 
-            // BelongsToMany::make('PIC', 'assignedAdmins', User::class),
+            BelongsToMany::make('PIC', 'assignedAdmins', User::class),
         ];
     }
 

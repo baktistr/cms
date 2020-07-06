@@ -30,7 +30,7 @@ class AssetPolicy
      */
     public function view(User $user, Asset $asset)
     {
-        return $user->hasRole('Super Admin') || ($user->id === $asset->admin_id);
+        return $user->hasRole('Super Admin') || ($user->id === $asset->pic_id);
     }
 
     /**
@@ -41,7 +41,7 @@ class AssetPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('pic');
+        return $user->hasRole('PIC');
     }
 
     /**
@@ -53,7 +53,7 @@ class AssetPolicy
      */
     public function update(User $user, Asset $asset)
     {
-        return $user->hasRole('pic');
+        return $user->hasRole('PIC');
     }
 
     /**
@@ -65,7 +65,7 @@ class AssetPolicy
      */
     public function delete(User $user, Asset $asset)
     {
-        return $user->hasRole('Super Admin') || ($user->id === $asset->admin_id);
+        return $user->hasRole('Super Admin') || ($user->id === $asset->pic_id);
     }
 
     /**
@@ -77,7 +77,7 @@ class AssetPolicy
      */
     public function restore(User $user, Asset $asset)
     {
-        return $user->hasRole('Super Admin') || ($user->id === $asset->admin_id);
+        return $user->hasRole('Super Admin') || ($user->id === $asset->pic_id);
     }
 
     /**

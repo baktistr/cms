@@ -18,7 +18,7 @@ class AvailableAssets extends Value
     {
         if ($request->user()->hasRole('PIC')) {
             return $this->result(
-                Asset::where('admin_id', $request->user()->id)
+                Asset::where('pic_id', $request->user()->id)
                     ->where('is_available', true)
                     ->count()
             )->allowZeroResult();
@@ -45,7 +45,7 @@ class AvailableAssets extends Value
      */
     public function cacheFor()
     {
-        //         return now()->addMinutes(5);
+        return now()->addMinutes(5);
     }
 
     /**
