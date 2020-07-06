@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class AssetPrice extends Model
+class BuildingSpacePrice extends Model
 {
     /**
      * {@inheritDoc}
@@ -13,6 +13,7 @@ class AssetPrice extends Model
     public static $types = [
         'hourly'  => '/jam',
         'daily'   => '/hari',
+        'weekly'  => '/minggu',
         'monthly' => '/bulan',
         'yearly'  => '/tahun',
     ];
@@ -32,8 +33,8 @@ class AssetPrice extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function asset(): BelongsTo
+    public function buildingSpace(): BelongsTo
     {
-        return $this->belongsTo(Asset::class, 'asset_id');
+        return $this->belongsTo(BuildingSpace::class, 'building_space_id');
     }
 }

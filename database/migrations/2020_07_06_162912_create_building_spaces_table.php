@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssetPricesTable extends Migration
+class CreateBuildingSpacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAssetPricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asset_prices', function (Blueprint $table) {
+        Schema::create('building_spaces', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_id');
-            $table->float('price', 12);
-            $table->string('type');
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateAssetPricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_prices');
+        Schema::dropIfExists('building_spaces');
     }
 }

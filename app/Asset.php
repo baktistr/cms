@@ -142,6 +142,16 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * A building can have many spaces.
+     *
+     * @return HasMany
+     */
+    public function spaces(): HasMany
+    {
+        return $this->hasMany(BuildingSpace::class, 'asset_id');
+    }
+
+    /**
      * Register the media collections
      */
     public function registerMediaCollections(): void

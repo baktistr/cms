@@ -5,7 +5,6 @@ namespace App\Nova;
 use App\Nova\Metrics\AvailableAssets;
 use App\Nova\Metrics\TotalAssets;
 use App\Nova\Metrics\UnavailableAssets;
-use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -233,9 +232,9 @@ class Asset extends Resource
             Images::make('Gambar', 'image')
                 ->rules(['required']),
 
-            HasMany::make('Harga', 'prices', AssetPrice::class)
+            HasMany::make('Space Gedung', 'spaces', BuildingSpace::class)
                 ->canSee(function () {
-                    return $this->type === 'rent' && $this->category->slug !== 'gedung';
+                    return $this->category->slug === 'gedung';
                 }),
         ];
     }

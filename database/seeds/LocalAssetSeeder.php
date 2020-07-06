@@ -2,6 +2,7 @@
 
 use App\Asset;
 use App\AssetCategory;
+use App\BuildingSpace;
 use App\LocationCode;
 use App\Regency;
 use App\TelkomRegional;
@@ -30,7 +31,7 @@ class LocalAssetSeeder extends Seeder
             $witel = WilayahTelekomunikasi::where('name', $building[4])->first();
             $regency = Regency::with('province')->where('name', $building[13])->first();
 
-            factory(Asset::class)->states([$buildingCategory->slug, 'available'])->create([
+            $building = factory(Asset::class)->states([$buildingCategory->slug, 'available'])->create([
                 'asset_category_id'  => $buildingCategory->id,
                 'telkom_regional_id' => $treg->id,
                 'witel_id'           => $witel->id,
@@ -46,6 +47,17 @@ class LocalAssetSeeder extends Seeder
                 'allotment'          => $building[12],
                 'phone_number'       => null,
             ]);
+
+            // Seed some spaces to building
+            $spacePrices = [
+                'with-hourly-price',
+                'with-daily-price',
+                'with-weekly-price',
+                'with-monthly-price',
+                'with-yearly-price',
+            ];
+
+            factory(BuildingSpace::class, rand(1, 3))->states($spacePrices)->create(['asset_id' => $building->id]);
         }
     }
 }
