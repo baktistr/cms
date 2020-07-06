@@ -4,9 +4,8 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Wemersonrv\InputMask\InputMask;
 
 class LocationCode extends Resource
@@ -57,6 +56,10 @@ class LocationCode extends Resource
             Text::make('Jumlah Aset', function () {
                 return $this->assets()->count();
             }),
+
+            Markdown::make('Deskripsi', 'description')
+                ->nullable()
+                ->alwaysShow(),
 
             HasMany::make('Aset', 'assets', Asset::class),
         ];
