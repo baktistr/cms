@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
+use App\Area;
 use App\User;
-use App\WilayahTelekomunikasi;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class WilayahTelekomunikasiPolicy
+class AreaPolicy
 {
     use HandlesAuthorization;
 
@@ -25,16 +25,16 @@ class WilayahTelekomunikasiPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\WilayahTelekomunikasi  $wilayahTelekomunikasi
+     * @param  \App\Area  $area
      * @return mixed
      */
-    public function view(User $user, WilayahTelekomunikasi $wilayahTelekomunikasi)
+    public function view(User $user, Area $area)
     {
         if ($user->hasRole('Super Admin')) {
             return true;
         }
 
-        return $wilayahTelekomunikasi->assets()->where('pic_id', $user->id)->exists();
+        return $area->assets()->where('pic_id', $user->id)->exists();
     }
 
     /**
@@ -52,10 +52,10 @@ class WilayahTelekomunikasiPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\WilayahTelekomunikasi  $wilayahTelekomunikasi
+     * @param  \App\Area  $area
      * @return mixed
      */
-    public function update(User $user, WilayahTelekomunikasi $wilayahTelekomunikasi)
+    public function update(User $user, Area $area)
     {
         return $user->hasRole('Super Admin');
     }
@@ -64,35 +64,35 @@ class WilayahTelekomunikasiPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\WilayahTelekomunikasi  $wilayahTelekomunikasi
+     * @param  \App\Area  $area
      * @return mixed
      */
-    public function delete(User $user, WilayahTelekomunikasi $wilayahTelekomunikasi)
+    public function delete(User $user, Area $area)
     {
-        //
+        return $user->hasRole('Super Admin');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\WilayahTelekomunikasi  $wilayahTelekomunikasi
+     * @param  \App\Area  $area
      * @return mixed
      */
-    public function restore(User $user, WilayahTelekomunikasi $wilayahTelekomunikasi)
+    public function restore(User $user, Area $area)
     {
-        //
+        return $user->hasRole('Super Admin');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\WilayahTelekomunikasi  $wilayahTelekomunikasi
+     * @param  \App\Area  $area
      * @return mixed
      */
-    public function forceDelete(User $user, WilayahTelekomunikasi $wilayahTelekomunikasi)
+    public function forceDelete(User $user, Area $area)
     {
-        //
+        return $user->hasRole('Super Admin');
     }
 }

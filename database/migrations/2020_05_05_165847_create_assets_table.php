@@ -16,20 +16,12 @@ class CreateAssetsTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_category_id');
-            $table->foreignId('telkom_regional_id')->nullable(); // @todo required?
-            $table->foreignId('witel_id')->nullable(); // @todo required?
-            $table->foreignId('pic_id');
+            $table->foreignId('area_id'); //@todo unique?
+            $table->foreignId('pic_id')->nullable();
             $table->string('name')->index();
             $table->text('description');
-            $table->text('address_detail');
-            $table->foreignId('area_id'); //@todo unique?
             $table->string('building_code')->nullable(); //@todo unique?
             $table->text('allotment')->nullable();
-            $table->decimal('latitude', 10, 7);
-            $table->decimal('longitude', 10, 7);
-            $table->unsignedBigInteger('province_id')->nullable(); // @todo required?
-            $table->unsignedBigInteger('regency_id')->nullable(); // @todo required?
-            $table->unsignedBigInteger('district_id')->nullable(); // @todo required?
             $table->string('phone_number')->nullable();
             $table->string('type');
             $table->float('unit_area', 8, 2)->nullable();

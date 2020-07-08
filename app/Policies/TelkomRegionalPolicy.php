@@ -18,7 +18,7 @@ class TelkomRegionalPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->hasRole('PIC');
     }
 
     /**
@@ -30,7 +30,11 @@ class TelkomRegionalPolicy
      */
     public function view(User $user, TelkomRegional $telkomRegional)
     {
-        return true;
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return $telkomRegional->assets()->where('pic_id', $user->id)->exists();
     }
 
     /**

@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Area;
 use App\Asset;
 use App\AssetCategory;
 use App\District;
+use App\Policies\AreaPolicy;
 use App\Policies\AssetCategoryPolicy;
 use App\Policies\AssetPolicy;
 use App\Policies\DistrictPolicy;
@@ -33,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         AssetCategory::class => AssetCategoryPolicy::class,
         Asset::class         => AssetPolicy::class,
         StaticPage::class    => StaticPagePolicy::class,
+        Area::class          => AreaPolicy::class,
     ];
 
     /**
@@ -44,6 +47,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Implicitly grant "Super Admin" role all permissions
+        // This works in the app by using gate-related functions like auth()->user->can() and @can()
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
     }
 }

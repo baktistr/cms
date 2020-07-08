@@ -27,23 +27,11 @@ class LocalAssetSeeder extends Seeder
         foreach ($buildings as $item) {
             $building = str_getcsv($item, ',');
 
-            $treg = TelkomRegional::where('name', $building[1])->first();
-            $witel = WilayahTelekomunikasi::where('name', $building[4])->first();
-            $regency = Regency::with('province')->where('name', $building[13])->first();
-
             $building = factory(Asset::class)->states([$buildingCategory->slug, 'available'])->create([
                 'asset_category_id'  => $buildingCategory->id,
-                'telkom_regional_id' => $treg->id,
-                'witel_id'           => $witel->id,
-                'province_id'        => $regency && $regency->province ? $regency->province->id : null,
-                'regency_id'         => $regency ? $regency->id : null,
-                'district_id'        => null,
                 'name'               => $building[6],
-                'address_detail'     => $building[7],
                 'area_id'            => Area::inRandomOrder()->first()->id,
                 'building_code'      => 'A',
-                'latitude'           => explode(',', $building[11])[0],
-                'longitude'          => explode(',', $building[11])[1],
                 'allotment'          => $building[12],
                 'phone_number'       => null,
             ]);

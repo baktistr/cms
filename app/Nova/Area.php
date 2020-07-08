@@ -2,10 +2,14 @@
 
 namespace App\Nova;
 
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Wemersonrv\InputMask\InputMask;
 
 class Area extends Resource
@@ -34,6 +38,32 @@ class Area extends Resource
     ];
 
     /**
+     * The relationships that should be eager loaded on index queries.
+     *
+     * @var array
+     */
+    public static $with = [
+        'provinsi',
+        'kabupaten',
+        'kecamatan',
+        'witel',
+        'regional',
+    ];
+
+    /**
+     * The relationship columns that should be searched.
+     *
+     * @var array
+     */
+    public static $searchRelations = [
+        'provinsi'  => ['name'],
+        'kabupaten' => ['name'],
+        'kecamatan' => ['name'],
+        'witel'     => ['name'],
+        'regional'  => ['name'],
+    ];
+
+    /**
      * The logical group associated with the resource.
      *
      * @var string
@@ -41,9 +71,27 @@ class Area extends Resource
     public static $group = 'Aset';
 
     /**
+     * Build an "index" query for the given resource.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Database\Eloquent\Builder   $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->hasRole('Super Admin')) {
+            return $query;
+        }
+
+        return $query->whereHas('assets', function ($query) use ($request) {
+            $query->where('pic_id', $request->user()->id);
+        });
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -53,13 +101,41 @@ class Area extends Resource
                 ->mask('#-##-##-##')
                 ->rules(['required', 'unique:areas,code,{{resourceId}}']),
 
-            Text::make('Total Aset', function () {
+            BelongsTo::make('TREG', 'regional', TelkomRegional::class)
+                ->rules(['required'])
+                ->sortable(),
+
+            BelongsTo::make('Witel', 'witel', WilayahTelekomunikasi::class)
+                ->rules(['required'])
+                ->sortable(),
+
+            NovaBelongsToDepend::make('Provinsi')
+                ->options(\App\Province::all()),
+
+            NovaBelongsToDepend::make('Kabupaten')
+                ->optionsResolve(function ($province) {
+                    return $province->regencies()->get(['id', 'name']);
+                })
+                ->dependsOn('Provinsi'),
+
+            NovaBelongsToDepend::make('Kecamatan')
+                ->optionsResolve(function ($regency) {
+                    return $regency->districts()->get(['id', 'name']);
+                })
+                ->dependsOn('Kabupaten')
+                ->hideFromIndex(),
+
+            Textarea::make('Alamat', 'address_detail')
+                ->rules('required')
+                ->alwaysShow(),
+
+            MapMarker::make('Lokasi')
+                ->rules('required')
+                ->hideFromIndex(),
+
+            Text::make('Total Gedung', function () {
                 return $this->assets()->count();
             }),
-
-            Markdown::make('Deskripsi', 'description')
-                ->nullable()
-                ->alwaysShow(),
 
             HasMany::make('Aset', 'assets', Asset::class),
         ];
@@ -68,7 +144,7 @@ class Area extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -79,7 +155,7 @@ class Area extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -90,7 +166,7 @@ class Area extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -101,7 +177,7 @@ class Area extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)
@@ -116,6 +192,6 @@ class Area extends Resource
      */
     public static function label()
     {
-        return 'Lahan';
+        return '  Lahan';
     }
 }

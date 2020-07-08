@@ -3,19 +3,20 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Province extends Resource
+class Kabupaten extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Province::class;
+    public static $model = \App\Regency::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -41,6 +42,13 @@ class Province extends Resource
     public static $group = 'Master Data';
 
     /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -51,26 +59,18 @@ class Province extends Resource
         return [
             ID::make()->sortable(),
 
+            BelongsTo::make('Provinsi', 'province', Provinsi::class)
+                ->sortable()
+                ->searchable(),
+
             Text::make('Nama', 'name')
                 ->sortable(),
-
-            Text::make('Total Asset', function () {
-                return $this->regencies()->count();
-            })->showOnIndex(function () use ($request) {
-                return $request->user()->hasRole('Super Admin');
-            })->showOnDetail(function () use ($request) {
-                return $request->user()->hasRole('Super Admin');
-            }),
-
-            Text::make('Total Kabupaten', function () {
-                return $this->regencies()->count();
-            }),
 
             Text::make('Total Kecamatan', function () {
                 return $this->districts()->count();
             }),
 
-            HasMany::make('Kecamatan', 'regencies', Regency::class),
+            HasMany::make('Kecamatan', 'districts', Kecamatan::class),
 
             HasMany::make('Assets', 'assets', Asset::class),
         ];
@@ -127,6 +127,6 @@ class Province extends Resource
      */
     public static function label()
     {
-        return __('Provinsi');
+        return __('Kabupaten');
     }
 }

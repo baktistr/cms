@@ -9,7 +9,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class District extends Resource
+class Kecamatan extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -42,6 +42,13 @@ class District extends Resource
     public static $group = 'Master Data';
 
     /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -52,18 +59,10 @@ class District extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Kabupaten', 'regency', Regency::class)
+            BelongsTo::make('Kabupaten', 'regency', Kabupaten::class)
                 ->sortable(),
 
             Text::make('Nama', 'name'),
-
-            Text::make('Total Asset', function () {
-                return $this->assets()->count();
-            })->showOnIndex(function () use ($request) {
-                return $request->user()->hasRole('Super Admin');
-            })->showOnDetail(function () use ($request) {
-                return $request->user()->hasRole('Super Admin');
-            }),
 
             HasMany::make('Assets', 'assets', Asset::class),
         ];

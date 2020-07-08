@@ -41,6 +41,24 @@ class TelkomRegional extends Resource
     public static $group = 'Aset';
 
     /**
+     * Build an "index" query for the given resource.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Database\Eloquent\Builder   $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->hasRole('Super Admin')) {
+            return $query;
+        }
+
+        return $query->whereHas('assets', function ($query) use ($request) {
+            $query->where('pic_id', $request->user()->id);
+        });
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,14 +67,14 @@ class TelkomRegional extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')
+            Text::make('Nama Regional', 'name')
                 ->rules(['required', 'string']),
 
-            Text::make('Total Aset', function () {
+            Text::make('Total Gedung', function () {
                 return $this->assets()->count();
             }),
 
-            HasMany::make('Aset', 'assets', Asset::class),
+            HasMany::make('Gedung', 'assets', Asset::class),
         ];
     }
 
@@ -111,6 +129,6 @@ class TelkomRegional extends Resource
      */
     public static function label()
     {
-        return 'Telkom Regional';
+        return 'TREG';
     }
 }
