@@ -2,6 +2,7 @@
 
 use App\Asset;
 use App\AssetCategory;
+use App\AssetCertificate;
 use App\BuildingSpace;
 use App\Area;
 use App\Regency;
@@ -46,6 +47,9 @@ class LocalAssetSeeder extends Seeder
             ];
 
             factory(BuildingSpace::class, rand(1, 3))->states($spacePrices)->create(['asset_id' => $building->id]);
+
+            // Seed some certificates
+            factory(AssetCertificate::class, rand(1,3))->create(['asset_id' => $building->id]);
         }
     }
 }
