@@ -49,7 +49,7 @@ class Asset extends Resource
         'province',
         'regency',
         'district',
-        'locationCode',
+        'area',
         'witel',
     ];
 
@@ -177,15 +177,15 @@ class Asset extends Resource
                 ->rules('required')
                 ->alwaysShow(),
 
-            BelongsTo::make('Kode Lokasi', 'locationCode', LocationCode::class)
+            BelongsTo::make('Kode Lokasi', 'area', Area::class)
                 ->rules(['required']),
 
             Text::make('Kode Gedung', 'building_code')
                 ->rules(['required'])
                 ->onlyOnForms(),
 
-            Text::make('Kode Gedung', function () {
-                return "{$this->locationCode->code}-{$this->building_code}";
+            Text::make('Kode Lokasi', function () {
+                return "{$this->area->code}-{$this->building_code}";
             }),
 
             Textarea::make('Peruntukan', 'allotment')

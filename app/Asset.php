@@ -126,9 +126,9 @@ class Asset extends Model implements HasMedia
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function locationCode(): BelongsTo
+    public function area(): BelongsTo
     {
-        return $this->belongsTo(LocationCode::class, 'location_code_id');
+        return $this->belongsTo(Area::class, 'area_id');
     }
 
     /**

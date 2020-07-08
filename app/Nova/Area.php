@@ -8,14 +8,14 @@ use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
 use Wemersonrv\InputMask\InputMask;
 
-class LocationCode extends Resource
+class Area extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\LocationCode::class;
+    public static $model = \App\Area::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -51,7 +51,7 @@ class LocationCode extends Resource
         return [
             InputMask::make('Kode Lokasi', 'code')
                 ->mask('#-##-##-##')
-                ->rules(['required', 'unique:location_codes,code,{{resourceId}}']),
+                ->rules(['required', 'unique:areas,code,{{resourceId}}']),
 
             Text::make('Total Aset', function () {
                 return $this->assets()->count();
@@ -116,6 +116,6 @@ class LocationCode extends Resource
      */
     public static function label()
     {
-        return 'Kode Lokasi';
+        return 'Lahan';
     }
 }

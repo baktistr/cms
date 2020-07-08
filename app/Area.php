@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class LocationCode extends Model
+class Area extends Model
 {
     /**
      * A category can have many assets.
@@ -14,6 +14,6 @@ class LocationCode extends Model
      */
     public function assets(): HasMany
     {
-        return $this->hasMany(Asset::class, 'location_code_id');
+        return $this->hasMany(Asset::class, 'area_id');
     }
 }

@@ -22,7 +22,7 @@ class CreateAssetsTable extends Migration
             $table->string('name')->index();
             $table->text('description');
             $table->text('address_detail');
-            $table->foreignId('location_code_id'); //@todo unique?
+            $table->foreignId('area_id'); //@todo unique?
             $table->string('building_code')->nullable(); //@todo unique?
             $table->text('allotment')->nullable();
             $table->decimal('latitude', 10, 7);

@@ -1,9 +1,9 @@
 <?php
 
-use App\LocationCode;
+use App\Area;
 use Illuminate\Database\Seeder;
 
-class LocalLocationCodeSeeder extends Seeder
+class LocalAreaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class LocalLocationCodeSeeder extends Seeder
      */
     public function run()
     {
-        factory(LocationCode::class, 10)->create();
+        factory(Area::class, 10)->create();
     }
 }
