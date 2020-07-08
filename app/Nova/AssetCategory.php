@@ -42,7 +42,7 @@ class AssetCategory extends Resource
      *
      * @var string
      */
-    public static $group = 'Aset';
+    public static $group = 'Application';
 
     /**
      * The relationships that should be eager loaded on index queries.

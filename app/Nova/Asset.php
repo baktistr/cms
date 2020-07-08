@@ -232,7 +232,7 @@ class Asset extends Resource
             Images::make('Gambar', 'image')
                 ->rules(['required']),
 
-            HasMany::make('Space Gedung', 'spaces', BuildingSpace::class)
+            HasMany::make('Area Komersil', 'spaces', BuildingSpace::class)
                 ->canSee(function () {
                     return $this->category->slug === 'gedung';
                 }),

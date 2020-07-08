@@ -49,7 +49,7 @@ class BuildingSpace extends Resource
      */
     public static function label()
     {
-        return 'Space Gedung';
+        return 'Area Komersil';
     }
 
     /**
@@ -65,7 +65,7 @@ class BuildingSpace extends Resource
 
             BelongsTo::make('Gedung', 'building', Asset::class),
 
-            Text::make('Nama', 'name')
+            Text::make('Nama Area', 'name')
                 ->rules(['required']),
 
             Markdown::make('Deskripsi', 'description')
