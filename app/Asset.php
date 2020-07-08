@@ -102,6 +102,16 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * A building can have many certificates.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(AssetCertificate::class, 'asset_id');
+    }
+
+    /**
      * Register the media collections
      */
     public function registerMediaCollections(): void
