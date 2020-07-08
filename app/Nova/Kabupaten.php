@@ -9,14 +9,14 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class District extends Resource
+class Kabupaten extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\District::class;
+    public static $model = \App\Regency::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -42,6 +42,13 @@ class District extends Resource
     public static $group = 'Master Data';
 
     /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -52,18 +59,18 @@ class District extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Kabupaten', 'regency', Regency::class)
+            BelongsTo::make('Provinsi', 'province', Provinsi::class)
+                ->sortable()
+                ->searchable(),
+
+            Text::make('Nama', 'name')
                 ->sortable(),
 
-            Text::make('Nama', 'name'),
-
-            Text::make('Total Asset', function () {
-                return $this->assets()->count();
-            })->showOnIndex(function () use ($request) {
-                return $request->user()->hasRole('Super Admin');
-            })->showOnDetail(function () use ($request) {
-                return $request->user()->hasRole('Super Admin');
+            Text::make('Total Kecamatan', function () {
+                return $this->districts()->count();
             }),
+
+            HasMany::make('Kecamatan', 'districts', Kecamatan::class),
 
             HasMany::make('Assets', 'assets', Asset::class),
         ];
@@ -120,6 +127,6 @@ class District extends Resource
      */
     public static function label()
     {
-        return __('Kecamatan');
+        return __('Kabupaten');
     }
 }

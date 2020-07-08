@@ -3,26 +3,27 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Markdown;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Wemersonrv\InputMask\InputMask;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class LocationCode extends Resource
+class Kecamatan extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\LocationCode::class;
+    public static $model = \App\District::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'code';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -30,7 +31,7 @@ class LocationCode extends Resource
      * @var array
      */
     public static $search = [
-        'code',
+        'id', 'name',
     ];
 
     /**
@@ -38,37 +39,39 @@ class LocationCode extends Resource
      *
      * @var string
      */
-    public static $group = 'Aset';
+    public static $group = 'Master Data';
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function fields(Request $request)
     {
         return [
-            InputMask::make('Kode Lokasi', 'code')
-                ->mask('#-##-##-##')
-                ->rules(['required', 'unique:location_codes,code,{{resourceId}}']),
+            ID::make()->sortable(),
 
-            Text::make('Total Aset', function () {
-                return $this->assets()->count();
-            }),
+            BelongsTo::make('Kabupaten', 'regency', Kabupaten::class)
+                ->sortable(),
 
-            Markdown::make('Deskripsi', 'description')
-                ->nullable()
-                ->alwaysShow(),
+            Text::make('Nama', 'name'),
 
-            HasMany::make('Aset', 'assets', Asset::class),
+            HasMany::make('Assets', 'assets', Asset::class),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -79,7 +82,7 @@ class LocationCode extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -90,7 +93,7 @@ class LocationCode extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -101,7 +104,7 @@ class LocationCode extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)
@@ -116,6 +119,6 @@ class LocationCode extends Resource
      */
     public static function label()
     {
-        return 'Kode Lokasi';
+        return __('Kecamatan');
     }
 }

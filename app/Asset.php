@@ -72,63 +72,13 @@ class Asset extends Model implements HasMedia
     }
 
     /**
-     * An asset belongs to province.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function province(): BelongsTo
-    {
-        return $this->belongsTo(Province::class, 'province_id');
-    }
-
-    /**
-     * An asset belongs to regency.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function regency(): BelongsTo
-    {
-        return $this->belongsTo(Regency::class, 'regency_id');
-    }
-
-    /**
-     * An asset belongs to district.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function district(): BelongsTo
-    {
-        return $this->belongsTo(District::class, 'district_id');
-    }
-
-    /**
-     * An asset belongs to regional.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function regional(): BelongsTo
-    {
-        return $this->belongsTo(TelkomRegional::class, 'telkom_regional_id');
-    }
-
-    /**
-     * An asset belongs to wilayah telekomunikasi.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function witel(): BelongsTo
-    {
-        return $this->belongsTo(WilayahTelekomunikasi::class, 'witel_id');
-    }
-
-    /**
      * An asset belongs to location code.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function locationCode(): BelongsTo
+    public function area(): BelongsTo
     {
-        return $this->belongsTo(LocationCode::class, 'location_code_id');
+        return $this->belongsTo(Area::class, 'area_id');
     }
 
     /**

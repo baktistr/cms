@@ -5,7 +5,7 @@
 use App\Asset;
 use App\AssetCategory;
 use App\District;
-use App\LocationCode;
+use App\Area;
 use App\Province;
 use App\Regency;
 use App\TelkomRegional;
@@ -16,38 +16,23 @@ use Illuminate\Support\Arr;
 
 $factory->define(Asset::class, function (Faker $faker) {
     return [
-        'asset_category_id'  => function () {
+        'asset_category_id' => function () {
             return factory(AssetCategory::class)->create()->id;
         },
-        'telkom_regional_id' => function () {
-            return factory(TelkomRegional::class)->create()->id;
+        'area_id'           => function () {
+            return factory(Area::class)->create()->id;
         },
-        'pic_id'           => function () {
+        'pic_id'            => function () {
             return factory(User::class)->state('PIC')->create()->id;
         },
-        'name'               => $faker->unique()->name,
-        'description'        => $faker->realText(),
-        'province_id'        => function () {
-            return factory(Province::class)->create()->id;
-        },
-        'regency_id'         => function () {
-            return factory(Regency::class)->create()->id;
-        },
-        'district_id'        => function () {
-            return factory(District::class)->create()->id;
-        },
-        'address_detail'     => $faker->streetAddress,
-        'location_code_id'   => function () {
-            return factory(LocationCode::class)->create()->id;
-        },
-        'building_code'      => function ($data) {
+        'name'              => $faker->unique()->name,
+        'description'       => $faker->realText(),
+        'building_code'     => function ($data) {
             return "{$data['location_code']}-A";
         },
-        'allotment'          => $faker->realText(),
-        'latitude'           => $faker->latitude,
-        'longitude'          => $faker->longitude,
-        'unit_area'          => $faker->randomFloat(0, 50, 300),
-        'price'              => $faker->randomFloat(0, 1000000, 50000000),
+        'allotment'         => $faker->realText(),
+        'unit_area'         => $faker->randomFloat(0, 50, 300),
+        'price'             => $faker->randomFloat(0, 1000000, 50000000),
     ];
 });
 
@@ -80,7 +65,7 @@ $factory->state(Asset::class, 'ruko', function (Faker $faker) {
 $factory->state(Asset::class, 'komersil', [
     'type' => function () {
         return Arr::random(array_keys(Asset::$types));
-    }
+    },
 ]);
 
 $factory->afterCreating(Asset::class, function (Asset $asset) {

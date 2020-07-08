@@ -18,7 +18,7 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Laravel\Nova\Panel;
 use Outhebox\NovaHiddenField\HiddenField;
 use Rimu\FormattedNumber\FormattedNumber;
 
@@ -46,11 +46,7 @@ class Asset extends Resource
     public static $with = [
         'pic',
         'category',
-        'province',
-        'regency',
-        'district',
-        'locationCode',
-        'witel',
+        'area',
     ];
 
     /**
@@ -70,12 +66,9 @@ class Asset extends Resource
      * @var array
      */
     public static $searchRelations = [
-        'pic'          => ['name'],
-        'category'     => ['name'],
-        'province'     => ['name'],
-        'regency'      => ['name'],
-        'district'     => ['name'],
-        'locationCode' => ['code'],
+        'pic'      => ['name'],
+        'category' => ['name'],
+        'area'     => ['code'],
     ];
 
     /**
@@ -120,18 +113,10 @@ class Asset extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            Text::make('Nama Gedung', 'name'),
 
             BelongsTo::make('Kategori', 'category', AssetCategory::class)
                 ->exceptOnForms()
-                ->sortable(),
-
-            BelongsTo::make('Regional', 'regional', TelkomRegional::class)
-                ->rules(['required'])
-                ->sortable(),
-
-            BelongsTo::make('Wilayah Telekomunikasi', 'witel', WilayahTelekomunikasi::class)
-                ->rules(['required'])
                 ->sortable(),
 
             Select::make('Kategori', 'asset_category_id')
@@ -140,69 +125,43 @@ class Asset extends Resource
                 ->rules(['required', 'exists:asset_categories,id'])
                 ->onlyOnForms(),
 
-            HiddenField::make('PIC', 'pic_id')
-                ->defaultValue($request->user()->id)
-                ->onlyOnForms(),
-
-            BelongsTo::make('PIC', 'pic', User::class)
-                ->hideFromIndex(),
-
-            TextWithSlug::make('Nama', 'name')
-                ->rules(['required', 'max:255'])
-                ->slug('slug')
-                ->sortable(),
-
-            Textarea::make('Deskripsi', 'description')
-                ->rules('required'),
-
-            NovaBelongsToDepend::make('Province')
-                ->options(\App\Province::all())
-                ->hideFromIndex(),
-
-            NovaBelongsToDepend::make('Regency')
-                ->optionsResolve(function ($province) {
-                    return $province->regencies()->get(['id', 'name']);
-                })
-                ->dependsOn('Province')
-                ->hideFromIndex(),
-
-            NovaBelongsToDepend::make('District')
-                ->optionsResolve(function ($regency) {
-                    return $regency->districts()->get(['id', 'name']);
-                })
-                ->dependsOn('Regency')
-                ->hideFromIndex(),
-
-            Textarea::make('Detail Alamat', 'address_detail')
-                ->rules('required')
-                ->alwaysShow(),
-
-            BelongsTo::make('Kode Lokasi', 'locationCode', LocationCode::class)
-                ->rules(['required']),
+            BelongsTo::make('Kode Lokasi', 'area', Area::class)
+                ->rules(['required'])
+                ->withoutTrashed(),
 
             Text::make('Kode Gedung', 'building_code')
                 ->rules(['required'])
                 ->onlyOnForms(),
 
             Text::make('Kode Gedung', function () {
-                return "{$this->locationCode->code}-{$this->building_code}";
+                return "{$this->area->code}-{$this->building_code}";
             }),
 
-            Textarea::make('Peruntukan', 'allotment')
+//            HiddenField::make('PIC', 'pic_id')
+//                ->defaultValue($request->user()->id)
+//                ->onlyOnForms(),
+
+            BelongsTo::make('PIC', 'pic', User::class)
                 ->nullable()
+                ->hideFromIndex()
+                ->withoutTrashed(),
+
+            Textarea::make('Deskripsi', 'description')
+                ->rules('required')
                 ->alwaysShow(),
 
-            MapMarker::make('Lokasi')
+            Textarea::make('Peruntukan', 'allotment')
                 ->rules('required')
-                ->hideFromIndex(),
+                ->alwaysShow(),
 
-            Text::make('Nomor Handphone', 'phone_number')
+            Text::make('Telepon', 'phone_number')
                 ->hideFromIndex(),
 
             Select::make('Tipe', 'type')
                 ->options(\App\Asset::$types)
                 ->displayUsingLabels()
-                ->rules(['required']),
+                ->rules(['required'])
+                ->hideFromIndex(),
 
             Text::make('Luas area (m2)', 'unit_area')
                 ->rules(['required', 'numeric'])
@@ -214,7 +173,7 @@ class Asset extends Resource
              */
             NovaDependencyContainer::make([
                 Text::make('Jumlah Lantai', 'number_of_floors')
-                    ->rules(['required', 'numeric', 'min:1'])
+                    ->rules(['required', 'numeric', 'min:1']),
             ])->dependsOn('asset_category_id', 2)
                 ->dependsOn('asset_category_id', 3)
                 ->onlyOnDetail()
@@ -232,10 +191,39 @@ class Asset extends Resource
             Images::make('Gambar', 'image')
                 ->rules(['required']),
 
-            HasMany::make('Area Komersil', 'spaces', BuildingSpace::class)
-                ->canSee(function () {
-                    return $this->category->slug === 'gedung';
+            new Panel('Detail Lokasi', [
+                Text::make('TREG', function () {
+                    return $this->area->regional->name;
                 }),
+
+                Text::make('Witel', function () {
+                    return $this->area->witel->name;
+                }),
+
+                Text::make('Provinsi', function () {
+                    return $this->area->provinsi->name ?? '—';
+                }),
+
+                Text::make('Kabupaten/Kota', function () {
+                    return $this->area->kabupaten->name ?? '—';
+                }),
+
+                Text::make('Kecamatan', function () {
+                    return $this->area->kecamatan->name ?? '—';
+                }),
+
+                Text::make('Alamat', function () {
+                    return $this->area->address_detail ?? '—';
+                }),
+
+                MapMarker::make('Lokasi')
+                    ->latitude('area.latitude')
+                    ->longitude('area.longitude')
+                    ->hideFromIndex()
+                    ->exceptOnForms(),
+            ]),
+
+            HasMany::make('Area Komersil', 'spaces', BuildingSpace::class),
         ];
     }
 
@@ -310,6 +298,6 @@ class Asset extends Resource
      */
     public static function label()
     {
-        return __('Aset');
+        return ' Gedung';
     }
 }

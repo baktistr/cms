@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class WilayahTelekomunikasi extends Model
 {
@@ -19,12 +20,21 @@ class WilayahTelekomunikasi extends Model
     }
 
     /**
-     * A wilayah telekomunikasi can have many assets.
+     * A wilayah telekomunikasi can have many area.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assets(): HasMany
+    public function areas(): HasMany
     {
-        return $this->hasMany(Asset::class, 'witel_id');
+        return $this->hasMany(Area::class, 'witel_id');
+    }
+
+    /**
+     * A wilayah telekomunikasi can have many assets.
+     *
+     */
+    public function assets(): HasManyThrough
+    {
+        return $this->hasManyThrough(Asset::class, Area::class, 'witel_id');
     }
 }
