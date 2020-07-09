@@ -3,27 +3,28 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class AssetDisputeHistory extends Resource
+class AssetFloor extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\AssetDisputeHistory::class;
+    public static $model = \App\AssetFloor::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'formatted_floor';
 
     /**
      * The columns that should be searched.
@@ -31,8 +32,7 @@ class AssetDisputeHistory extends Resource
      * @var array
      */
     public static $search = [
-        'id',
-        'code_location'
+        'formatted_floor',
     ];
 
     /**
@@ -51,18 +51,18 @@ class AssetDisputeHistory extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            BelongsTo::make('Gedung', 'asset', Asset::class),
 
-            BelongsTo::make('Asset', 'asset', Asset::class),
+            Text::make('Lantai', 'floor')
+                ->rules(['required', 'number']),
 
-            Text::make('Kode Lokasi', 'location_code')
-                ->rules('string', 'required'),
+            Text::make('Keterangan', function () {
+                return Str::limit($this->desc);
+            })->hideFromDetail(),
 
-            Text::make('Jenis Sengketa', 'type')
-                ->rules('string', 'required'),
-
-            Textarea::make('Deskripsi', 'desc')
-                ->nullable(),
+            Markdown::make('Keterangan', 'desc')
+                ->rules(['required'])
+                ->alwaysShow(),
         ];
     }
 
@@ -117,6 +117,6 @@ class AssetDisputeHistory extends Resource
      */
     public static function label()
     {
-        return 'Riwayat Sengketa';
+        return 'Detail Lantai';
     }
 }

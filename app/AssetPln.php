@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AssetDisputeHistory extends Model
+class AssetPln extends Model
 {
     use SoftDeletes;
 
     /**
-     * Asset Dispute History BelongsTo Asset
+     * A certificate belongs to asset.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function asset(): BelongsTo
     {
-        return $this->belongsTo(Asset::class , 'asset_id');
+        return $this->belongsTo(Asset::class, 'asset_id');
     }
 }

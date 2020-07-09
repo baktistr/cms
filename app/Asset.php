@@ -132,6 +132,36 @@ class Asset extends Model implements HasMedia
 
     }
     /**
+     * Asset can have many other documents.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function otherDocuments(): HasMany
+    {
+        return $this->hasMany(AssetOtherDocument::class, 'asset_id');
+    }
+
+    /**
+     * Asset can have many floors.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function floors(): HasMany
+    {
+        return $this->hasMany(AssetFloor::class, 'asset_id');
+    }
+
+    /**
+     * Asset can have many PLN ID.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function plns(): HasMany
+    {
+        return $this->hasMany(AssetPln::class, 'asset_id');
+    }
+
+    /**
      * Register the media collections
      */
     public function registerMediaCollections(): void

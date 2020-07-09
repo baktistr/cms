@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssetDisputeHistoriesTable extends Migration
+class CreateAssetOtherDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateAssetDisputeHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asset_dispute_histories', function (Blueprint $table) {
+        Schema::create('asset_other_documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_id');
             $table->string('location_code');
-            $table->string('type');
+            $table->string('name');
+            $table->string('document_number');
             $table->text('desc')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -31,6 +32,6 @@ class CreateAssetDisputeHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_dispute_histories');
+        Schema::dropIfExists('asset_other_documents');
     }
 }
