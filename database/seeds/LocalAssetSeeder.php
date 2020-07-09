@@ -3,6 +3,7 @@
 use App\Asset;
 use App\AssetCategory;
 use App\AssetCertificate;
+use App\AssetOtherDocument;
 use App\BuildingSpace;
 use App\Area;
 use App\AssetDisputeHistory;
@@ -30,12 +31,12 @@ class LocalAssetSeeder extends Seeder
             $building = str_getcsv($item, ',');
 
             $building = factory(Asset::class)->states([$buildingCategory->slug, 'available'])->create([
-                'asset_category_id'  => $buildingCategory->id,
-                'name'               => $building[6],
-                'area_id'            => Area::inRandomOrder()->first()->id,
-                'building_code'      => 'A',
-                'allotment'          => $building[12],
-                'phone_number'       => null,
+                'asset_category_id' => $buildingCategory->id,
+                'name'              => $building[6],
+                'area_id'           => Area::inRandomOrder()->first()->id,
+                'building_code'     => 'A',
+                'allotment'         => $building[12],
+                'phone_number'      => null,
             ]);
 
             // Seed some spaces to building
@@ -50,10 +51,13 @@ class LocalAssetSeeder extends Seeder
             factory(BuildingSpace::class, rand(1, 3))->states($spacePrices)->create(['asset_id' => $building->id]);
 
             // Seed some certificates
-            factory(AssetCertificate::class, rand(1,3))->create(['asset_id' => $building->id]);
+            factory(AssetCertificate::class, rand(1, 3))->create(['asset_id' => $building->id]);
 
             // Seed Some Asset dispute History
-            factory(AssetDisputeHistory::class , rand(2 , 3))->create(['asset_id' => $building->id]);
+            factory(AssetDisputeHistory::class, rand(2, 3))->create(['asset_id' => $building->id]);
+
+            // Seed Some Asset dispute History
+            factory(AssetOtherDocument::class, rand(2, 3))->create(['asset_id' => $building->id]);
         }
     }
 }
