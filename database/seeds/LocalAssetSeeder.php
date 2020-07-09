@@ -6,6 +6,10 @@ use App\AssetCertificate;
 use App\BuildingSpace;
 use App\Area;
 use App\AssetPbb;
+use App\AssetDisputeHistory;
+use App\Regency;
+use App\TelkomRegional;
+use App\WilayahTelekomunikasi;
 use Illuminate\Database\Seeder;
 
 class LocalAssetSeeder extends Seeder
@@ -52,6 +56,9 @@ class LocalAssetSeeder extends Seeder
 
             // Seed Asset PBB
             factory(AssetPbb::class, rand(2, 3))->create(['asset_id' => $building->id]);
+
+            // Seed Some Asset dispute History
+            factory(AssetDisputeHistory::class , rand(2 , 3))->create(['asset_id' => $building->id]);
         }
     }
 }

@@ -112,6 +112,7 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+
      * Asset Has Many Asset Pbb
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -119,7 +120,17 @@ class Asset extends Model implements HasMedia
     {
         return $this->hasMany(AssetPbb::class, 'asset_id');
     }
+  
+     /**
+     * A building can have many Asset disputes Histories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function disputeHistories(): HasMany
+    {
+        return $this->hasMany(AssetDisputeHistory::class, 'asset_id');
 
+    }
     /**
      * Register the media collections
      */
