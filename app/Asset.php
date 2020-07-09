@@ -142,6 +142,16 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * Asset can have many PLN ID.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function plns(): HasMany
+    {
+        return $this->hasMany(AssetPln::class, 'asset_id');
+    }
+
+    /**
      * Register the media collections
      */
     public function registerMediaCollections(): void

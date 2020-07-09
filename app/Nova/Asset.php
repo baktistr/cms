@@ -233,6 +233,7 @@ class Asset extends Resource
 
             HasMany::make('Dokumen Lainnya' , 'otherDocuments' , AssetOtherDocument::class),
 
+            HasMany::make('ID/Pelanggan PLN' , 'plns' , AssetPln::class),
         ];
     }
 
