@@ -3,6 +3,7 @@
 use App\Asset;
 use App\AssetCategory;
 use App\AssetCertificate;
+use App\AssetFloor;
 use App\AssetOtherDocument;
 use App\BuildingSpace;
 use App\Area;
@@ -58,6 +59,9 @@ class LocalAssetSeeder extends Seeder
 
             // Seed Some Asset dispute History
             factory(AssetOtherDocument::class, rand(2, 3))->create(['asset_id' => $building->id]);
+
+            // Seed some building floors
+            factory(AssetFloor::class, rand(2,3))->create(['asset_id' => $building->id]);
         }
     }
 }
