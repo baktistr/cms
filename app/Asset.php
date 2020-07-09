@@ -132,6 +132,16 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * Asset can have many floors.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function floors(): HasMany
+    {
+        return $this->hasMany(AssetFloor::class, 'asset_id');
+    }
+
+    /**
      * Register the media collections
      */
     public function registerMediaCollections(): void
