@@ -16,9 +16,9 @@ class CreateAssetDisputeHistoriesTable extends Migration
         Schema::create('asset_dispute_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_id');
-            $table->string('code_location');
-            $table->string('type_dispute');
-            $table->string('desc')->nullable();
+            $table->string('location_code');
+            $table->string('type');
+            $table->text('desc')->nullable();
             $table->timestamps();
         });
     }

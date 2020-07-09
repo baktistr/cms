@@ -55,14 +55,14 @@ class AssetDisputeHistory extends Resource
 
             BelongsTo::make('Asset', 'asset', Asset::class),
 
-            Text::make('Kode Lokasi', 'code_location')
+            Text::make('Kode Lokasi', 'location_code')
                 ->rules('string', 'required'),
 
-            Text::make('Jenis Sengketa', 'type_dispute')
+            Text::make('Jenis Sengketa', 'type')
                 ->rules('string', 'required'),
 
             Textarea::make('Deskripsi', 'desc')
-                ->rules('string'),
+                ->nullable(),
         ];
     }
 

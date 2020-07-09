@@ -116,7 +116,7 @@ class Asset extends Model implements HasMedia
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function disputes(): HasMany
+    public function disputeHistories(): HasMany
     {
         return $this->hasMany(AssetDisputeHistory::class, 'asset_id');
     }

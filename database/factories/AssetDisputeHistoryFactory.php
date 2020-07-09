@@ -11,7 +11,7 @@ $factory->define(AssetDisputeHistory::class, function (Faker $faker) {
         'asset_id'       => function(){
             return factory(Asset::class)->create()->id ;
         }, 
-        'code_location'  => $faker->uuid,
-        'type_dispute'   => $faker->sentence,
+        'location_code'  => $faker->uuid,
+        'type'           => 'done',
     ];
 });
