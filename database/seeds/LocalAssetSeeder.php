@@ -5,9 +5,7 @@ use App\AssetCategory;
 use App\AssetCertificate;
 use App\BuildingSpace;
 use App\Area;
-use App\Regency;
-use App\TelkomRegional;
-use App\WilayahTelekomunikasi;
+use App\AssetPbb;
 use Illuminate\Database\Seeder;
 
 class LocalAssetSeeder extends Seeder
@@ -46,10 +44,14 @@ class LocalAssetSeeder extends Seeder
                 'with-yearly-price',
             ];
 
+            //Add Building Space
             factory(BuildingSpace::class, rand(1, 3))->states($spacePrices)->create(['asset_id' => $building->id]);
 
             // Seed some certificates
-            factory(AssetCertificate::class, rand(1,3))->create(['asset_id' => $building->id]);
+            factory(AssetCertificate::class, rand(1, 3))->create(['asset_id' => $building->id]);
+
+            // Seed Asset PBB
+            factory(AssetPbb::class, rand(2, 3))->create(['asset_id' => $building->id]);
         }
     }
 }
