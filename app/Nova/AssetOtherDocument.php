@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
@@ -50,10 +51,10 @@ class AssetOtherDocument extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-
             Text::make('Kode Lokasi', 'location_code')
                 ->rules(['required', 'string']),
+
+            BelongsTo::make('Gedung', 'asset', Asset::class),
 
             Text::make('Nama Dokumen', 'name')
                 ->rules(['required', 'string']),
