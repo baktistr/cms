@@ -225,11 +225,17 @@ class Asset extends Resource
 
             HasMany::make('Area Komersil', 'spaces', BuildingSpace::class),
 
+            HasMany::make('Detail Lantai' , 'floors' , AssetFloor::class),
+
             HasMany::make('Sertifikat', 'certificates', AssetCertificate::class),
 
             HasMany::make('Asset Pbb' , 'assetPbbs' , AssetPbb::class),
 
             HasMany::make('Riwayat Sengketa' , 'disputeHistories' , AssetDisputeHistory::class),
+
+            HasMany::make('Dokumen Lainnya' , 'otherDocuments' , AssetOtherDocument::class),
+
+            HasMany::make('ID/Pelanggan PLN' , 'plns' , AssetPln::class),
         ];
     }
 

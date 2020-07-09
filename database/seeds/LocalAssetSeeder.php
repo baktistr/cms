@@ -3,13 +3,13 @@
 use App\Asset;
 use App\AssetCategory;
 use App\AssetCertificate;
+use App\AssetFloor;
+use App\AssetOtherDocument;
+use App\AssetPln;
 use App\BuildingSpace;
 use App\Area;
 use App\AssetPbb;
 use App\AssetDisputeHistory;
-use App\Regency;
-use App\TelkomRegional;
-use App\WilayahTelekomunikasi;
 use Illuminate\Database\Seeder;
 
 class LocalAssetSeeder extends Seeder
@@ -31,12 +31,12 @@ class LocalAssetSeeder extends Seeder
             $building = str_getcsv($item, ',');
 
             $building = factory(Asset::class)->states([$buildingCategory->slug, 'available'])->create([
-                'asset_category_id'  => $buildingCategory->id,
-                'name'               => $building[6],
-                'area_id'            => Area::inRandomOrder()->first()->id,
-                'building_code'      => 'A',
-                'allotment'          => $building[12],
-                'phone_number'       => null,
+                'asset_category_id' => $buildingCategory->id,
+                'name'              => $building[6],
+                'area_id'           => Area::inRandomOrder()->first()->id,
+                'building_code'     => 'A',
+                'allotment'         => $building[12],
+                'phone_number'      => null,
             ]);
 
             // Seed some spaces to building
@@ -58,7 +58,16 @@ class LocalAssetSeeder extends Seeder
             factory(AssetPbb::class, rand(2, 3))->create(['asset_id' => $building->id]);
 
             // Seed Some Asset dispute History
-            factory(AssetDisputeHistory::class , rand(2 , 3))->create(['asset_id' => $building->id]);
+            factory(AssetDisputeHistory::class, rand(2, 3))->create(['asset_id' => $building->id]);
+
+            // Seed Some Asset dispute History
+            factory(AssetOtherDocument::class, rand(2, 3))->create(['asset_id' => $building->id]);
+
+            // Seed some building floors
+            factory(AssetFloor::class, rand(2, 3))->create(['asset_id' => $building->id]);
+
+            // Seed some building PLN ID
+            factory(AssetPln::class, rand(2, 3))->create(['asset_id' => $building->id]);
         }
     }
 }

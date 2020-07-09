@@ -2,28 +2,29 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class AssetDisputeHistory extends Resource
+class AssetOtherDocument extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\AssetDisputeHistory::class;
+    public static $model = \App\AssetOtherDocument::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -31,8 +32,7 @@ class AssetDisputeHistory extends Resource
      * @var array
      */
     public static $search = [
-        'id',
-        'code_location'
+        'id', 'location_code', 'name', 'document_number',
     ];
 
     /**
@@ -45,31 +45,35 @@ class AssetDisputeHistory extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-
-            BelongsTo::make('Asset', 'asset', Asset::class),
-
             Text::make('Kode Lokasi', 'location_code')
-                ->rules('string', 'required'),
+                ->rules(['required', 'string']),
 
-            Text::make('Jenis Sengketa', 'type')
-                ->rules('string', 'required'),
+            BelongsTo::make('Gedung', 'asset', Asset::class),
 
-            Textarea::make('Deskripsi', 'desc')
+            Text::make('Nama Dokumen', 'name')
+                ->rules(['required', 'string']),
+
+            Text::make('No. Dokumen', 'document_number')
+                ->rules(['required', 'string']),
+
+            Markdown::make('Keterangan', 'desc')
                 ->nullable(),
+
+            Files::make('Dokumen', 'documents')
+                ->rules(['required']),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -80,7 +84,7 @@ class AssetDisputeHistory extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -91,7 +95,7 @@ class AssetDisputeHistory extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -102,7 +106,7 @@ class AssetDisputeHistory extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)
@@ -117,6 +121,6 @@ class AssetDisputeHistory extends Resource
      */
     public static function label()
     {
-        return 'Riwayat Sengketa';
+        return 'Dokumen Lainnya';
     }
 }
