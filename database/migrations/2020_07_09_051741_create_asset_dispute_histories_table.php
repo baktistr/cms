@@ -20,6 +20,7 @@ class CreateAssetDisputeHistoriesTable extends Migration
             $table->string('type');
             $table->text('desc')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
