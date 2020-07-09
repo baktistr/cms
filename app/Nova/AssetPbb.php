@@ -42,6 +42,7 @@ class AssetPbb extends Resource
     public static $search = [
         'id',
         'object_name',
+        'nop',
     ];
 
     /**
@@ -80,8 +81,6 @@ class AssetPbb extends Resource
 
             FormattedNumber::make('PBB yang di Bayar', 'pbb_paid')
                 ->rules(['required', 'numeric']),
-
-
         ];
     }
 
@@ -129,7 +128,6 @@ class AssetPbb extends Resource
         return [];
     }
 
-
     /**
      * Get the displayable label of the resource.
      *
@@ -137,6 +135,6 @@ class AssetPbb extends Resource
      */
     public static function label()
     {
-        return 'PBB Building';
+        return 'PBB Gedung';
     }
 }
