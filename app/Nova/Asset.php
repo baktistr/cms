@@ -226,6 +226,8 @@ class Asset extends Resource
             HasMany::make('Area Komersil', 'spaces', BuildingSpace::class),
 
             HasMany::make('Sertifikat', 'certificates', AssetCertificate::class),
+
+            HasMany::make('Riwayat Sengketa' , 'disputeHistories' , AssetDisputeHistory::class),
         ];
     }
 
