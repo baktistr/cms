@@ -112,6 +112,15 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * Asset Has Many Asset Pbb
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assetPbbs(): HasMany
+    {
+        return $this->hasMany(AssetPbb::class, 'asset_id');
+    }
+
+    /**
      * Register the media collections
      */
     public function registerMediaCollections(): void

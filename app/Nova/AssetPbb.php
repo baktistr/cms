@@ -26,6 +26,14 @@ class AssetPbb extends Resource
      */
     public static $title = 'id';
 
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
     /**
      * The columns that should be searched.
      *
@@ -33,6 +41,7 @@ class AssetPbb extends Resource
      */
     public static $search = [
         'id',
+        'object_name',
     ];
 
     /**
@@ -118,5 +127,16 @@ class AssetPbb extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'PBB Building';
     }
 }
