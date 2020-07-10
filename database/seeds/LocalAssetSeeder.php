@@ -8,6 +8,7 @@ use App\AssetOtherDocument;
 use App\AssetPln;
 use App\BuildingSpace;
 use App\Area;
+use App\AssetPbb;
 use App\AssetDisputeHistory;
 use Illuminate\Database\Seeder;
 
@@ -47,10 +48,14 @@ class LocalAssetSeeder extends Seeder
                 'with-yearly-price',
             ];
 
+            //Add Building Space
             factory(BuildingSpace::class, rand(1, 3))->states($spacePrices)->create(['asset_id' => $building->id]);
 
             // Seed some certificates
             factory(AssetCertificate::class, rand(1, 3))->create(['asset_id' => $building->id]);
+
+            // Seed Asset PBB
+            factory(AssetPbb::class, rand(2, 3))->create(['asset_id' => $building->id]);
 
             // Seed Some Asset dispute History
             factory(AssetDisputeHistory::class, rand(2, 3))->create(['asset_id' => $building->id]);

@@ -229,6 +229,8 @@ class Asset extends Resource
 
             HasMany::make('Sertifikat', 'certificates', AssetCertificate::class),
 
+            HasMany::make('PBB Gedung' , 'assetPbbs' , AssetPbb::class),
+
             HasMany::make('Riwayat Sengketa' , 'disputeHistories' , AssetDisputeHistory::class),
 
             HasMany::make('Dokumen Lainnya' , 'otherDocuments' , AssetOtherDocument::class),
