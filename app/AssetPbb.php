@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AssetPbb extends Model
 {
-    use SoftDeletes ;
+    use SoftDeletes;
 
     /**
      * Pbb BelongsTo Asset

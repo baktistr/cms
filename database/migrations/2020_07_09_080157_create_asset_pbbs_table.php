@@ -24,8 +24,8 @@ class CreateAssetPbbsTable extends Migration
             $table->float('njop_building_per_meter', 12);
             $table->float('pbb_paid', 12);
             $table->string('surface_area');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
