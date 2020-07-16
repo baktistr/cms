@@ -30,9 +30,6 @@ class UserSeeder extends Seeder
         factory(User::class, 5)->state('PIC')->create();
 
         // Create user
-        factory(User::class)->create([
-            'name'  => 'Example User',
-            'email' => 'user@example.com',
-        ]);
+        factory(User::class , 100)->create();
     }
 }

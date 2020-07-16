@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Nova\Metrics\AvailableAssets;
+use App\Nova\Metrics\NewUser;
+use App\Nova\Metrics\NewUserTrend;
+use App\Nova\Metrics\TotalAssets;
+use App\Nova\Metrics\UnavailableAssets;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Events\ServingNova;
@@ -28,9 +33,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes()
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**
@@ -56,7 +61,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function cards()
     {
-        return [];
+        return [
+            (new TotalAssets)->width('1/4'),
+            (new UnavailableAssets)->width('1/4'),
+            (new AvailableAssets)->width('1/4'),
+            (new NewUserTrend)->width('1/4'),
+        ];
     }
 
     /**
