@@ -156,9 +156,9 @@ class Asset extends Model implements HasMedia
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function asuranceies(): HasMany
+    public function insurances(): HasMany
     {
-        return $this->hasMany(Asurance::class, 'asset_id');
+        return $this->hasMany(Insurance::class, 'asset_id');
     }
 
     /**

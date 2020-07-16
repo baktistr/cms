@@ -4,17 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Asurance extends Model
+class Insurance extends Model
 {
+    use SoftDeletes ;
 
+    /**
+     * {@inheritDoc}
+     */
     protected $casts = [
         'date_start'    => 'date',
         'date_expired'  => 'date',
     ];
 
     /**
-     * A Asurance BelongsTo Asset
+     * A Insurance BelongsTo Asset
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function asset(): BelongsTo

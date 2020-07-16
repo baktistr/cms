@@ -181,7 +181,7 @@ class Asset extends Resource
 
             HasMany::make('ID/Pelanggan PLN', 'plns', AssetPln::class),
 
-            HasMany::make('Asuransi', 'asuranceies', Asurance::class),
+            HasMany::make('Asuransi', 'insurances', Insurance::class),
         ];
     }
 

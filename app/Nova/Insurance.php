@@ -8,14 +8,14 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Asurance extends Resource
+class Insurance extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Asurance::class;
+    public static $model = \App\Insurance::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -31,7 +31,8 @@ class Asurance extends Resource
      */
     public static $search = [
         'id',
-        'date_start'
+        'date_start',
+        'date_expired',
     ];
 
     /**
