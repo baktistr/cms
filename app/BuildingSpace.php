@@ -20,10 +20,7 @@ class BuildingSpace extends Model implements HasMedia
      */
     public function building(): BelongsTo
     {
-        return $this->belongsTo(Asset::class, 'asset_id')
-            ->whereHas('category', function ($query) {
-                $query->where('slug', 'gedung');
-            });
+        return $this->belongsTo(Asset::class, 'asset_id');
     }
 
     /**
