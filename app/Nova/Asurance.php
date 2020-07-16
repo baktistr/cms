@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -29,6 +31,7 @@ class Asurance extends Resource
      */
     public static $search = [
         'id',
+        'date_start'
     ];
 
     /**
@@ -41,6 +44,18 @@ class Asurance extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            BelongsTo::make('Asset', 'asset', Asset::class),
+
+            Date::make('Awal', 'date_start')
+                ->rules(['required', 'date_format:Y-m-d'])
+                ->format('DD MMMM YYYY')
+                ->sortable(),
+
+            Date::make('Akhir', 'date_expired')
+                ->rules(['required', 'date_format:Y-m-d'])
+                ->format('DD MMMM YYYY')
+                ->sortable(),
         ];
     }
 

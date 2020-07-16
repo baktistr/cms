@@ -15,7 +15,12 @@ class CreateAsurancesTable extends Migration
     {
         Schema::create('asurances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('asset_id');
+            $table->date('date_start');
+            $table->date('date_expired');
+            $table->text('desc')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

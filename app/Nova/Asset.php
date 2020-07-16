@@ -137,9 +137,9 @@ class Asset extends Resource
                 return "{$this->area->code}-{$this->building_code}";
             }),
 
-//            HiddenField::make('PIC', 'pic_id')
-//                ->defaultValue($request->user()->id)
-//                ->onlyOnForms(),
+            //            HiddenField::make('PIC', 'pic_id')
+            //                ->defaultValue($request->user()->id)
+            //                ->onlyOnForms(),
 
             BelongsTo::make('PIC', 'pic', User::class)
                 ->nullable()
@@ -225,17 +225,19 @@ class Asset extends Resource
 
             HasMany::make('Area Komersil', 'spaces', BuildingSpace::class),
 
-            HasMany::make('Detail Lantai' , 'floors' , AssetFloor::class),
+            HasMany::make('Detail Lantai', 'floors', AssetFloor::class),
 
             HasMany::make('Sertifikat', 'certificates', AssetCertificate::class),
 
-            HasMany::make('PBB Gedung' , 'assetPbbs' , AssetPbb::class),
+            HasMany::make('PBB Gedung', 'assetPbbs', AssetPbb::class),
 
-            HasMany::make('Riwayat Sengketa' , 'disputeHistories' , AssetDisputeHistory::class),
+            HasMany::make('Riwayat Sengketa', 'disputeHistories', AssetDisputeHistory::class),
 
-            HasMany::make('Dokumen Lainnya' , 'otherDocuments' , AssetOtherDocument::class),
+            HasMany::make('Dokumen Lainnya', 'otherDocuments', AssetOtherDocument::class),
 
-            HasMany::make('ID/Pelanggan PLN' , 'plns' , AssetPln::class),
+            HasMany::make('ID/Pelanggan PLN', 'plns', AssetPln::class),
+
+            HasMany::make('Asuransi', 'asuranceies', Asurance::class)
         ];
     }
 

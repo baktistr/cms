@@ -10,6 +10,7 @@ use App\BuildingSpace;
 use App\Area;
 use App\AssetPbb;
 use App\AssetDisputeHistory;
+use App\Asurance;
 use Illuminate\Database\Seeder;
 
 class LocalAssetSeeder extends Seeder
@@ -68,6 +69,9 @@ class LocalAssetSeeder extends Seeder
 
             // Seed some building PLN ID
             factory(AssetPln::class, rand(2, 3))->create(['asset_id' => $building->id]);
+
+            // Seed some Asurance
+            factory(Asurance::class)->create(['asset_id' => $building->id]);
         }
     }
 }
