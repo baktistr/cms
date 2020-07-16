@@ -43,22 +43,12 @@ class Asset extends Model implements HasMedia
     /**
      * Scope a query to only include available assets.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeAvailable($query)
     {
         return $query->where('is_available', true);
-    }
-
-    /**
-     * An asset belongs to asset category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(AssetCategory::class, 'asset_category_id');
     }
 
     /**
@@ -112,8 +102,8 @@ class Asset extends Model implements HasMedia
     }
 
     /**
-
-     * Asset Has Many Asset Pbb
+     * Asset Has Many Asset Pbb.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function assetPbbs(): HasMany
@@ -131,6 +121,7 @@ class Asset extends Model implements HasMedia
         return $this->hasMany(AssetDisputeHistory::class, 'asset_id');
 
     }
+
     /**
      * Asset can have many other documents.
      *
