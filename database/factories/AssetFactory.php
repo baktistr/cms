@@ -16,57 +16,20 @@ use Illuminate\Support\Arr;
 
 $factory->define(Asset::class, function (Faker $faker) {
     return [
-        'asset_category_id' => function () {
-            return factory(AssetCategory::class)->create()->id;
-        },
-        'area_id'           => function () {
+        'area_id'       => function () {
             return factory(Area::class)->create()->id;
         },
-        'pic_id'            => function () {
+        'pic_id'        => function () {
             return factory(User::class)->state('PIC')->create()->id;
         },
-        'name'              => $faker->unique()->name,
-        'description'       => $faker->realText(),
-        'building_code'     => function ($data) {
+        'name'          => $faker->unique()->name,
+        'description'   => $faker->realText(),
+        'building_code' => function ($data) {
             return "{$data['location_code']}-A";
         },
-        'allotment'         => $faker->realText(),
-        'unit_area'         => $faker->randomFloat(0, 50, 300),
-        'price'             => $faker->randomFloat(0, 1000000, 50000000),
+        'allotment'     => $faker->realText(),
     ];
 });
-
-// Add available state
-$factory->state(Asset::class, 'available', ['is_available' => true]);
-
-/**
- * Add states for each asset categories
- */
-$factory->state(Asset::class, 'tanah', ['type' => 'sale']);
-
-$factory->state(Asset::class, 'gedung', function (Faker $faker) {
-    return [
-        'number_of_floors' => $faker->randomNumber(1),
-        'type'             => function () {
-            return Arr::random(array_keys(Asset::$types));
-        },
-    ];
-});
-
-$factory->state(Asset::class, 'ruko', function (Faker $faker) {
-    return [
-        'number_of_floors' => $faker->randomNumber(1),
-        'type'             => function () {
-            return Arr::random(array_keys(Asset::$types));
-        },
-    ];
-});
-
-$factory->state(Asset::class, 'komersil', [
-    'type' => function () {
-        return Arr::random(array_keys(Asset::$types));
-    },
-]);
 
 $factory->afterCreating(Asset::class, function (Asset $asset) {
     for ($i = 1; $i <= rand(1, 10); $i++) {

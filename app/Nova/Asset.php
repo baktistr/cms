@@ -5,7 +5,6 @@ namespace App\Nova;
 use App\Nova\Metrics\AvailableAssets;
 use App\Nova\Metrics\TotalAssets;
 use App\Nova\Metrics\UnavailableAssets;
-use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
@@ -13,13 +12,11 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
-use Outhebox\NovaHiddenField\HiddenField;
 use Rimu\FormattedNumber\FormattedNumber;
 
 class Asset extends Resource
@@ -45,7 +42,6 @@ class Asset extends Resource
      */
     public static $with = [
         'pic',
-        'category',
         'area',
     ];
 
@@ -67,7 +63,6 @@ class Asset extends Resource
      */
     public static $searchRelations = [
         'pic'      => ['name'],
-        'category' => ['name'],
         'area'     => ['code'],
     ];
 
@@ -95,16 +90,6 @@ class Asset extends Resource
     }
 
     /**
-     * Get the search result subtitle for the resource.
-     *
-     * @return string
-     */
-    public function subtitle()
-    {
-        return "Category: {$this->category->name} | PIC: {$this->pic->name}";
-    }
-
-    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -114,16 +99,6 @@ class Asset extends Resource
     {
         return [
             Text::make('Nama Gedung', 'name'),
-
-            BelongsTo::make('Kategori', 'category', AssetCategory::class)
-                ->exceptOnForms()
-                ->sortable(),
-
-            Select::make('Kategori', 'asset_category_id')
-                ->options($this->assetCategories($request->user()))
-                ->displayUsingLabels()
-                ->rules(['required', 'exists:asset_categories,id'])
-                ->onlyOnForms(),
 
             BelongsTo::make('Kode Lokasi', 'area', Area::class)
                 ->rules(['required'])
@@ -156,37 +131,6 @@ class Asset extends Resource
 
             Text::make('Telepon', 'phone_number')
                 ->hideFromIndex(),
-
-            Select::make('Tipe', 'type')
-                ->options(\App\Asset::$types)
-                ->displayUsingLabels()
-                ->rules(['required'])
-                ->hideFromIndex(),
-
-            Text::make('Luas area (m2)', 'unit_area')
-                ->rules(['required', 'numeric'])
-                ->hideFromIndex(),
-
-            /**
-             * Fields for Gedung dan ruko.
-             * @todo better solution for dependency container relationship.
-             */
-            NovaDependencyContainer::make([
-                Text::make('Jumlah Lantai', 'number_of_floors')
-                    ->rules(['required', 'numeric', 'min:1']),
-            ])->dependsOn('asset_category_id', 2)
-                ->dependsOn('asset_category_id', 3)
-                ->onlyOnDetail()
-                ->onlyOnIndex(),
-
-            NovaDependencyContainer::make([
-                FormattedNumber::make('Harga (Rupiah)', 'price')
-                    ->rules(['required', 'numeric'])
-                    ->onlyOnForms(),
-            ])->dependsOn('type', 'sale'),
-
-            Boolean::make('Ketersedian', 'is_available')
-                ->sortable(),
 
             Images::make('Gambar', 'image')
                 ->rules(['required']),
@@ -225,17 +169,17 @@ class Asset extends Resource
 
             HasMany::make('Area Komersil', 'spaces', BuildingSpace::class),
 
-            HasMany::make('Detail Lantai' , 'floors' , AssetFloor::class),
+            HasMany::make('Detail Lantai', 'floors', AssetFloor::class),
 
             HasMany::make('Sertifikat', 'certificates', AssetCertificate::class),
 
-            HasMany::make('PBB Gedung' , 'assetPbbs' , AssetPbb::class),
+            HasMany::make('PBB Gedung', 'assetPbbs', AssetPbb::class),
 
-            HasMany::make('Riwayat Sengketa' , 'disputeHistories' , AssetDisputeHistory::class),
+            HasMany::make('Riwayat Sengketa', 'disputeHistories', AssetDisputeHistory::class),
 
-            HasMany::make('Dokumen Lainnya' , 'otherDocuments' , AssetOtherDocument::class),
+            HasMany::make('Dokumen Lainnya', 'otherDocuments', AssetOtherDocument::class),
 
-            HasMany::make('ID/Pelanggan PLN' , 'plns' , AssetPln::class),
+            HasMany::make('ID/Pelanggan PLN', 'plns', AssetPln::class),
         ];
     }
 
@@ -285,22 +229,6 @@ class Asset extends Resource
     public function actions(Request $request)
     {
         return [];
-    }
-
-    /**
-     * Get assets category depends on role.
-     *
-     * @param $user
-     * @return mixed
-     */
-    protected function assetCategories($user)
-    {
-        if ($user->hasRole('Super Admin')) {
-            return \App\AssetCategory::pluck('name', 'id');
-        }
-
-        return \App\AssetCategory::assignedAdmin($user)
-            ->pluck('name', 'id');
     }
 
     /**

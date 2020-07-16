@@ -24,19 +24,15 @@ class LocalAssetSeeder extends Seeder
         // Create Building from csv
         $buildings = file(database_path('seeds/data/buildings.csv'));
 
-        // Seed to buildings
-        $buildingCategory = AssetCategory::where('slug', 'gedung')->first();
-
         foreach ($buildings as $item) {
             $building = str_getcsv($item, ',');
 
-            $building = factory(Asset::class)->states([$buildingCategory->slug, 'available'])->create([
-                'asset_category_id' => $buildingCategory->id,
-                'name'              => $building[6],
-                'area_id'           => Area::inRandomOrder()->first()->id,
-                'building_code'     => 'A',
-                'allotment'         => $building[12],
-                'phone_number'      => null,
+            $building = factory(Asset::class)->create([
+                'name'          => $building[6],
+                'area_id'       => Area::inRandomOrder()->first()->id,
+                'building_code' => 'A',
+                'allotment'     => $building[12],
+                'phone_number'  => null,
             ]);
 
             // Seed some spaces to building
