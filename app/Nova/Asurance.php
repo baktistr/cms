@@ -38,7 +38,7 @@ class Asurance extends Resource
      * Hide Asurance on side navigtion
      * @var string
      */
-    protected static $displayInNavigation = false;
+    public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
