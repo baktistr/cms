@@ -112,9 +112,9 @@ class Asset extends Resource
                 return "{$this->area->code}-{$this->building_code}";
             }),
 
-//            HiddenField::make('PIC', 'pic_id')
-//                ->defaultValue($request->user()->id)
-//                ->onlyOnForms(),
+            //            HiddenField::make('PIC', 'pic_id')
+            //                ->defaultValue($request->user()->id)
+            //                ->onlyOnForms(),
 
             BelongsTo::make('PIC', 'pic', User::class)
                 ->nullable()
@@ -180,6 +180,8 @@ class Asset extends Resource
             HasMany::make('Dokumen Lainnya', 'otherDocuments', AssetOtherDocument::class),
 
             HasMany::make('ID/Pelanggan PLN', 'plns', AssetPln::class),
+
+            HasMany::make('Asuransi', 'insurances', Insurance::class),
         ];
     }
 

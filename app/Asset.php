@@ -111,7 +111,7 @@ class Asset extends Model implements HasMedia
         return $this->hasMany(AssetPbb::class, 'asset_id');
     }
 
-    /**
+     /**
      * A building can have many Asset disputes Histories.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -150,6 +150,15 @@ class Asset extends Model implements HasMedia
     public function plns(): HasMany
     {
         return $this->hasMany(AssetPln::class, 'asset_id');
+    }
+    /**
+     * Asset can have many Assurance.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function insurances(): HasMany
+    {
+        return $this->hasMany(Insurance::class, 'asset_id');
     }
 
     /**
