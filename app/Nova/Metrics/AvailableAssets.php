@@ -3,6 +3,7 @@
 namespace App\Nova\Metrics;
 
 use App\Asset;
+use App\BuildingSpace;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Metrics\Value;
 
@@ -17,14 +18,13 @@ class AvailableAssets extends Value
     public function calculate(NovaRequest $request)
     {
         if ($request->user()->hasRole('PIC')) {
+            $space =  Asset::where('pic_id', $request->user()->id)->with('spaces')->first();
             return $this->result(
-                Asset::where('pic_id', $request->user()->id)
-                    ->where('is_available', true)
-                    ->count()
+                $space->spaces->where('is_available', true)->count()
             )->allowZeroResult();
         }
 
-        return $this->result(Asset::where('is_available', true)->count())
+        return $this->result(BuildingSpace::where('is_available', true)->count())
             ->allowZeroResult();
     }
 
@@ -45,7 +45,7 @@ class AvailableAssets extends Value
      */
     public function cacheFor()
     {
-        return now()->addMinutes(5);
+        // return now()->addMinutes(5);
     }
 
     /**
@@ -56,5 +56,10 @@ class AvailableAssets extends Value
     public function uriKey()
     {
         return 'available-assets';
+    }
+
+    public function name()
+    {
+        return 'Ketersedian Space Gedung';
     }
 }

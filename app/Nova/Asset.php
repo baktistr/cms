@@ -195,8 +195,8 @@ class Asset extends Resource
     {
         return [
             new TotalAssets,
-            new AvailableAssets,
-            new UnavailableAssets,
+            // new AvailableAssets,
+            // new UnavailableAssets,
         ];
     }
 

@@ -16,6 +16,7 @@ class CreateBuildingSpacesTable extends Migration
         Schema::create('building_spaces', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_id');
+            $table->string('is_available')->default(true);
             $table->string('name');
             $table->text('description');
             $table->timestamps();
