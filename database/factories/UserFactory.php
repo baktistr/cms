@@ -36,6 +36,8 @@ $factory->state(User::class, 'unverified', ['email_verified_at' => null]);
 
 $factory->state(User::class, 'super-admin', []);
 
+$factory->state(User::class, 'director', []);
+
 $factory->state(User::class, 'PIC', []);
 
 
@@ -45,6 +47,10 @@ $factory->afterCreatingState(User::class , 'PIC' , function(User $user){
 
 $factory->afterCreatingState(User::class , 'super-admin' , function(User $user){
     $user->assignRole('Super Admin');
+});
+
+$factory->afterCreatingState(User::class , 'director' , function(User $user){
+    $user->assignRole('Director');
 });
 
 $factory->afterCreating(User::class, function (User $user) {

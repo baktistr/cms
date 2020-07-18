@@ -24,5 +24,6 @@ class RolePermissionSeeder extends Seeder
          */
         Role::create(['name' => 'Super Admin']);
         Role::create(['name' => 'PIC']);
+        Role::create(['name' => 'Director']);
     }
 }
