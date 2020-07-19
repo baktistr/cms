@@ -134,6 +134,31 @@ class NovaTest extends IntegrationTest
             TagResource::class,
         ], Nova::globallySearchableResources(NovaRequest::create('/')));
     }
+
+    public function test_resources_can_be_grouped_for_navigation()
+    {
+        Nova::replaceResources([
+            UserResource::class,
+            DiscussionResource::class,
+            TagResource::class,
+            NotSearchableUserResource::class,
+        ]);
+
+        tap(Nova::groupedResourcesForNavigation(NovaRequest::create('/')), function ($resources) {
+            $this->assertArrayHasKey('Other', $resources);
+            $this->assertArrayHasKey('Content', $resources);
+
+            $this->assertEquals([
+                NotSearchableUserResource::class,
+                UserResource::class,
+            ], $resources['Other']->all());
+
+            $this->assertEquals([
+                DiscussionResource::class,
+                TagResource::class,
+            ], $resources['Content']->all());
+        });
+    }
 }
 
 class CustomActionEvent extends ActionEvent

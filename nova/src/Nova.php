@@ -154,7 +154,7 @@ class Nova
      */
     public static function version()
     {
-        return '3.4.0';
+        return '3.7.1';
     }
 
     /**
@@ -216,6 +216,8 @@ class Nova
                 'authorizedToCreate' => $resource::authorizedToCreate($request),
                 'searchable' => $resource::searchable(),
                 'perPageOptions' => $resource::perPageOptions(),
+                'tableStyle' => $resource::tableStyle(),
+                'showColumnBorders' => $resource::showColumnBorders(),
             ], $resource::additionalInformation($request));
         })->values()->all();
     }
@@ -332,10 +334,22 @@ class Nova
      */
     public static function groupedResources(Request $request)
     {
-        return collect(static::availableResources($request))
-                    ->groupBy(function ($item, $key) {
-                        return $item::group();
-                    })->sortKeys()->all();
+        return ResourceCollection::make(static::availableResources($request))
+            ->grouped()
+            ->all();
+    }
+
+    /**
+     * Get the grouped resources available for the given request.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Support\Collection
+     */
+    public static function groupedResourcesForNavigation(Request $request)
+    {
+        return ResourceCollection::make(static::availableResources($request))
+            ->groupedForNavigation($request)
+            ->filter->count();
     }
 
     /**

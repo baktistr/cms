@@ -44,4 +44,27 @@ class ResourceCollection extends Collection
             return $resource::$globallySearchable;
         });
     }
+
+    /**
+     * Sort the resources by their group property.
+     *
+     * @return \Laravel\Nova\ResourceCollection
+     */
+    public function grouped()
+    {
+        return $this->groupBy(function ($item, $key) {
+            return $item::group();
+        })->sortKeys();
+    }
+
+    /**
+     * Group the resources for display in navigation.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Laravel\Nova\ResourceCollection
+     */
+    public function groupedForNavigation(Request $request)
+    {
+        return $this->availableForNavigation($request)->grouped();
+    }
 }
