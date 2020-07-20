@@ -173,8 +173,6 @@ class Asset extends Resource
 
             HasMany::make('PBB Gedung', 'assetPbbs', AssetPbb::class),
 
-            HasMany::make('Riwayat Sengketa', 'disputeHistories', AssetDisputeHistory::class),
-
             HasMany::make('Dokumen Lainnya', 'otherDocuments', AssetOtherDocument::class),
 
             HasMany::make('ID/Pelanggan PLN', 'plns', AssetPln::class),

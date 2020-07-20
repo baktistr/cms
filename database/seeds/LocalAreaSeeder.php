@@ -2,6 +2,7 @@
 
 use App\Area;
 use App\AreaCertificate;
+use App\AreaDisputeHistory;
 use App\Regency;
 use App\TelkomRegional;
 use App\WilayahTelekomunikasi;
@@ -32,6 +33,11 @@ class LocalAreaSeeder extends Seeder
             $areas->each(function ($area) {
                 // Seed some certificates
                 factory(AreaCertificate::class, rand(1, 3))->create([
+                    'area_id' => $area->id
+                ]);
+
+                // Seed Some Asset dispute History
+                factory(AreaDisputeHistory::class, rand(2, 3))->create([
                     'area_id' => $area->id
                 ]);
             });

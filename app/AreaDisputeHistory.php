@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AssetDisputeHistory extends Model
+class AreaDisputeHistory extends Model
 {
     use SoftDeletes;
 
@@ -14,8 +14,8 @@ class AssetDisputeHistory extends Model
      * Asset Dispute History BelongsTo Asset
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function asset(): BelongsTo
+    public function area(): BelongsTo
     {
-        return $this->belongsTo(Asset::class , 'asset_id');
+        return $this->belongsTo(Asset::class , 'area_id');
     }
 }

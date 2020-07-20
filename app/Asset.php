@@ -113,17 +113,6 @@ class Asset extends Model implements HasMedia
     }
 
     /**
-     * A building can have many Asset disputes Histories.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function disputeHistories(): HasMany
-    {
-        return $this->hasMany(AssetDisputeHistory::class, 'asset_id');
-
-    }
-
-    /**
      * Asset can have many other documents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -80,4 +80,15 @@ class Area extends Model
     {
         return $this->hasMany(AreaCertificate::class, 'area_id');
     }
+
+    /**
+     * A building can have many Asset disputes Histories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function disputeHistories(): HasMany
+    {
+        return $this->hasMany(AreaDisputeHistory::class, 'area_id');
+
+    }
 }

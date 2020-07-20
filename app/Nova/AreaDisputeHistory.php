@@ -9,14 +9,14 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class AssetDisputeHistory extends Resource
+class AreaDisputeHistory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\AssetDisputeHistory::class;
+    public static $model = \App\AreaDisputeHistory::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -51,9 +51,7 @@ class AssetDisputeHistory extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-
-            BelongsTo::make('Asset', 'asset', Asset::class),
+            BelongsTo::make('Lahan', 'area', Area::class),
 
             Text::make('Kode Lokasi', 'location_code')
                 ->rules('string', 'required'),
