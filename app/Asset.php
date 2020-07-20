@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Nova\Actions\Actionable;
 use Spatie\Image\Manipulations;
@@ -94,11 +95,11 @@ class Asset extends Model implements HasMedia
     /**
      * A building can have many certificates.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function certificates(): HasMany
+    public function certificates()
     {
-        return $this->hasMany(AssetCertificate::class, 'asset_id');
+        return $this->area->certificates();
     }
 
     /**
@@ -111,7 +112,7 @@ class Asset extends Model implements HasMedia
         return $this->hasMany(AssetPbb::class, 'asset_id');
     }
 
-     /**
+    /**
      * A building can have many Asset disputes Histories.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

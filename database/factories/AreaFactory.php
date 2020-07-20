@@ -27,5 +27,10 @@ $factory->define(Area::class, function (Faker $faker) {
         'address_detail'     => $faker->streetAddress,
         'latitude'           => $faker->latitude,
         'longitude'          => $faker->longitude,
+        'allotment'          => $faker->optional()->realText(),
+        'surface_area'       => $faker->optional()->randomNumber(4),
+        'surface_empty_area' => $faker->optional()->randomNumber(4),
+        'nka_sap'            => $faker->optional()->uuid,
+        'postal_code'        => $faker->postcode,
     ];
 });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Area;
+use App\AreaCertificate;
 use App\Regency;
 use App\TelkomRegional;
 use App\WilayahTelekomunikasi;
@@ -20,13 +21,20 @@ class LocalAreaSeeder extends Seeder
             $witel = WilayahTelekomunikasi::inRandomOrder()->first();
             $regency = Regency::with('province')->inRandomOrder()->first();
 
-            factory(Area::class, 10)->create([
+            $areas = factory(Area::class, 10)->create([
                 'telkom_regional_id' => $treg->id,
                 'witel_id'           => $witel->id,
                 'province_id'        => $regency->province->id,
                 'regency_id'         => $regency->id,
                 'district_id'        => null,
             ]);
+
+            $areas->each(function ($area) {
+                // Seed some certificates
+                factory(AreaCertificate::class, rand(1, 3))->create([
+                    'area_id' => $area->id
+                ]);
+            });
         }
     }
 }

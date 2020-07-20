@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssetCertificatesTable extends Migration
+class CreateAreaCertificatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateAssetCertificatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asset_certificates', function (Blueprint $table) {
+        Schema::create('area_certificates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('asset_id');
+            $table->foreignId('area_id');
             $table->string('idareal_old');
             $table->string('status');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateAssetCertificatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_certificates');
+        Schema::dropIfExists('area_certificates');
     }
 }

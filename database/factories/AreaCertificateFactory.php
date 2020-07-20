@@ -2,22 +2,23 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Area;
 use App\Asset;
-use App\AssetCertificate;
+use App\AreaCertificate;
 use Faker\Generator as Faker;
 use Illuminate\Http\Testing\FileFactory;
 
-$factory->define(AssetCertificate::class, function (Faker $faker) {
+$factory->define(AreaCertificate::class, function (Faker $faker) {
     return [
-        'asset_id'    => function () {
-            return factory(Asset::class)->state('gedung')->create()->id;
+        'area_id'    => function () {
+            return factory(Area::class)->create()->id;
         },
         'idareal_old' => $faker->uuid,
         'status'      => 'available',
     ];
 });
 
-$factory->afterCreating(AssetCertificate::class, function (AssetCertificate $certificate) {
+$factory->afterCreating(AreaCertificate::class, function (AreaCertificate $certificate) {
     for ($i = 1; $i < rand(2, 3); $i++) {
         $certificate->addMedia((new FileFactory)->create("certificate-{$certificate->id}.pdf", 10, 'application/pdf'))
             ->toMediaCollection('documents');

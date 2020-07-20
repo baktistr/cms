@@ -9,14 +9,14 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class AssetCertificate extends Resource
+class AreaCertificate extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\AssetCertificate::class;
+    public static $model = \App\AreaCertificate::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -50,9 +50,7 @@ class AssetCertificate extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-
-            BelongsTo::make('Gedung', 'asset', Asset::class)
+            BelongsTo::make('Lahan', 'area', Area::class)
                 ->rules(['required']),
 
             Text::make('IDAREAL_OLD', 'idareal_old')

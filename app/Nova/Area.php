@@ -138,6 +138,8 @@ class Area extends Resource
             }),
 
             HasMany::make('Aset', 'assets', Asset::class),
+
+            HasMany::make('Sertifikat', 'certificates', AreaCertificate::class),
         ];
     }
 

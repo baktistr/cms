@@ -70,4 +70,14 @@ class Area extends Model
     {
         return $this->hasMany(Asset::class, 'area_id');
     }
+
+    /**
+     * Area can have many certificates.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(AreaCertificate::class, 'area_id');
+    }
 }
