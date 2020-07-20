@@ -24,13 +24,23 @@ class Province extends Model
     }
 
     /**
-     * A province can have many assets.
+     * A province can have many area.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assets(): HasMany
+    public function area(): HasMany
     {
-        return $this->hasMany(Asset::class, 'province_id');
+        return $this->hasMany(Area::class, 'province_id');
+    }
+
+    /**
+     * A province can have many assets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function assets(): HasManyThrough
+    {
+        return $this->hasManyThrough(Asset::class, Area::class);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Regency extends Model
 {
@@ -34,12 +35,22 @@ class Regency extends Model
     }
 
     /**
-     * A regency can have many assets.
+     * A province can have many area.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assets(): HasMany
+    public function area(): HasMany
     {
-        return $this->hasMany(Asset::class, 'regency_id');
+        return $this->hasMany(Area::class, 'regency_id');
+    }
+
+    /**
+     * A province can have many assets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function assets(): HasManyThrough
+    {
+        return $this->hasManyThrough(Asset::class, Area::class);
     }
 }
