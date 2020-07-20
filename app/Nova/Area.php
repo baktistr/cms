@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\TotalArea;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -151,7 +152,11 @@ class Area extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            (new TotalArea)->canSee(function () use ($request) {
+                return $request->user()->hasRole('Super Admin');
+            })->width('1/4')
+        ];
     }
 
     /**
