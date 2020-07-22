@@ -43,7 +43,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $group = 'Application';
+    public static $group = 'Sistem';
 
     /**
      * The relationships that should be eager loaded on index queries.

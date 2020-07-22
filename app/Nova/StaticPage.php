@@ -29,7 +29,7 @@ class StaticPage extends Resource
      *
      * @var string
      */
-    public static $group = 'Application';
+    public static $group = 'Sistem';
 
     /**
      * The columns that should be searched.
