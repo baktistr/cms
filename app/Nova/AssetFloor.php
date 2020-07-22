@@ -54,7 +54,7 @@ class AssetFloor extends Resource
             BelongsTo::make('Gedung', 'asset', Asset::class),
 
             Text::make('Lantai', 'floor')
-                ->rules(['required', 'number']),
+                ->rules(['required']),
 
             Text::make('Keterangan', function () {
                 return Str::limit($this->desc);
