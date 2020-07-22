@@ -139,10 +139,20 @@ class Area extends Resource
                 ->rules('required'),
 
             FormattedNumber::make('Luas Tanah Total', 'surface_area')
-                ->help('satuan dalam m<sup>2</sup>'),
+                ->help('satuan dalam m<sup>2</sup>')
+                ->onlyOnForms(),
+
+            Text::make('Luas Tanah Total', function () {
+                return number_format($this->surface_area) . ' m<sup>2</sup>';
+            })->asHtml(),
 
             FormattedNumber::make('Sisa Luas Tanah', 'surface_empty_area')
-                ->help('satuan dalam m<sup>2</sup>'),
+                ->help('satuan dalam m<sup>2</sup>')
+                ->onlyOnForms(),
+
+            Text::make('Sisa Luas Tanah', function () {
+                return number_format($this->surface_empty_area) . ' m<sup>2</sup>';
+            })->asHtml(),
 
             Text::make('Kode Pos', 'postal_code')
                 ->nullable(),
