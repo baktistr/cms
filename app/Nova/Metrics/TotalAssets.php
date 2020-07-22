@@ -52,4 +52,9 @@ class TotalAssets extends Value
     {
         return 'total-assets';
     }
+
+    public function name()
+    {
+        return 'Total Gedung';
+    }
 }
