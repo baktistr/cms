@@ -13,8 +13,15 @@ $factory->define(AreaCertificate::class, function (Faker $faker) {
         'area_id'    => function () {
             return factory(Area::class)->create()->id;
         },
-        'idareal_old' => $faker->uuid,
-        'status'      => 'available',
+        'idareal_old'   => $faker->uuid,
+        'no_certificate'=> $faker->uuid,
+        'luas'          => rand(1000 , 10000),
+        'sk_hak'        => $faker->sentences,
+        'end'           => now()->addDays(rand(4, 7)),
+        'loker'         => rand(100 , 288),
+        'bundel'        => 'II',
+        'page'          => rand(10 , 20),
+        'status'        => 'available',
     ];
 });
 

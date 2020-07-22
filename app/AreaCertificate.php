@@ -13,6 +13,15 @@ class AreaCertificate extends Model implements HasMedia
     use InteractsWithMedia, SoftDeletes;
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'end' => 'date',
+    ];
+
+    /**
      * A certificate belongs to area.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
