@@ -160,7 +160,7 @@ class Asset extends Resource
                     return $this->area->address_detail ?? '—';
                 }),
 
-                Text::make('Postal Code' , function() {
+                Text::make('Kode Pos' , function() {
                     return $this->area->postal_code ?? '-';
                 }),
 
