@@ -160,6 +160,10 @@ class Asset extends Resource
                     return $this->area->address_detail ?? '—';
                 }),
 
+                Text::make('Kode Pos' , function() {
+                    return $this->area->postal_code ?? '-';
+                }),
+
                 MapMarker::make('Lokasi')
                     ->latitude('area.latitude')
                     ->longitude('area.longitude')
