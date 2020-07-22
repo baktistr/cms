@@ -135,8 +135,9 @@ class Area extends Resource
                 ->rules('required')
                 ->hideFromIndex(),
 
-            Text::make('Peruntukan', 'allotment')
-                ->rules('required'),
+            Text::make('Total Gedung', function () {
+                return $this->assets()->count();
+            }),
 
             FormattedNumber::make('Luas Tanah Total', 'surface_area')
                 ->help('satuan dalam m<sup>2</sup>')
@@ -157,9 +158,8 @@ class Area extends Resource
             Text::make('Kode Pos', 'postal_code')
                 ->nullable(),
 
-            Text::make('Total Gedung', function () {
-                return $this->assets()->count();
-            }),
+            Text::make('Peruntukan', 'allotment')
+                ->rules('required'),
 
             HasMany::make('Aset', 'assets', Asset::class),
 
