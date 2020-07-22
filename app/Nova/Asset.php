@@ -54,6 +54,8 @@ class Asset extends Resource
         'id',
         'name',
         'building_code',
+        'allotment',
+        'phone_number',
     ];
 
     /**
@@ -64,6 +66,7 @@ class Asset extends Resource
     public static $searchRelations = [
         'pic'      => ['name'],
         'area'     => ['code'],
+        'spaces'   => ['name'],
     ];
 
     /**
