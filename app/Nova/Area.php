@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Rimu\FormattedNumber\FormattedNumber;
 use Wemersonrv\InputMask\InputMask;
 
 class Area extends Resource
@@ -133,6 +134,18 @@ class Area extends Resource
             MapMarker::make('Lokasi')
                 ->rules('required')
                 ->hideFromIndex(),
+
+            Text::make('Peruntukan', 'allotment')
+                ->rules('required'),
+
+            FormattedNumber::make('Luas Tanah Total', 'surface_area')
+                ->help('satuan dalam m<sup>2</sup>'),
+
+            FormattedNumber::make('Sisa Luas Tanah', 'surface_empty_area')
+                ->help('satuan dalam m<sup>2</sup>'),
+
+            Text::make('Kode Pos', 'postal_code')
+                ->nullable(),
 
             Text::make('Total Gedung', function () {
                 return $this->assets()->count();
