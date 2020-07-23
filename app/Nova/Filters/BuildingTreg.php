@@ -26,9 +26,10 @@ class BuildingTreg extends Filter
      */
     public function apply(Request $request, $query, $value)
     {
-        return $query->with('area')->whereHas('area.regional', function (Builder $query) use ($value) {
-            return $query->where('name', $value);
-        });
+        return $query->with('area')
+            ->whereHas('area.regional', function (Builder $query) use ($value) {
+                return $query->where('name', $value);
+            });
     }
 
     /**
