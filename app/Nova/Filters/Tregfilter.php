@@ -2,6 +2,7 @@
 
 namespace App\Nova\Filters;
 
+use App\TelkomRegional;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -29,7 +30,7 @@ class Tregfilter extends Filter
         $asset =  $query->with('area')->whereHas('area.regional', function (Builder $query) use ($value) {
             return $query->where('name', $value);
         });
-        return $asset->get();
+        return $asset;
     }
 
     /**
@@ -43,11 +44,6 @@ class Tregfilter extends Filter
         return [
             'TREG 1' => 'TREG 1',
             'TREG 2' => 'TREG 2',
-            'TREG 3' => 'TREG 3',
-            'TREG 4' => 'TREG 4',
-            'TREG 5' => 'TREG 5',
-            'TREG 6' => 'TREG 6',
-            'TREG 7' => 'TREG 7',
-        ];
+        return TelkomRegional::get()->pluck('name' , 'name');
     }
 }
