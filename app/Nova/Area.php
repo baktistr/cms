@@ -37,6 +37,9 @@ class Area extends Resource
      */
     public static $search = [
         'code',
+        'allotment',
+        'postal_code',
+        'nka_sap'
     ];
 
     /**
