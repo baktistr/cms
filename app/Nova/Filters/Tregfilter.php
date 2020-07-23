@@ -41,9 +41,6 @@ class Tregfilter extends Filter
      */
     public function options(Request $request)
     {
-        return [
-            'TREG 1' => 'TREG 1',
-            'TREG 2' => 'TREG 2',
         return TelkomRegional::get()->pluck('name' , 'name');
     }
 }
