@@ -16,7 +16,7 @@ $factory->define(AreaCertificate::class, function (Faker $faker) {
         'idareal_old'   => $faker->uuid,
         'no_certificate'=> $faker->uuid,
         'luas'          => rand(1000 , 10000),
-        'sk_hak'        => $faker->sentences,
+        'sk_hak'        => 'HB-'.rand(10,100),
         'end'           => now()->addDays(rand(4, 7)),
         'loker'         => rand(100 , 288),
         'bundel'        => 'II',
