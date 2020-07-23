@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Laravel\Nova\Filters\Filter;
 
-class Tregfilter extends Filter
+class BuildingTreg extends Filter
 {
     /**
      * The filter's component.
@@ -27,10 +27,9 @@ class Tregfilter extends Filter
      */
     public function apply(Request $request, $query, $value)
     {
-        $asset =  $query->with('area')->whereHas('area.regional', function (Builder $query) use ($value) {
+        return $query->with('area')->whereHas('area.regional', function (Builder $query) use ($value) {
             return $query->where('name', $value);
         });
-        return $asset;
     }
 
     /**
@@ -41,6 +40,15 @@ class Tregfilter extends Filter
      */
     public function options(Request $request)
     {
-        return TelkomRegional::get()->pluck('name' , 'name');
+        return TelkomRegional::get()->pluck('name', 'name');
+    }
+
+    /**
+     * Name of Filter
+     * @return string
+     */
+    public function name()
+    {
+        return 'TREG';
     }
 }

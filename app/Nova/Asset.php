@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\BuildingTreg;
 use App\Nova\Filters\Tregfilter;
 use App\Nova\Metrics\AvailableAssets;
 use App\Nova\Metrics\TotalAssets;
@@ -217,7 +218,7 @@ class Asset extends Resource
     public function filters(Request $request)
     {
         return [
-            new Tregfilter,
+            new BuildingTreg,
         ];
     }
 
