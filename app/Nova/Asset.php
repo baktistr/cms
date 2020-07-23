@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\Tregfilter;
 use App\Nova\Metrics\AvailableAssets;
 use App\Nova\Metrics\TotalAssets;
 use App\Nova\Metrics\UnavailableAssets;
@@ -69,8 +70,8 @@ class Asset extends Resource
         'area.regional' => ['name'],
         'area.witel'    => ['name'],
         'area.provinsi' => ['name'],
-        'area.kabupaten'=> ['name'],
-        'area.kecamatan'=> ['name'],
+        'area.kabupaten' => ['name'],
+        'area.kecamatan' => ['name'],
     ];
 
     /**
@@ -167,7 +168,7 @@ class Asset extends Resource
                     return $this->area->address_detail ?? '—';
                 }),
 
-                Text::make('Kode Pos' , function() {
+                Text::make('Kode Pos', function () {
                     return $this->area->postal_code ?? '-';
                 }),
 
@@ -215,7 +216,9 @@ class Asset extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new Tregfilter,
+        ];
     }
 
     /**
