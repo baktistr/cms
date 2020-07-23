@@ -54,6 +54,8 @@ class Asset extends Resource
         'id',
         'name',
         'building_code',
+        'allotment',
+        'phone_number',
     ];
 
     /**
