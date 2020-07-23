@@ -17,6 +17,13 @@ class CreateAreaCertificatesTable extends Migration
             $table->id();
             $table->foreignId('area_id');
             $table->string('idareal_old');
+            $table->string('no_certificate');
+            $table->string('luas');
+            $table->string('sk_hak');
+            $table->string('end');
+            $table->string('loker');
+            $table->string('bundel');
+            $table->string('page');
             $table->string('status');
             $table->timestamps();
             $table->softDeletes();

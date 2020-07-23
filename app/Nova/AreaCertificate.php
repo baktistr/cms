@@ -5,9 +5,11 @@ namespace App\Nova;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Rimu\FormattedNumber\FormattedNumber;
 
 class AreaCertificate extends Resource
 {
@@ -55,6 +57,27 @@ class AreaCertificate extends Resource
 
             Text::make('IDAREAL_OLD', 'idareal_old')
                 ->rules(['required']),
+
+            Text::make('No Sertifikat', 'no_certificate')
+                ->rules('required'),
+
+            FormattedNumber::make('Luas', 'luas')
+                ->rules('required'),
+
+            Text::make('SK HAK', 'sk_hak')
+                ->rules('required'),
+
+            Date::make('Akhir', 'end')
+                ->nullable(),
+
+            Text::make('Loker', 'loker')
+                ->rules('required'),
+
+            Text::make('Bundel', 'bundel')
+                ->rules('required'),
+
+            Text::make('Halaman', 'page')
+                ->rules('required'),
 
             Text::make('Status'),
 

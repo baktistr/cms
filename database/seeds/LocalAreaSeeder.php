@@ -32,7 +32,7 @@ class LocalAreaSeeder extends Seeder
 
             $areas->each(function ($area) {
                 // Seed some certificates
-                factory(AreaCertificate::class, rand(1, 3))->create([
+                factory(AreaCertificate::class, rand(1, 2))->create([
                     'area_id' => $area->id
                 ]);
 
