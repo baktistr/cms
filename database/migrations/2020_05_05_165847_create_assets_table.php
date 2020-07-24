@@ -22,6 +22,7 @@ class CreateAssetsTable extends Migration
             $table->string('building_code')->nullable(); //@todo unique?
             $table->text('allotment')->nullable();
             $table->string('phone_number')->nullable();
+            $table->integer('surface_area')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

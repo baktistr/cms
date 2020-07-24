@@ -28,6 +28,7 @@ $factory->define(Asset::class, function (Faker $faker) {
             return "{$data['location_code']}-A";
         },
         'allotment'     => $faker->realText(),
+        'surface_area'  => $faker->randomNumber(2),
     ];
 });
 

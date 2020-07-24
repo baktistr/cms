@@ -173,6 +173,14 @@ class Asset extends Resource
                     return $this->area->postal_code ?? '-';
                 }),
 
+                FormattedNumber::make('Luas Tanah Total', 'surface_area')
+                    ->help('satuan dalam m<sup>2</sup>')
+                    ->onlyOnForms(),
+
+                Text::make('Luas Tanah Total', function () {
+                    return number_format($this->surface_area) . ' m<sup>2</sup>';
+                })->asHtml(),
+
                 MapMarker::make('Lokasi')
                     ->latitude('area.latitude')
                     ->longitude('area.longitude')
