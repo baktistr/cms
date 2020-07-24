@@ -8,6 +8,7 @@
 /public/media
 /public/mix-manifest.json
 /public/sitemap.xml
+/storage/media-library/temp
 /storage/*.key
 /storage/service-account.json
 /vendor
