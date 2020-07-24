@@ -97,18 +97,15 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
                 $this->addMediaConversion('small')
                     ->fit(Manipulations::FIT_CROP, 150, 150)
-                    ->performOnCollections('avatar')
-                    ->nonQueued();
+                    ->performOnCollections('avatar');
 
                 $this->addMediaConversion('medium')
                     ->fit(Manipulations::FIT_CROP, 300, 300)
-                    ->performOnCollections('avatar')
-                    ->nonQueued();
+                    ->performOnCollections('avatar');
 
                 $this->addMediaConversion('large')
                     ->fit(Manipulations::FIT_CROP, 600, 600)
-                    ->performOnCollections('avatar')
-                    ->nonQueued();
+                    ->performOnCollections('avatar');
             });
     }
 }
