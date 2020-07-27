@@ -17,42 +17,6 @@ class Asset extends Model implements HasMedia
     use Actionable, SoftDeletes, InteractsWithMedia;
 
     /**
-     * {@inheritDoc}
-     */
-    protected $casts = [
-        'is_available' => 'boolean',
-    ];
-
-    /**
-     * {@inheritDoc}
-     */
-    public static $types = [
-        'rent' => 'Sewa',
-        'sale' => 'Jual',
-    ];
-
-    /**
-     * Get formatted price on rupiah.
-     *
-     * @return string
-     */
-    public function getFormattedPriceAttribute()
-    {
-        return 'Rp.' . number_format($this->price);
-    }
-
-    /**
-     * Scope a query to only include available assets.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeAvailable($query)
-    {
-        return $query->where('is_available', true);
-    }
-
-    /**
      * An asset belongs to pic user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -161,8 +125,7 @@ class Asset extends Model implements HasMedia
             ->registerMediaConversions(function () {
                 $this->addMediaConversion('thumbnail')
                     ->fit(Manipulations::FIT_CROP, 160, 105)
-                    ->performOnCollections('image')
-                    ->nonQueued();
+                    ->performOnCollections('image');
             });
     }
 }

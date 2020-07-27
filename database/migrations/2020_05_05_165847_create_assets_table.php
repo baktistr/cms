@@ -17,6 +17,7 @@ class CreateAssetsTable extends Migration
             $table->id();
             $table->foreignId('area_id'); //@todo unique?
             $table->foreignId('pic_id')->nullable();
+            $table->unsignedBigInteger('manager_id')->nullable();
             $table->string('name')->index();
             $table->text('description');
             $table->string('building_code')->nullable(); //@todo unique?

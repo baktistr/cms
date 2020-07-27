@@ -22,6 +22,9 @@ $factory->define(Asset::class, function (Faker $faker) {
         'pic_id'        => function () {
             return factory(User::class)->state('PIC')->create()->id;
         },
+        'manager_id'     => function () {
+            return factory(User::class)->state('building-manager')->create()->id;
+        },
         'name'          => $faker->unique()->name,
         'description'   => $faker->realText(),
         'building_code' => function ($data) {
