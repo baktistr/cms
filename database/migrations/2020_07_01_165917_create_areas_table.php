@@ -21,12 +21,12 @@ class CreateAreasTable extends Migration
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('regency_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable(); // @todo required?
+            $table->string('name');
             $table->text('address_detail');
-            $table->decimal('latitude', 10, 7);
-            $table->decimal('longitude', 10, 7);
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->text('allotment')->nullable();
             $table->integer('surface_area')->nullable();
-            $table->integer('surface_empty_area')->nullable();
             $table->text('nka_sap')->nullable();
             $table->text('postal_code')->nullable();
             $table->timestamps();

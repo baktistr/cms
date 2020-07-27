@@ -27,7 +27,31 @@ class DatabaseSeeder extends Seeder
         // Run seeder only in local environment
         if (App::environment() === 'local') {
             $this->call(LocalAreaSeeder::class);
-            $this->call(LocalAssetSeeder::class);
+            // $this->call(LocalAssetSeeder::class);
         }
+    }
+
+    /**
+     * Convert CSV to array.
+     *
+     * @param string $filename
+     * @param string $delimiter
+     * @return array|bool
+     */
+    public static function csvToArray($filename = '', $delimiter = ',')
+    {
+        if (!file_exists($filename) || !is_readable($filename))
+            return FALSE;
+
+        $data = [];
+
+        if (($handle = fopen($filename, 'r')) !== FALSE) {
+            while (($row = fgetcsv($handle, 10000, $delimiter)) !== FALSE) {
+                $data[] = $row;
+            }
+            fclose($handle);
+        }
+
+        return $data;
     }
 }

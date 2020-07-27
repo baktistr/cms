@@ -1,13 +1,10 @@
 <?php
 
 use App\Area;
-use App\AreaCertificate;
-use App\AreaDisputeHistory;
 use App\Province;
 use App\Regency;
-use App\TelkomRegional;
-use App\WilayahTelekomunikasi;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 
 class LocalAreaSeeder extends Seeder
 {
@@ -18,36 +15,35 @@ class LocalAreaSeeder extends Seeder
      */
     public function run()
     {
-        $data = file(database_path('seeds/data/area.csv'));
+        $data = DatabaseSeeder::csvToArray(database_path('seeds/data/area.csv'));
 
-        foreach ($data as $items) {
-            $item = str_getcsv($items, ',');
+        foreach ($data as $item) {
+            $province = Cache::remember("province-{$item[8]}", now()->addMinutes(30), function () use ($item) {
+                return Province::where('name', 'LIKE', '' . $item[8] . '%')->first();
+            });
 
-            $province = Province::where('name' , 'LIKE' , '' . $item[8] . '%')->first();
-            $regency = Regency::where('name', 'LIKE', '%' . $item[9] . '%')->first();
+            $regency = Cache::remember("regency-{$item[9]}", now()->addMinutes(30), function () use ($item) {
+                return Regency::where('name', 'LIKE', '%' . $this->sanitizeRegency($item[9]) . '%')->first();
+            });
 
-            $areas = factory(Area::class)->create([
+            $coordinate = explode(',', $item[6]);
+
+            factory(Area::class)->create([
                 'code'               => $item[0],
                 'telkom_regional_id' => $item[1],
                 'witel_id'           => $item[3],
+                'name'               => $item[4],
+                'address_detail'     => $item[5],
                 'province_id'        => $province->id ?? null,
                 'regency_id'         => $regency->id ?? null,
                 'district_id'        => null,
-                'address_detail'     => $item[5],
+                'latitude'           => $coordinate[0] ?? null,
+                'longitude'          => $coordinate[1] ?? null,
+                'allotment'          => $item[7],
+                'surface_area'       => null,
+                'nka_sap'            => '',
+                'postal_code'        => '',
             ]);
-
-
-            $areas->each(function ($area) {
-                // Seed some certificates
-                factory(AreaCertificate::class, rand(1, 2))->create([
-                    'area_id' => $area->id
-                ]);
-
-                // Seed Some Asset dispute History
-                factory(AreaDisputeHistory::class, rand(2, 3))->create([
-                    'area_id' => $area->id
-                ]);
-            });
         }
 
         // for ($i = 1; $i <= 10; $i++) {
@@ -75,5 +71,12 @@ class LocalAreaSeeder extends Seeder
         //         ]);
         //     });
         // }
+    }
+
+    protected function sanitizeRegency($regency)
+    {
+        $result = str_replace('KOTA', '', $regency);
+
+        return str_replace('KAB.', '', $result);
     }
 }
