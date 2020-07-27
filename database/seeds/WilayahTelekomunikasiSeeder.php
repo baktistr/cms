@@ -13,7 +13,7 @@ class WilayahTelekomunikasiSeeder extends Seeder
     public function run()
     {
         $witel = collect([
-            'Banten',
+            'Aceh',
             'Tangerang',
             'Jakbar',
             'Jakpus',

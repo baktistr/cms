@@ -3,16 +3,10 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Asset;
-use App\AssetCategory;
-use App\District;
 use App\Area;
-use App\Province;
-use App\Regency;
-use App\TelkomRegional;
 use App\Testing\File;
 use App\User;
 use Faker\Generator as Faker;
-use Illuminate\Support\Arr;
 
 $factory->define(Asset::class, function (Faker $faker) {
     return [

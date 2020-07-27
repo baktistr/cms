@@ -32,3 +32,11 @@ Route::prefix('auth')
             Route::get('verify/email-verified', [VerificationController::class, 'showEmailVerifiedPage'])->name('verify.email-verified');
         });
     });
+
+    Route::get('test' , function(){
+        $data = file(database_path('seeds/data/area.csv'));
+        foreach ($data as $items) {
+            $item = str_getcsv($items , ',');
+            dd($item);
+        }
+    });
