@@ -14,6 +14,7 @@ class WilayahTelekomunikasiSeeder extends Seeder
     {
         $witel = collect([
             'Aceh',
+            'Banten',
             'Tangerang',
             'Jakbar',
             'Jakpus',

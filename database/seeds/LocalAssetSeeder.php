@@ -28,7 +28,7 @@ class LocalAssetSeeder extends Seeder
 
             $building = factory(Asset::class)->create([
                 'name'          => $building[6],
-                'area_id'       => Area::first()->id,
+                'area_id'       => Area::inRandomOrder()->first()->id,
                 'building_code' => 'A',
                 'allotment'     => $building[12],
                 'phone_number'  => null,
