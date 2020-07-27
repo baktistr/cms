@@ -142,7 +142,8 @@ class Asset extends Resource
                 ->hideFromIndex(),
 
             Images::make('Gambar', 'image')
-                ->rules(['required']),
+                ->rules(['required'])
+                ->hideFromIndex(),
 
             new Panel('Detail Lokasi', [
                 Text::make('TREG', function () {
