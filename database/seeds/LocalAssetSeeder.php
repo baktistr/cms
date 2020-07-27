@@ -26,11 +26,13 @@ class LocalAssetSeeder extends Seeder
         foreach ($buildings as $item) {
             $building = str_getcsv($item, ',');
 
+            $area = Area::where('code', $building[1])->first();
+
             $building = factory(Asset::class)->create([
-                'name'          => $building[6],
-                'area_id'       => Area::inRandomOrder()->first()->id,
-                'building_code' => 'A',
-                'allotment'     => $building[12],
+                'name'          => $building[2],
+                'area_id'       => $area->id ?? null,
+                'building_code' => $building[4],
+                'allotment'     => $building[6],
                 'phone_number'  => null,
             ]);
 

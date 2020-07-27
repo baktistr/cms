@@ -15,7 +15,7 @@ class CreateAssetsTable extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('area_id'); //@todo unique?
+            $table->foreignId('area_id')->nullable(); //@todo unique?
             $table->foreignId('pic_id')->nullable();
             $table->string('name')->index();
             $table->text('description');

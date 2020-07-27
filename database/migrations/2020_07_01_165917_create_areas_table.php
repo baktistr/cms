@@ -18,7 +18,7 @@ class CreateAreasTable extends Migration
             $table->string('code');
             $table->foreignId('telkom_regional_id');
             $table->foreignId('witel_id');
-            $table->unsignedBigInteger('province_id');
+            $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('regency_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable(); // @todo required?
             $table->text('address_detail');
