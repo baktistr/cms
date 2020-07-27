@@ -12,21 +12,15 @@ class WilayahTelekomunikasiSeeder extends Seeder
      */
     public function run()
     {
-        $witel = collect([
-            'Aceh',
-            'Banten',
-            'Tangerang',
-            'Jakbar',
-            'Jakpus',
-            'Jaksel',
-            'Jaktim',
-            'Jakut',
-            'Bekasi',
-            'Bogor',
-        ]);
+        $data = DatabaseSeeder::csvToArray(database_path('seeds/data/witel.csv'));
 
-        $witel->each(function ($wilayah) {
-            factory(WilayahTelekomunikasi::class)->create(['name' => $wilayah]);
-        });
+        foreach ($data as $witel) {
+            WilayahTelekomunikasi::insert([
+                'id'         => $witel[2],
+                'name'       => $witel[1],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
