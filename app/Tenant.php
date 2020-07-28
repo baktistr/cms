@@ -31,8 +31,8 @@ class Tenant extends Model
      * @var array
      */
     public static $objectRent = [
-        'Lahan/Tanah'       => 'Lahan/Tanah',
-        'Tanah & Gedung'    => 'Tanah & Gedung',
+        'Lahan/Tanah'    => 'Lahan/Tanah',
+        'Tanah & Gedung' => 'Tanah & Gedung',
     ];
 
     /**
@@ -51,8 +51,8 @@ class Tenant extends Model
      * @var array
      */
     public static $phisycalCheckContract = [
-        'Tidak Ada'=> 'Tidak Ada',
-        'Ada'      => 'Ada',
+        'Tidak Ada' => 'Tidak Ada',
+        'Ada'       => 'Ada',
     ];
 
 

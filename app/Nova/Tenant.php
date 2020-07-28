@@ -8,12 +8,10 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Markdown;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use libphonenumber\NumberFormat;
 use Rimu\FormattedNumber\FormattedNumber;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Tenant extends Resource
 {
@@ -29,7 +27,7 @@ class Tenant extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'tenant';
 
     /**
      * The columns that should be searched.
@@ -38,7 +36,20 @@ class Tenant extends Resource
      */
     public static $search = [
         'id',
-        'tenant'
+        'tenant',
+        'floor',
+        'object_rent',
+        'status_contract_make',
+        'allotment',
+        'name_contract_gsd',
+        'number_and_date',
+        'phisycal_check_contract',
+        'period_start',
+        'period_end',
+        'duration',
+        'area',
+        'price',
+        'service_price',
     ];
 
     /**
@@ -80,10 +91,12 @@ class Tenant extends Resource
 
             Select::make('Objek Sewa', 'object_rent')
                 ->options(AppTenant::$objectRent)
+                ->displayUsingLabels()
                 ->rules('required'),
 
             Select::make('Status Pembuatan Kontrak', 'status_contract_make')
                 ->options(AppTenant::$statusMakeContract)
+                ->displayUsingLabels()
                 ->rules('required'),
 
             Text::make('Peruntukan', 'allotment')
@@ -104,7 +117,8 @@ class Tenant extends Resource
             Date::make('Jangka Waktu Akhir', 'period_end')
                 ->rules('required'),
 
-            Number::make('Durasi', 'duration')
+            Text::make('Durasi', 'duration')
+                ->rules('required','numeric')
                 ->help('Satuan Dalam Bulan'),
 
             Text::make('Luas Area', 'area')

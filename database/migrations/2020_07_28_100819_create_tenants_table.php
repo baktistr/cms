@@ -18,12 +18,10 @@ class CreateTenantsTable extends Migration
             $table->foreignId('building_id');
             $table->string('tenant');
             $table->string('floor');
-            $table->string('company_status')->nullable(); // is A Options
             $table->string('object_rent'); // is Options have value A : Tanah / Lahan b: Tanah Gedung
             $table->string('allotment');
             $table->string('name_contract_gsd');
             $table->string('number_and_date');
-            $table->string('status_contract_desc')->nullable();
             $table->string('status_contract_make'); //  is options kontrak terpusat / kontrak area
             $table->string('phisycal_check_contract');
             $table->date('period_start');
@@ -32,7 +30,9 @@ class CreateTenantsTable extends Migration
             $table->string('area');
             $table->float('price' , 15);
             $table->float('service_price', 15);
-            $table->string('contract_desc')->nullable();
+            $table->text('status_contract_desc')->nullable();
+            $table->text('company_status')->nullable(); // is A Options
+            $table->text('contract_desc')->nullable();
             $table->timestamps();
         });
     }
