@@ -42,6 +42,24 @@ class Tenant extends Resource
     ];
 
     /**
+     * The relationships that should be eager loaded on index queries.
+     *
+     * @var array
+     */
+    public static $with = [
+        'gedung',
+    ];
+
+    /**
+     * The relationship columns that should be searched.
+     *
+     * @var array
+     */
+    public static $searchRelations = [
+        'gedung' => ['name'],
+    ];
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
