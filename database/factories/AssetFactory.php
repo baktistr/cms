@@ -3,16 +3,10 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Asset;
-use App\AssetCategory;
-use App\District;
 use App\Area;
-use App\Province;
-use App\Regency;
-use App\TelkomRegional;
 use App\Testing\File;
 use App\User;
 use Faker\Generator as Faker;
-use Illuminate\Support\Arr;
 
 $factory->define(Asset::class, function (Faker $faker) {
     return [
@@ -32,9 +26,9 @@ $factory->define(Asset::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(Asset::class, function (Asset $asset) {
-    for ($i = 1; $i <= rand(1, 10); $i++) {
-        $asset->addMedia(File::image("asset-{$asset->id}-image-{$i}.png"))
-            ->toMediaCollection('image');
-    }
-});
+//$factory->afterCreating(Asset::class, function (Asset $asset) {
+//    for ($i = 1; $i <= rand(1, 10); $i++) {
+//        $asset->addMedia(File::image("asset-{$asset->id}-image-{$i}.png"))
+//            ->toMediaCollection('image');
+//    }
+//});

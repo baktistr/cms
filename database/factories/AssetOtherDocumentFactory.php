@@ -19,9 +19,9 @@ $factory->define(AssetOtherDocument::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(AssetOtherDocument::class, function (AssetOtherDocument $document) {
-    for ($i = 1; $i < rand(2, 3); $i++) {
-        $document->addMedia((new FileFactory)->create("other-document-{$document->id}.pdf", 10, 'application/pdf'))
-            ->toMediaCollection('documents');
-    }
-});
+//$factory->afterCreating(AssetOtherDocument::class, function (AssetOtherDocument $document) {
+//    for ($i = 1; $i < rand(2, 3); $i++) {
+//        $document->addMedia((new FileFactory)->create("other-document-{$document->id}.pdf", 10, 'application/pdf'))
+//            ->toMediaCollection('documents');
+//    }
+//});

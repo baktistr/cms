@@ -38,9 +38,9 @@ $factory->afterCreatingState(BuildingSpace::class, 'with-yearly-price', function
 });
 
 
-$factory->afterCreating(BuildingSpace::class, function (BuildingSpace $buildingSpace) {
-    for ($i = 1; $i <= rand(1, 5); $i++) {
-        $buildingSpace->addMedia(File::image("building-space-{$buildingSpace->id}-image-{$i}.png"))
-            ->toMediaCollection('image');
-    }
-});
+//$factory->afterCreating(BuildingSpace::class, function (BuildingSpace $buildingSpace) {
+//    for ($i = 1; $i <= rand(1, 5); $i++) {
+//        $buildingSpace->addMedia(File::image("building-space-{$buildingSpace->id}-image-{$i}.png"))
+//            ->toMediaCollection('image');
+//    }
+//});

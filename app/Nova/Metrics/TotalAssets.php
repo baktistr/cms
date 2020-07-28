@@ -20,7 +20,7 @@ class TotalAssets extends Value
             return $this->result(Asset::where('pic_id', $request->user()->id)->count());
         }
 
-        return $this->result(Asset::count());
+        return $this->result(Asset::count())->format('0');
     }
 
     /**
