@@ -29,7 +29,7 @@ class Tenant extends Resource
      *
      * @var string
      */
-    public static $title = 'tenant';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -38,7 +38,7 @@ class Tenant extends Resource
      */
     public static $search = [
         'id',
-        'tanant',
+        'tenant'
     ];
 
     /**
@@ -77,10 +77,13 @@ class Tenant extends Resource
             Text::make('Nomer dan Tanggal Kontrak', 'number_and_date')
                 ->rules('required'),
 
+            Text::make('Fisik Check Kontrak', 'phisycal_check_contract')
+                ->rules('required'),
+
             Date::make('Jangka Waktu Awal', 'period_start')
                 ->rules('required'),
 
-            Date::make('Jangka Waktu Akhir', 'period_start')
+            Date::make('Jangka Waktu Akhir', 'period_end')
                 ->rules('required'),
 
             Number::make('Durasi', 'duration')
