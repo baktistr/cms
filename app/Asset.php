@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Nova\Actions\Actionable;
 use Spatie\Image\Manipulations;
@@ -93,6 +92,16 @@ class Asset extends Model implements HasMedia
     }
 
     /**
+     * A building can have many tenants.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tenants(): HasMany
+    {
+        return $this->hasMany(Tenant::class, 'building_id');
+    }
+
+    /**
      * A building can have many certificates.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
@@ -141,6 +150,7 @@ class Asset extends Model implements HasMedia
     {
         return $this->hasMany(AssetPln::class, 'asset_id');
     }
+
     /**
      * Asset can have many Assurance.
      *
