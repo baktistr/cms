@@ -54,6 +54,9 @@ class Tenant extends Resource
 
             BelongsTo::make('Gedung', 'gedung', Asset::class),
 
+            Text::make('Tenant', 'tenant')
+                ->rules('required', 'string'),
+
             Text::make('Lantai', 'floor')
                 ->rules('required', 'numeric'),
 
@@ -92,7 +95,7 @@ class Tenant extends Resource
             FormattedNumber::make('Harga Service', 'service_price')
                 ->rules('required'),
 
-            Markdown::make('Keterangan Kontrak' , 'contract_desc')
+            Markdown::make('Keterangan Kontrak', 'contract_desc')
                 ->rules('nullable'),
 
             Markdown::make('Keterangan Status Kontrak', 'status_contract_desc')
