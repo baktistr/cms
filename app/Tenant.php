@@ -55,11 +55,10 @@ class Tenant extends Model
         'Ada'       => 'Ada',
     ];
 
-
-
     /**
      * A Tenant Belongs To building
-     * @return  Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function gedung(): BelongsTo
     {

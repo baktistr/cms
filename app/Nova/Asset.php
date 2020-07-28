@@ -189,6 +189,8 @@ class Asset extends Resource
                     ->exceptOnForms(),
             ]),
 
+            HasMany::make('Tenan', 'tenants', Tenant::class),
+
             HasMany::make('Area Komersil', 'spaces', BuildingSpace::class),
 
             HasMany::make('Detail Lantai', 'floors', AssetFloor::class),

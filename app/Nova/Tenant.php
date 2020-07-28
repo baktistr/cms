@@ -30,6 +30,13 @@ class Tenant extends Resource
     public static $title = 'tenant';
 
     /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
+    /**
      * The columns that should be searched.
      *
      * @var array
@@ -79,8 +86,6 @@ class Tenant extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-
             BelongsTo::make('Gedung', 'gedung', Asset::class),
 
             Text::make('Tenant', 'tenant')
