@@ -66,11 +66,11 @@ class Asset extends Resource
      * @var array
      */
     public static $searchRelations = [
-        'pic'           => ['name'],
-        'area'          => ['code'],
-        'area.regional' => ['name'],
-        'area.witel'    => ['name'],
-        'area.provinsi' => ['name'],
+        'area'           => ['code', 'address_detail'],
+        'pic'            => ['name'],
+        'area.regional'  => ['name'],
+        'area.witel'     => ['name'],
+        'area.provinsi'  => ['name'],
         'area.kabupaten' => ['name'],
         'area.kecamatan' => ['name'],
     ];

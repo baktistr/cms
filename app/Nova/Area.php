@@ -39,7 +39,8 @@ class Area extends Resource
         'code',
         'allotment',
         'postal_code',
-        'nka_sap'
+        'nka_sap',
+        'address_detail'
     ];
 
     /**
@@ -133,6 +134,10 @@ class Area extends Resource
             Textarea::make('Alamat', 'address_detail')
                 ->rules('required')
                 ->alwaysShow(),
+
+            Text::make('Alamat', 'address_detail')
+                ->rules('required')
+                ->onlyOnIndex(),
 
             MapMarker::make('Lokasi')
                 ->rules('required')
