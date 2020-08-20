@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\AreaTreg;
 use App\Nova\Metrics\TotalArea;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
@@ -196,7 +197,9 @@ class Area extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            (new AreaTreg),
+        ];
     }
 
     /**
