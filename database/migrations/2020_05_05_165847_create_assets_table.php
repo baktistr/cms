@@ -15,11 +15,11 @@ class CreateAssetsTable extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('area_id'); //@todo unique?
+            $table->foreignId('area_id')->nullable(); //@todo unique?
             $table->foreignId('pic_id')->nullable();
             $table->unsignedBigInteger('manager_id')->nullable();
             $table->string('name')->index();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('building_code')->nullable(); //@todo unique?
             $table->text('allotment')->nullable();
             $table->string('phone_number')->nullable();

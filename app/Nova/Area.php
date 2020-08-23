@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\AreaTreg;
 use App\Nova\Metrics\TotalArea;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
@@ -39,7 +40,8 @@ class Area extends Resource
         'code',
         'allotment',
         'postal_code',
-        'nka_sap'
+        'nka_sap',
+        'address_detail'
     ];
 
     /**
@@ -134,6 +136,10 @@ class Area extends Resource
                 ->rules('required')
                 ->alwaysShow(),
 
+            Text::make('Alamat', 'address_detail')
+                ->rules('required')
+                ->onlyOnIndex(),
+
             MapMarker::make('Lokasi')
                 ->rules('required')
                 ->hideFromIndex(),
@@ -191,7 +197,9 @@ class Area extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            (new AreaTreg),
+        ];
     }
 
     /**

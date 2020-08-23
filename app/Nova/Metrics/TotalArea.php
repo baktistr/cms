@@ -16,7 +16,7 @@ class TotalArea extends Value
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->result(Area::query()->count());
+        return $this->result(Area::query()->count())->format('0');
     }
 
     /**
@@ -38,7 +38,7 @@ class TotalArea extends Value
      */
     public function cacheFor()
     {
-         return now()->addMinutes(5);
+        //  return now()->addMinutes(5);
     }
 
     /**

@@ -66,11 +66,11 @@ class Asset extends Resource
      * @var array
      */
     public static $searchRelations = [
-        'pic'           => ['name'],
-        'area'          => ['code'],
-        'area.regional' => ['name'],
-        'area.witel'    => ['name'],
-        'area.provinsi' => ['name'],
+        'area'           => ['code', 'address_detail'],
+        'pic'            => ['name'],
+        'area.regional'  => ['name'],
+        'area.witel'     => ['name'],
+        'area.provinsi'  => ['name'],
         'area.kabupaten' => ['name'],
         'area.kecamatan' => ['name'],
     ];
@@ -142,7 +142,8 @@ class Asset extends Resource
                 ->hideFromIndex(),
 
             Images::make('Gambar', 'image')
-                ->rules(['required']),
+                ->rules(['required'])
+                ->hideFromIndex(),
 
             new Panel('Detail Lokasi', [
                 Text::make('TREG', function () {
@@ -187,6 +188,8 @@ class Asset extends Resource
                     ->hideFromIndex()
                     ->exceptOnForms(),
             ]),
+
+            HasMany::make('Tenan', 'tenants', Tenant::class),
 
             HasMany::make('Area Komersil', 'spaces', BuildingSpace::class),
 
