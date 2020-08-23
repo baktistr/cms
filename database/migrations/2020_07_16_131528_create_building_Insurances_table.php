@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuildingSpacesTable extends Migration
+class CreateBuildingInsurancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateBuildingSpacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('building_spaces', function (Blueprint $table) {
+        Schema::create('building_insurances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('building_id');
-            $table->string('is_available')->default(true);
-            $table->string('name');
-            $table->text('description');
+            $table->date('date_start');
+            $table->date('date_expired');
+            $table->text('desc')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +31,6 @@ class CreateBuildingSpacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('building_spaces');
+        Schema::dropIfExists('building_insurances');
     }
 }

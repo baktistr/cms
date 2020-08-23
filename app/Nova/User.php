@@ -120,7 +120,7 @@ class User extends Resource
                 'redirect_to' => config('nova.path')
             ]),
 
-            HasMany::make('Assets', 'assets', Asset::class),
+            HasMany::make('Assets', 'assets', Building::class),
         ];
     }
 

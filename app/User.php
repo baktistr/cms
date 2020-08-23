@@ -66,9 +66,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assets(): HasMany
+    public function buildings(): HasMany
     {
-        return $this->hasMany(Asset::class, 'pic_id');
+        return $this->hasMany(Building::class, 'pic_id');
     }
 
     /**

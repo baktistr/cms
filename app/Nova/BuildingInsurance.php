@@ -4,26 +4,25 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Kecamatan extends Resource
+class BuildingInsurance extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\District::class;
+    public static $model = \App\BuildingInsurance::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -31,27 +30,21 @@ class Kecamatan extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name',
+        'id',
+        'date_start',
+        'date_expired',
     ];
 
     /**
-     * The logical group associated with the resource.
-     *
+     * Hide Asurance on side navigtion
      * @var string
-     */
-    public static $group = 'Master Data';
-
-    /**
-     * Indicates if the resource should be displayed in the sidebar.
-     *
-     * @var bool
      */
     public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -59,19 +52,24 @@ class Kecamatan extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Kabupaten', 'regency', Kabupaten::class)
+            BelongsTo::make('Gedung', 'building', Building::class),
+
+            Date::make('Awal', 'date_start')
+                ->rules(['required', 'date_format:Y-m-d'])
+                ->format('DD MMMM YYYY')
                 ->sortable(),
 
-            Text::make('Nama', 'name'),
-
-            HasMany::make('Assets', 'assets', Building::class),
+            Date::make('Akhir', 'date_expired')
+                ->rules(['required', 'date_format:Y-m-d'])
+                ->format('DD MMMM YYYY')
+                ->sortable(),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -82,7 +80,7 @@ class Kecamatan extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -93,7 +91,7 @@ class Kecamatan extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -104,21 +102,11 @@ class Kecamatan extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
-    }
-
-    /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
-     */
-    public static function label()
-    {
-        return __('Kecamatan');
     }
 }

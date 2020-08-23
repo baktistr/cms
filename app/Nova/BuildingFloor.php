@@ -3,27 +3,27 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Kecamatan extends Resource
+class BuildingFloor extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\District::class;
+    public static $model = \App\BuildingFloor::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'formatted_floor';
 
     /**
      * The columns that should be searched.
@@ -31,15 +31,8 @@ class Kecamatan extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name',
+        'formatted_floor',
     ];
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Master Data';
 
     /**
      * Indicates if the resource should be displayed in the sidebar.
@@ -51,27 +44,31 @@ class Kecamatan extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            BelongsTo::make('Gedung', 'building', Building::class),
 
-            BelongsTo::make('Kabupaten', 'regency', Kabupaten::class)
-                ->sortable(),
+            Text::make('Lantai', 'floor')
+                ->rules(['required']),
 
-            Text::make('Nama', 'name'),
+            Text::make('Keterangan', function () {
+                return Str::limit($this->desc);
+            })->hideFromDetail(),
 
-            HasMany::make('Assets', 'assets', Building::class),
+            Markdown::make('Keterangan', 'desc')
+                ->rules(['required'])
+                ->alwaysShow(),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -82,7 +79,7 @@ class Kecamatan extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -93,7 +90,7 @@ class Kecamatan extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -104,7 +101,7 @@ class Kecamatan extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -119,6 +116,6 @@ class Kecamatan extends Resource
      */
     public static function label()
     {
-        return __('Kecamatan');
+        return 'Detail Lantai';
     }
 }

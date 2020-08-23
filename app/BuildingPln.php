@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AreaDisputeHistory extends Model
+class BuildingPln extends Model
 {
     use SoftDeletes;
 
     /**
-     * Asset Dispute History BelongsTo Asset
+     * A PLN meter belongs to asset.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function area(): BelongsTo
+    public function building(): BelongsTo
     {
-        return $this->belongsTo(Building::class , 'area_id');
+        return $this->belongsTo(Building::class, 'building_id');
     }
 }

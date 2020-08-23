@@ -49,8 +49,8 @@ class Regency extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function assets(): HasManyThrough
+    public function buildings(): HasManyThrough
     {
-        return $this->hasManyThrough(Asset::class, Area::class);
+        return $this->hasManyThrough(Building::class, Area::class);
     }
 }

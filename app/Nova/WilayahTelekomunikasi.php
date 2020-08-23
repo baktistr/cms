@@ -80,7 +80,7 @@ class WilayahTelekomunikasi extends Resource
                 return $this->assets()->count();
             }),
 
-            HasMany::make('Gedung', 'assets', Asset::class),
+            HasMany::make('Gedung', 'assets', Building::class),
         ];
     }
 

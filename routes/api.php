@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\Account\AvatarController;
 use App\Http\Controllers\Api\Account\PasswordController;
 use App\Http\Controllers\Api\Account\ProfileController;
-use App\Http\Controllers\Api\Asset\AssetsController;
+use App\Http\Controllers\Api\Building\BuildingsController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
@@ -68,8 +68,8 @@ Route::prefix('account')
 /**
  * Assets routes ...
  */
-Route::post('assets', [AssetsController::class, 'index'])->name('assets');
-Route::get('assets/{id}', [AssetsController::class, 'show'])->name('assets.show');
+Route::post('buildings', [BuildingsController::class, 'index'])->name('buildings');
+Route::get('buildings/{id}', [BuildingsController::class, 'show'])->name('buildings.show');
 
 
 /**

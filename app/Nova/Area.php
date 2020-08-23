@@ -166,7 +166,7 @@ class Area extends Resource
             Text::make('Peruntukan', 'allotment')
                 ->rules('required'),
 
-            HasMany::make('Aset', 'assets', Asset::class),
+            HasMany::make('Aset', 'assets', Building::class),
 
             HasMany::make('Sertifikat', 'certificates', AreaCertificate::class),
 

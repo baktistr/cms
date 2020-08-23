@@ -2,21 +2,21 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Kecamatan extends Resource
+class BuildingOtherDocument extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\District::class;
+    public static $model = \App\BuildingOtherDocument::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -31,15 +31,8 @@ class Kecamatan extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name',
+        'id', 'location_code', 'name', 'document_number',
     ];
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Master Data';
 
     /**
      * Indicates if the resource should be displayed in the sidebar.
@@ -57,14 +50,22 @@ class Kecamatan extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            Text::make('Kode Lokasi', 'location_code')
+                ->rules(['required', 'string']),
 
-            BelongsTo::make('Kabupaten', 'regency', Kabupaten::class)
-                ->sortable(),
+            BelongsTo::make('Gedung', 'building', Building::class),
 
-            Text::make('Nama', 'name'),
+            Text::make('Nama Dokumen', 'name')
+                ->rules(['required', 'string']),
 
-            HasMany::make('Assets', 'assets', Building::class),
+            Text::make('No. Dokumen', 'document_number')
+                ->rules(['required', 'string']),
+
+            Markdown::make('Keterangan', 'desc')
+                ->nullable(),
+
+            Files::make('Dokumen', 'documents')
+                ->rules(['required']),
         ];
     }
 
@@ -119,6 +120,6 @@ class Kecamatan extends Resource
      */
     public static function label()
     {
-        return __('Kecamatan');
+        return 'Dokumen Lainnya';
     }
 }
