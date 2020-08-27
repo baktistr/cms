@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +16,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail
+class User extends Authenticatable implements HasMedia
 {
     use Notifiable, Actionable, SoftDeletes, InteractsWithMedia, HasApiTokens, HasRoles;
 
@@ -62,6 +63,16 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     }
 
     /**
+     * User Can impersonate
+     *
+     * @return Boolean
+     */
+    public function canBeImpersonated()
+    {
+        return !$this->hasRole('Super Admin');
+    }
+
+    /**
      * A user can have many assets to manage.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -72,14 +83,13 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     }
 
     /**
-     * A user can have many asset categories.
+     * A user belongs to building.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function assignedCategories(): BelongsToMany
+    public function assignedBuilding(): BelongsTo
     {
-        return $this->belongsToMany(AssetCategory::class, 'asset_category_user', 'user_id', 'asset_category_id')
-            ->withTimestamps();
+        return $this->belongsTo(Building::class, 'building_id');
     }
 
     /**

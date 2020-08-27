@@ -60,7 +60,7 @@ class TelkomRegional extends Resource
             return $query;
         }
 
-        return $query->whereHas('assets', function ($query) use ($request) {
+        return $query->whereHas('buildings', function ($query) use ($request) {
             $query->where('pic_id', $request->user()->id);
         });
     }
@@ -78,10 +78,10 @@ class TelkomRegional extends Resource
                 ->rules(['required', 'string']),
 
             Text::make('Total Gedung', function () {
-                return $this->assets()->count();
+                return $this->buildings()->count();
             }),
 
-            HasMany::make('Gedung', 'assets', Building::class),
+            HasMany::make('Gedung', 'buildings', Building::class),
         ];
     }
 

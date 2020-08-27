@@ -9,6 +9,7 @@ use App\Area;
 use App\BuildingPbb;
 use App\AreaDisputeHistory;
 use App\BuildingInsurance;
+use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
 
@@ -38,6 +39,12 @@ class LocalBuildingSeeder extends Seeder
                 'phone_number'  => null,
                 'description'   => null,
             ]);
+
+            // Create viewer user.
+            factory(User::class)->state('viewer')->create(['building_id' => $building->id]);
+
+            // Create help-desk user.
+            factory(User::class)->state('help-desk')->create(['building_id' => $building->id]);
 
             // Seed some spaces to building
             $spacePrices = [

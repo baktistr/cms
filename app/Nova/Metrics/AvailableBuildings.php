@@ -55,7 +55,7 @@ class AvailableBuildings extends Value
      */
     public function uriKey()
     {
-        return 'available-assets';
+        return 'available-gedung';
     }
 
     public function name()

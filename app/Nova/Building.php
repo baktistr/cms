@@ -11,6 +11,7 @@ use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -123,8 +124,13 @@ class Building extends Resource
 
             BelongsTo::make('PIC', 'pic', User::class)
                 ->nullable()
-                ->hideFromIndex()
+                ->exceptOnForms()
                 ->withoutTrashed(),
+
+            Select::make('PIC', 'pic_id')
+                ->options(\App\User::role('PIC')->pluck('name', 'id'))
+                ->displayUsingLabels()
+                ->onlyOnForms(),
 
             Textarea::make('Deskripsi', 'description')
                 ->rules('required')

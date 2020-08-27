@@ -34,7 +34,7 @@ class WilayahTelekomunikasiPolicy
             return true;
         }
 
-        return $wilayahTelekomunikasi->assets()->where('pic_id', $user->id)->exists();
+        return $wilayahTelekomunikasi->buildings()->where('pic_id', $user->id)->exists();
     }
 
     /**

@@ -50,7 +50,7 @@ class TotalBuildings extends Value
      */
     public function uriKey()
     {
-        return 'total-assets';
+        return 'total-gedung';
     }
 
     public function name()

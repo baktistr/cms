@@ -5,6 +5,7 @@ namespace App\Nova;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
@@ -51,18 +52,9 @@ class User extends Resource
      * @var array
      */
     public static $with = [
-        'assets',
+        'buildings',
+        'assignedBuilding',
     ];
-
-    /**
-     * Get the search result subtitle for the resource.
-     *
-     * @return string
-     */
-    public function subtitle()
-    {
-        return "Assets count: {$this->assets()->count()}";
-    }
 
     /**
      * Build an "index" query for the given resource.
@@ -106,7 +98,7 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            PhoneNumber::make('Nomor Handphone', 'phone_number')
+            PhoneNumber::make('Telepon', 'phone_number')
                 ->onlyCountries('ID'),
 
             Password::make('Password')
@@ -116,11 +108,13 @@ class User extends Resource
 
             RoleSelect::make('Role', 'roles'),
 
+            BelongsTo::make('Gedung', 'assignedBuilding', Building::class),
+
             Impersonate::make($this)->withMeta([
                 'redirect_to' => config('nova.path')
             ]),
 
-            HasMany::make('Assets', 'assets', Building::class),
+            HasMany::make('Gedung', 'buildings', Building::class),
         ];
     }
 

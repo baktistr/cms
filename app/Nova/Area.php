@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Filters\AreaTreg;
 use App\Nova\Metrics\TotalArea;
+use App\Province;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -90,7 +91,7 @@ class Area extends Resource
             return $query;
         }
 
-        return $query->whereHas('assets', function ($query) use ($request) {
+        return $query->whereHas('buildings', function ($query) use ($request) {
             $query->where('pic_id', $request->user()->id);
         });
     }
@@ -117,7 +118,7 @@ class Area extends Resource
                 ->sortable(),
 
             NovaBelongsToDepend::make('Provinsi')
-                ->options(\App\Province::all()),
+                ->options(Province::all()),
 
             NovaBelongsToDepend::make('Kabupaten')
                 ->optionsResolve(function ($province) {
@@ -145,7 +146,7 @@ class Area extends Resource
                 ->hideFromIndex(),
 
             Text::make('Total Gedung', function () {
-                return $this->assets()->count();
+                return $this->buildings()->count();
             }),
 
             FormattedNumber::make('Luas Tanah Total', 'surface_area')
@@ -166,7 +167,7 @@ class Area extends Resource
             Text::make('Peruntukan', 'allotment')
                 ->rules('required'),
 
-            HasMany::make('Aset', 'assets', Building::class),
+            HasMany::make('Gedung', 'buildings', Building::class),
 
             HasMany::make('Sertifikat', 'certificates', AreaCertificate::class),
 

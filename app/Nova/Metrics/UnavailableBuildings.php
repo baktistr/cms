@@ -55,7 +55,7 @@ class UnavailableBuildings extends Value
      */
     public function uriKey()
     {
-        return 'unavailable-assets';
+        return 'unavailable-gedung';
     }
 
     public function name()

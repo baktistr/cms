@@ -64,7 +64,7 @@ class Kecamatan extends Resource
 
             Text::make('Nama', 'name'),
 
-            HasMany::make('Assets', 'assets', Building::class),
+            HasMany::make('Gedung', 'buildings', Building::class),
         ];
     }
 

@@ -40,6 +40,6 @@ class AreaTreg extends Filter
      */
     public function options(Request $request)
     {
-        return TelkomRegional::get()->pluck('name', 'name');;
+        return TelkomRegional::get()->pluck('name', 'name');
     }
 }

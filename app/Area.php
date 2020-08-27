@@ -18,7 +18,7 @@ class Area extends Model
      */
     public function getFormattedSurfaceEmptyAreaAttribute()
     {
-        $surfaceBuildings = $this->assets()->sum('surface_area');
+        $surfaceBuildings = $this->buildings()->sum('surface_area');
 
         return $this->surface_area - $surfaceBuildings;
     }
@@ -74,11 +74,11 @@ class Area extends Model
     }
 
     /**
-     * A category can have many assets.
+     * A category can have many buildings.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assets(): HasMany
+    public function buildings(): HasMany
     {
         return $this->hasMany(Building::class, 'area_id');
     }
@@ -101,6 +101,5 @@ class Area extends Model
     public function disputeHistories(): HasMany
     {
         return $this->hasMany(AreaDisputeHistory::class, 'area_id');
-
     }
 }

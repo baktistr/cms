@@ -34,7 +34,7 @@ class TelkomRegionalPolicy
             return true;
         }
 
-        return $telkomRegional->assets()->where('pic_id', $user->id)->exists();
+        return $telkomRegional->buildings()->where('pic_id', $user->id)->exists();
     }
 
     /**

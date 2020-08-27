@@ -79,7 +79,7 @@ class Provinsi extends Resource
 
             HasMany::make('Kecamatan', 'regencies', Kabupaten::class),
 
-            HasMany::make('Assets', 'assets', Building::class),
+            HasMany::make('Gedung', 'buildings', Building::class),
         ];
     }
 
