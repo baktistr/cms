@@ -85,6 +85,7 @@ Route::prefix('spaces')
     ->name('space')
     ->group(function(){
         Route::get('/' , [SpaceController::class , 'index'])->name('all');
+        Route::get('/{id}' , [SpaceController::class , 'show'])->name('show');
     });
 
 /**

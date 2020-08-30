@@ -50,6 +50,12 @@ class SpaceController extends Controller
      */
     public function show($id)
     {
-        //
+        $space = BuildingSpace::with('building')
+            ->where('is_available', true)
+            ->find($id);
+        if (!$space) {
+            return response()->json(['message' => 'space not found'], 404);
+        }
+        return new BuildingSpaceResource($space);
     }
 }
