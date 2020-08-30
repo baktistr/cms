@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Space;
 
 use App\BuildingSpace;
-use App\BuildingSpacePrice;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BuildingSpaceResource;
 use Illuminate\Http\Request;
