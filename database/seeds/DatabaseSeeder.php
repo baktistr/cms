@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         if (App::environment() === 'local') {
             $this->call(LocalAreaSeeder::class);
             $this->call(LocalBuildingSeeder::class);
+            $this->call(LocalBuildingElectricityMeterSeeder::class);
         }
     }
 

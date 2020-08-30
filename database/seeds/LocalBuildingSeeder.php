@@ -1,14 +1,7 @@
 <?php
 
 use App\Building;
-use App\BuildingFloor;
-use App\BuildingOtherDocument;
-use App\BuildingPLn;
-use App\BuildingSpace;
 use App\Area;
-use App\BuildingPbb;
-use App\AreaDisputeHistory;
-use App\BuildingInsurance;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
