@@ -17,12 +17,14 @@ class UserSeeder extends Seeder
             ['name' => 'Muh Ghazali Akbar', 'email' => 'muhghazaliakbar@icloud.com'],
             ['name' => 'Hanan Asyrawi', 'email' => 'hasyrawi@gmail.com'],
             ['name' => 'Super Admin', 'email' => 'superadmin@example.com'],
+            ['name' => 'Hakim', 'email' => 'abdulelhakim68@gmail.com']
         ]);
 
         $directors = collect([
             ['name' => 'Director 1', 'email' => 'director1@example.com'],
             ['name' => 'Director 2', 'email' => 'director2@example.com'],
         ]);
+
 
         $admins->each(function ($admin) {
             factory(User::class)->state('super-admin')->create([
