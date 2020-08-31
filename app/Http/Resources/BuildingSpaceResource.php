@@ -19,7 +19,7 @@ class BuildingSpaceResource extends JsonResource
             'is_available'  => $this->is_available,
             'name'          => $this->name,
             'desc'          => $this->description,
-            'building'      => AssetResoure::make($this->building)
+            'building'      => AssetResoure::make($this->building),
         ];
     }
 }

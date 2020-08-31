@@ -23,6 +23,7 @@ class AssetResoure extends JsonResource
             'surface_area'   => $this->surface_area,
             'images'         => AssetImageResource::collection(collect($this->getMedia('image'))),
             'area'           => AreaResource::make($this->area),
+            'manager'        => UserResource::make($this->pic),      
         ];
     }
 }
