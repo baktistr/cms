@@ -22,7 +22,9 @@ class SpaceController extends Controller
 
         $searhAllotment = $request->get('allotment');
 
-        $space = BuildingSpace::with(['building'])
+        $province = $request->get('province');
+
+        $space = BuildingSpace::with(['building', 'building.area.provinsi'])
             ->where('is_available', true)
             ->when(isset($searhcSpace) && !empty($searhcSpace), function ($query) use ($searhcSpace) {
                 $query->where('name', 'LIKE', "%{$searhcSpace}%");
@@ -35,6 +37,10 @@ class SpaceController extends Controller
             ->when(isset($searhAllotment) && !empty($searhAllotment), function ($query) use ($searhAllotment) {
                 $query->whereHas('building', function ($building) use ($searhAllotment) {
                     $building->where('allotment', 'LIKE', "%{$searhAllotment}%");
+                });
+            })->when(isset($province) && !empty($province), function ($query) use ($province) {
+                $query->whereHas('building.area.provinsi', function ($query) use ($province) {
+                    $query->where('name', 'LIKE', "%{$province}%");
                 });
             });
 
