@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class BuildingEquipment extends Model
 {
     /**
+     * {@inheritDoc}
+     */
+    protected $table = 'building_equipments';
+
+    /**
      * The attributes that should be cast to native types.
      *
      *

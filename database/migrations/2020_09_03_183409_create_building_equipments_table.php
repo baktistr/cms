@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuildingEquipmentTable extends Migration
+class CreateBuildingEquipmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBuildingEquipmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('building_equipment', function (Blueprint $table) {
+        Schema::create('building_equipments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('building_id');
             $table->foreignId('building_equipment_category_id');
