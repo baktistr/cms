@@ -48,8 +48,8 @@ class LocalBuildingSeeder extends Seeder
                 'with-yearly-price',
             ];
 
-//            //Add Building Space
-//            factory(BuildingSpace::class, rand(1, 3))->states($spacePrices)->create(['asset_id' => $building->id]);
+           //Add Building Space
+           factory(BuildingSpace::class, rand(1, 3))->create(['asset_id' => $building->id]);
 //
 //            // Seed Asset PBB
 //            factory(AssetPbb::class, rand(2, 3))->create(['asset_id' => $building->id]);

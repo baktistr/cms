@@ -30,6 +30,12 @@ class BuildingResoure extends JsonResource
             'regency'        => RegencyResource::make($this->regency),
             'district'       => DistrictResource::make($this->district),
             'images'         => BuildingImageResource::collection(collect($this->getMedia('image'))),
+            'allotment'      => $this->allotment,
+            'phone_number'   => $this->phone_number,
+            'surface_area'   => $this->surface_area,
+            'images'         => AssetImageResource::collection(collect($this->getMedia('image'))),
+            'area'           => AreaResource::make($this->area),
+            'manager'        => UserResource::make($this->pic),      
         ];
     }
 }

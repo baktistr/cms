@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -66,7 +67,7 @@ class BuildingSpace extends Resource
 
             BelongsTo::make('Gedung', 'building', Building::class),
 
-            Boolean::make('Ketersedian' , 'is_available'),
+            Boolean::make('Ketersedian', 'is_available'),
 
             Text::make('Nama Area', 'name')
                 ->rules(['required']),
@@ -74,6 +75,11 @@ class BuildingSpace extends Resource
             Markdown::make('Deskripsi', 'description')
                 ->rules(['required'])
                 ->alwaysShow(),
+
+            Images::make('Gambar', 'space')
+                ->rules(['required'])
+                ->hideFromIndex(),
+
 
             HasMany::make('Daftar Harga', 'prices', BuildingSpacePrice::class),
         ];
