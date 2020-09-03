@@ -33,8 +33,8 @@ class WilayahTelekomunikasi extends Model
      * A wilayah telekomunikasi can have many assets.
      *
      */
-    public function assets(): HasManyThrough
+    public function buildings(): HasManyThrough
     {
-        return $this->hasManyThrough(Asset::class, Area::class, 'witel_id');
+        return $this->hasManyThrough(Building::class, Area::class, 'witel_id');
     }
 }

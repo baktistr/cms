@@ -65,7 +65,7 @@ class BuildingSpace extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Gedung', 'building', Asset::class),
+            BelongsTo::make('Gedung', 'building', Building::class),
 
             Boolean::make('Ketersedian', 'is_available'),
 

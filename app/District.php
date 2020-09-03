@@ -28,8 +28,8 @@ class District extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assets(): HasMany
+    public function buildings(): HasMany
     {
-        return $this->hasMany(Asset::class, 'district_id');
+        return $this->hasMany(Building::class, 'district_id');
     }
 }

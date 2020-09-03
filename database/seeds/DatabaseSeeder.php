@@ -23,11 +23,21 @@ class DatabaseSeeder extends Seeder
         $this->call(StaticPagesSeeder::class);
         $this->call(TelkomRegionalSeeder::class);
         $this->call(WilayahTelekomunikasiSeeder::class);
+        $this->call(BuildingEquipmentCategoriesSeeder::class);
+        $this->call(BuildingHelpDeskCategorySeeder::class);
 
         // Run seeder only in local environment
         if (App::environment() === 'local') {
             $this->call(LocalAreaSeeder::class);
-            $this->call(LocalAssetSeeder::class);
+            $this->call(LocalBuildingSeeder::class);
+            $this->call(LocalBuildingElectricityMeterSeeder::class);
+            $this->call(LocalBuildingWaterConsumptionSeeder::class);
+            $this->call(LocalBuildingDieselFuelConsumptionSeeder::class);
+            $this->call(LocalBuildingEquipmentsSeeder::class);
+            $this->call(LocalBuildingEquipmentHistorySeeder::class);
+            $this->call(LocalBuildingEmployeesSeeder::class);
+            $this->call(LocalBuildingEmployeeAttendanceSeeder::class);
+            $this->call(LocalBuildingHelpDeskSeeder::class);
         }
     }
 

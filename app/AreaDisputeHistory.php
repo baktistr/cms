@@ -16,6 +16,6 @@ class AreaDisputeHistory extends Model
      */
     public function area(): BelongsTo
     {
-        return $this->belongsTo(Asset::class , 'area_id');
+        return $this->belongsTo(Building::class , 'area_id');
     }
 }

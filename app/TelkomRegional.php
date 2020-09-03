@@ -22,8 +22,8 @@ class TelkomRegional extends Model
      * A regional can have many assets.
      *
      */
-    public function assets(): HasManyThrough
+    public function buildings(): HasManyThrough
     {
-        return $this->hasManyThrough(Asset::class, Area::class, 'telkom_regional_id');
+        return $this->hasManyThrough(Building::class, Area::class, 'telkom_regional_id');
     }
 }

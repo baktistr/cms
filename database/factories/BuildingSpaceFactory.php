@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Asset;
+use App\Building;
 use App\BuildingSpace;
 use App\BuildingSpacePrice;
 use App\Testing\File;
@@ -10,8 +10,8 @@ use Faker\Generator as Faker;
 
 $factory->define(BuildingSpace::class, function (Faker $faker) {
     return [
-        'asset_id'    => function () {
-            return factory(Asset::class)->state('gedung')->create()->id;
+        'building_id' => function () {
+            return factory(Building::class)->state('gedung')->create()->id;
         },
         'name'        => $faker->unique()->name,
         'description' => $faker->realText(),

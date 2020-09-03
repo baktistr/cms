@@ -17,7 +17,7 @@ class AssetPbb extends Resource
      *
      * @var string
      */
-    public static $model = \App\AssetPbb::class;
+    public static $model = \App\BuildingPbb::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -56,7 +56,7 @@ class AssetPbb extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Gedung', 'asset', Asset::class),
+            BelongsTo::make('Gedung', 'asset', Building::class),
 
             Text::make('Kode Lokasi', 'location_code')
                 ->rules('string', 'required'),

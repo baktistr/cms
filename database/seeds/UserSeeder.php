@@ -36,6 +36,19 @@ class UserSeeder extends Seeder
         // Create PIC users.
         factory(User::class, 5)->state('PIC')->create();
 
+        factory(User::class)->state('building-manager')->create([
+            'name'  => 'Manager',
+            'email' => 'manager@example.com',
+        ]);
+        factory(User::class)->state('viewer')->create([
+            'name'  => 'Viewer',
+            'email' => 'viewer@example.com',
+        ]);
+        factory(User::class)->state('help-desk')->create([
+            'name'  => 'Help Desk',
+            'email' => 'helpdesk@example.com',
+        ]);
+
         // Create Director users.
         $directors->each(function ($director) {
             factory(User::class)->state('director')->create([

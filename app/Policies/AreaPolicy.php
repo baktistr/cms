@@ -34,7 +34,7 @@ class AreaPolicy
             return true;
         }
 
-        return $area->assets()->where('pic_id', $user->id)->exists();
+        return $area->buildings()->where('pic_id', $user->id)->exists();
     }
 
     /**

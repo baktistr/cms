@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Api\Asset;
 
-use App\Asset;
+use App\Building;
 use Laravel\Sanctum\Sanctum;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -40,9 +40,23 @@ $factory->state(User::class, 'director', []);
 
 $factory->state(User::class, 'PIC', []);
 
+$factory->state(User::class, 'building-manager', []);
+
 
 $factory->afterCreatingState(User::class , 'PIC' , function(User $user){
     $user->assignRole('PIC');
+});
+
+$factory->afterCreatingState(User::class, 'building-manager', function (User $user) {
+    $user->assignRole('Building Manager');
+});
+
+$factory->afterCreatingState(User::class, 'help-desk', function (User $user) {
+    $user->assignRole('Help Desk');
+});
+
+$factory->afterCreatingState(User::class, 'viewer', function (User $user) {
+    $user->assignRole('Viewer');
 });
 
 $factory->afterCreatingState(User::class , 'super-admin' , function(User $user){

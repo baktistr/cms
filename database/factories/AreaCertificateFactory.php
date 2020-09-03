@@ -3,7 +3,6 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Area;
-use App\Asset;
 use App\AreaCertificate;
 use Faker\Generator as Faker;
 use Illuminate\Http\Testing\FileFactory;

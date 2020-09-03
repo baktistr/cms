@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Tenant;
+use App\BuildingTenant;
 use Faker\Generator as Faker;
 
-$factory->define(Tenant::class, function (Faker $faker) {
+$factory->define(BuildingTenant::class, function (Faker $faker) {
     return [
         //
     ];

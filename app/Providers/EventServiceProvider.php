@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\Auth\Registered;
+use App\Events\DieselFuelConsumptionCreated;
 use App\Listeners\Auth\SendEmailVerificationNotification;
+use App\Listeners\DieselFuelConsumption\UpdateTotalRemainFuel;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -17,6 +19,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+
+        DieselFuelConsumptionCreated::class => [
+            UpdateTotalRemainFuel::class
         ],
     ];
 

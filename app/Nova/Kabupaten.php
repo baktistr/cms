@@ -72,7 +72,7 @@ class Kabupaten extends Resource
 
             HasMany::make('Kecamatan', 'districts', Kecamatan::class),
 
-            HasMany::make('Assets', 'assets', Asset::class),
+            HasMany::make('Gedung', 'buildings', Building::class),
         ];
     }
 
