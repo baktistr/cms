@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Asset;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AssetResoure extends JsonResource
+class AreaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +17,13 @@ class AssetResoure extends JsonResource
         return [
             'id'             => $this->id,
             'name'           => $this->name,
+            'address_detail' => $this->address_detail,
+            'latitude'       => $this->latitude,
+            'longitude'      => $this->longitude,
             'allotment'      => $this->allotment,
-            'phone_number'   => $this->phone_number,
-            'surface_area'   => $this->surface_area,
-            'images'         => AssetImageResource::collection(collect($this->getMedia('image'))),
-            'area'           => AreaResource::make($this->area),
-            'manager'        => UserResource::make($this->pic),      
+            'postal_code'    => $this->postal_code,
+            'province'       => ProvinceResource::make($this->provinsi),
+            'kabupaten'      => RegencyResource::make($this->kabupaten),
         ];
     }
 }

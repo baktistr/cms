@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationController;
 use App\Http\Controllers\Api\Data\AssetCategoriesController;
 use App\Http\Controllers\Api\Data\ProvincesController;
+use App\Http\Controllers\Api\Space\SpaceController;
 use App\Http\Controllers\Api\StaticPagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -77,9 +78,15 @@ Route::get('assets/{id}', [AssetsController::class, 'show'])->name('assets.show'
  */
 Route::get('static-pages/{slug}', [StaticPagesController::class , 'show'])->name('static-pages');
 
-
-
-
+/**
+ * Building Spaces
+ */
+Route::prefix('spaces')
+    ->name('space')
+    ->group(function(){
+        Route::get('/' , [SpaceController::class , 'index'])->name('all');
+        Route::get('/{id}' , [SpaceController::class , 'show'])->name('show');
+    });
 
 /**
  * Data routes...
