@@ -116,6 +116,35 @@ class Building extends Model implements HasMedia
     }
 
     /**
+     * A building belongs to manager.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function manager(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    /**
+     * A building can Have Many Employees
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function employees(): HasMany
+    {
+        return $this->hasMany(BuildingEmployee::class, 'building_id');
+    }
+
+    /**
+     * A building can have many employee attendances.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(BuildingEmployeeAttendance::class, 'building_id');
+    }
+
+    /**
      * Register the media collections
      */
     public function registerMediaCollections(): void
