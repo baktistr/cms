@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             $this->call(LocalAreaSeeder::class);
             $this->call(LocalBuildingSeeder::class);
             $this->call(LocalBuildingElectricityMeterSeeder::class);
+            $this->call(LocalBuildingWaterConsumptionSeeder::class);
         }
     }
 
