@@ -20,6 +20,7 @@ class BuildingSpaceResource extends JsonResource
             'name'          => $this->name,
             'desc'          => $this->description,
             'building'      => AssetResoure::make($this->building),
+            'images'        => SpaceImageResource::collection(collect($this->getMedia('space'))),
         ];
     }
 }

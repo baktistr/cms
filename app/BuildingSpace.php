@@ -38,12 +38,12 @@ class BuildingSpace extends Model implements HasMedia
      */
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('image')
+        $this->addMediaCollection('space')
             ->onlyKeepLatest(10)
             ->registerMediaConversions(function () {
-                $this->addMediaConversion('thumbnail')
+                $this->addMediaConversion('space-thumbnail')
                     ->fit(Manipulations::FIT_CROP, 160, 105)
-                    ->performOnCollections('image')
+                    ->performOnCollections('space')
                     ->nonQueued();
             });
     }
