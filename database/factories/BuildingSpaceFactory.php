@@ -11,7 +11,7 @@ use Faker\Generator as Faker;
 $factory->define(BuildingSpace::class, function (Faker $faker) {
     return [
         'building_id' => function () {
-            return factory(Building::class)->state('gedung')->create()->id;
+            return factory(Building::class)->create()->id;
         },
         'name'        => $faker->unique()->name,
         'description' => $faker->realText(),

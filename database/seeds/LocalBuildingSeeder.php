@@ -2,6 +2,7 @@
 
 use App\Building;
 use App\Area;
+use App\BuildingSpace;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
@@ -49,7 +50,7 @@ class LocalBuildingSeeder extends Seeder
             ];
 
            //Add Building Space
-           factory(BuildingSpace::class, rand(1, 3))->create(['asset_id' => $building->id]);
+           factory(BuildingSpace::class, rand(1, 3))->create(['building_id' => $building->id]);
 //
 //            // Seed Asset PBB
 //            factory(AssetPbb::class, rand(2, 3))->create(['asset_id' => $building->id]);
