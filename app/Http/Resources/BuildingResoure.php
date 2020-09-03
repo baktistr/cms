@@ -33,7 +33,6 @@ class BuildingResoure extends JsonResource
             'allotment'      => $this->allotment,
             'phone_number'   => $this->phone_number,
             'surface_area'   => $this->surface_area,
-            'images'         => AssetImageResource::collection(collect($this->getMedia('image'))),
             'area'           => AreaResource::make($this->area),
             'manager'        => UserResource::make($this->pic),      
         ];
