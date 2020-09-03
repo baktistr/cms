@@ -145,6 +145,29 @@ class Building extends Model implements HasMedia
     }
 
     /**
+     * A building can assign many help-desks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function helpDesks(): HasMany
+    {
+        return $this->hasMany(User::class, 'building_id')
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'Help Desk');
+            });
+    }
+
+    /**
+     * A building can have many complaints.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function complaints(): HasMany
+    {
+        return $this->hasMany(BuildingHelpDesk::class, 'building_id');
+    }
+
+    /**
      * Register the media collections
      */
     public function registerMediaCollections(): void
