@@ -16,7 +16,7 @@ class BuildingPln extends Resource
      *
      * @var string
      */
-    public static $model = \App\BuildingPLn::class;
+    public static $model = \App\BuildingPln::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
