@@ -44,6 +44,13 @@ class SpaceController extends Controller
                 });
             });
 
+        if (count($space->get()->toArray()) == 0) {
+            return response()
+                ->json([
+                    'status'    => false,
+                    'message'   => 'Data tidak temukan'
+                ]);
+        }
         return BuildingSpaceResource::collection($space->paginate(10));
     }
 
