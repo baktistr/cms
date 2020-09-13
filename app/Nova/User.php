@@ -98,6 +98,12 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
+            Text::make('Username', 'username')
+                ->sortable()
+                ->rules('required','max:254')
+                ->creationRules('unique:users,username')
+                ->updateRules('unique:users,username,{{resourceId}}'),
+
             PhoneNumber::make('Telepon', 'phone_number')
                 ->onlyCountries('ID'),
 
