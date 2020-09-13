@@ -41,7 +41,7 @@ class BuildingPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('PIC');
+        return $user->hasRole('Super Admin');
     }
 
     /**
