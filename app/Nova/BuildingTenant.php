@@ -64,7 +64,7 @@ class BuildingTenant extends Resource
      * @var array
      */
     public static $with = [
-        'gedung',
+        'building',
     ];
 
     /**
@@ -73,7 +73,7 @@ class BuildingTenant extends Resource
      * @var array
      */
     public static $searchRelations = [
-        'gedung' => ['name'],
+        'building' => ['name'],
     ];
 
     /**
