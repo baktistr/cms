@@ -53,7 +53,7 @@ class BuildingFloor extends Resource
             BelongsTo::make('Gedung', 'building', Building::class),
 
             Text::make('Lantai', 'floor')
-                ->rules(['required']),
+                ->rules(['required' , 'numeric']),
 
             Text::make('Keterangan', function () {
                 return Str::limit($this->desc);
