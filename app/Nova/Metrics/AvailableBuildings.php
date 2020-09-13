@@ -19,9 +19,12 @@ class AvailableBuildings extends Value
     {
         if ($request->user()->hasRole('PIC')) {
             $space =  Building::where('pic_id', $request->user()->id)->with('spaces')->first();
-            return $this->result(
-                $space->spaces->where('is_available', true)->count()
-            )->allowZeroResult();
+            if ($space) {
+                return $this->result(
+                    $space->spaces->where('is_available', true)->count()
+                )->allowZeroResult();
+            }
+            return $this->result(0);
         }
 
         return $this->result(BuildingSpace::where('is_available', true)->count())
