@@ -56,7 +56,7 @@ class AssetPbb extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Gedung', 'asset', Building::class),
+            BelongsTo::make('Gedung', 'building', Building::class),
 
             Text::make('Kode Lokasi', 'location_code')
                 ->rules('string', 'required'),

@@ -88,11 +88,20 @@ class Building extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if ($request->user()->hasRole('Super Admin')) {
-            return $query;
-        }
+        $user = $request->user();
+        
+        switch ($query) {
+            case $user->hasRole('Super Admin'):
+                return $query;
+                break;
+            case $user->hasRole('Viewer'):
+                return $query->where('id', $user->building_id);
+                break;
 
-        return $query->where('pic_id', $request->user()->id);
+            default:
+                $query->where('pic_id', $request->user()->id);
+                break;
+        }
     }
 
     /**
