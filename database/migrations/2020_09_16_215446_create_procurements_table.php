@@ -15,6 +15,15 @@ class CreateProcurementsTable extends Migration
     {
         Schema::create('procurements', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('building_equipment_id');
+            $table->foreignId('help_desk_category_id');
+            $table->date('date_of_problem');
+            $table->date('date_of_problem_fixed');
+            $table->string('title');
+            $table->text('message');
+            $table->float('cost', 12);
+            $table->text('additional_information')->nullable();
+            $table->string('action');
             $table->timestamps();
         });
     }
