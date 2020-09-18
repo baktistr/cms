@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Procurement extends Model
+class BuildingProcurement extends Model
 {
     /**
      * {@inheritDoc}

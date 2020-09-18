@@ -1,6 +1,6 @@
 <?php
 
-use App\Procurement;
+use App\BuildingProcurement;
 use Illuminate\Database\Seeder;
 
 class ProcurementSeeder extends Seeder
@@ -12,6 +12,6 @@ class ProcurementSeeder extends Seeder
      */
     public function run()
     {
-       factory(Procurement::class , 10)->create();
+       factory(BuildingProcurement::class , 10)->create();
     }
 }
