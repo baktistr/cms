@@ -79,6 +79,13 @@ class Area extends Resource
     public static $group = 'Aset';
 
     /**
+     * Static property for Ordering TREG from 1 - 7 
+     */
+    public static $indexDefaultOrder = [
+        'telkom_regional_id' => 'asc'
+    ];
+
+    /**
      * Build an "index" query for the given resource.
      *
      * @param \Laravel\Nova\Http\Requests\NovaRequest $request
@@ -88,6 +95,10 @@ class Area extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         if ($request->user()->hasRole('Super Admin')) {
+            if (empty($request->get('orderBy'))) {
+                $query->getQuery()->orders = [];
+                return $query->orderBy(key(static::$indexDefaultOrder), reset(static::$indexDefaultOrder));
+            }
             return $query;
         }
 
