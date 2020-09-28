@@ -5,6 +5,7 @@ namespace App\Nova;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -100,7 +101,7 @@ class User extends Resource
 
             Text::make('Username', 'username')
                 ->sortable()
-                ->rules('required','max:254')
+                ->rules('required', 'max:254')
                 ->creationRules('unique:users,username')
                 ->updateRules('unique:users,username,{{resourceId}}'),
 
@@ -114,13 +115,15 @@ class User extends Resource
 
             RoleSelect::make('Role', 'roles'),
 
-            BelongsTo::make('Gedung', 'assignedBuilding', Building::class),
+            BelongsTo::make('Gedung', 'assignedBuilding', Building::class)
+                ->nullable(),
 
             Impersonate::make($this)->withMeta([
                 'redirect_to' => config('nova.path')
             ]),
 
             HasMany::make('Gedung', 'buildings', Building::class),
+
         ];
     }
 

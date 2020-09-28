@@ -84,10 +84,11 @@
                 <div class="subtitle">
                     {{ config('app.name') }}
                 </div>
-
+                @if (env('APP_ENV') == 'local')
                 <div>
-                    Super admin email: <strong>superadmin@example.com</strong> password: <strong>password</strong>
+                    Super admin email: <strong>superadmin1@cms.irent.id</strong> password: <strong>password</strong>
                 </div>
+                @endif
             </div>
         </div>
     </body>

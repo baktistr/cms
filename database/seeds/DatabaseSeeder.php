@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         Artisan::call('optimize:clear');
 
         $this->call(RolePermissionSeeder::class);
-        $this->call(UserSeeder::class);
         $this->call(ProvinceSeeder::class);
         $this->call(RegencySeeder::class);
         $this->call(DistrictSeeder::class);
@@ -28,6 +27,7 @@ class DatabaseSeeder extends Seeder
 
         // Run seeder only in local environment
         if (App::environment() === 'local') {
+            $this->call(UserSeeder::class);
             $this->call(LocalAreaSeeder::class);
             $this->call(LocalBuildingSeeder::class);
             $this->call(LocalBuildingElectricityMeterSeeder::class);
@@ -38,6 +38,10 @@ class DatabaseSeeder extends Seeder
             $this->call(LocalBuildingEmployeesSeeder::class);
             $this->call(LocalBuildingEmployeeAttendanceSeeder::class);
             $this->call(LocalBuildingHelpDeskSeeder::class);
+        }
+
+        if(App::environment() == 'production') {
+            $this->call(ProductionUserSeeder::class);
         }
     }
 
