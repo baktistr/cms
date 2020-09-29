@@ -120,6 +120,9 @@ class Area extends Resource
                 ->mask('#-##-##-##')
                 ->rules(['required', 'unique:areas,code,{{resourceId}}']),
 
+            Text::make('Nama' , 'name')
+                ->nullable(),
+
             BelongsTo::make('TREG', 'regional', TelkomRegional::class)
                 ->rules(['required'])
                 ->sortable(),
