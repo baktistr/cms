@@ -21,7 +21,7 @@ class CreateAreasTable extends Migration
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('regency_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable(); // @todo required?
-            $table->string('name');
+            // $table->string('name');
             $table->text('address_detail');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
