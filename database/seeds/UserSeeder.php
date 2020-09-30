@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
             ['name' => 'Muh Ghazali Akbar', 'email' => 'muhghazaliakbar@icloud.com'],
             ['name' => 'Hanan Asyrawi', 'email' => 'hasyrawi@gmail.com'],
             ['name' => 'Super Admin', 'email' => 'superadmin@example.com'],
-            ['name' => 'Hakim', 'email' => 'abdulelhakim68@gmail.com']
         ]);
 
         $directors = collect([
@@ -56,8 +55,7 @@ class UserSeeder extends Seeder
                 'email' => $director['email'],
             ]);
         });
-
-        // Create user
-        factory(User::class, 100)->create();
+        // // Create user
+        // factory(User::class, 100)->create();
     }
 }

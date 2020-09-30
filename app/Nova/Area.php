@@ -118,7 +118,11 @@ class Area extends Resource
         return [
             InputMask::make('Kode Lokasi', 'code')
                 ->mask('#-##-##-##')
-                ->rules(['required', 'unique:areas,code,{{resourceId}}']),
+                ->creationRules(['required', 'unique:areas,code,{{resourceId}}'])
+                ->updateRules(['required']),
+
+            Text::make('Nama' , 'name')
+                ->nullable(),
 
             BelongsTo::make('TREG', 'regional', TelkomRegional::class)
                 ->rules(['required'])
