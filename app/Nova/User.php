@@ -85,7 +85,7 @@ class User extends Resource
             ID::make()->sortable(),
             
             Images::make('Avatar', 'avatar')
-                ->conversionOnIndexView('small')
+                ->conversionOnIndexView('large')
                 ->conversionOnDetailView('large')
                 ->rules('required'),
 
