@@ -105,7 +105,8 @@ class User extends Resource
                 ->updateRules('unique:users,username,{{resourceId}}'),
 
             PhoneNumber::make('Telepon', 'phone_number')
-                ->onlyCountries('ID'),
+                ->onlyCountries('ID')
+                ->rules('required'),
 
             Password::make('Password')
                 ->onlyOnForms()
